@@ -85,7 +85,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             @if (Route::has('login'))
                 <div class="container pl-3">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <div class="col-sm-offset-10 col-md-offset-10 header-login">
+                            <ul>
+                                <li>Akun</li>
+                                @if (Route::has('register'))
+                                    <li><a href="{{ route('logout') }}">Logout</a></li>
+                                @endif
+                            </ul>
+                        </div>
                     @else
                         <div class="col-sm-offset-10 col-md-offset-10 header-login">
                             <ul>
