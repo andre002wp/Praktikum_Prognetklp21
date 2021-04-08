@@ -38,7 +38,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </script>
     <!--theme-style-->
     <link href="{{ URL::asset('css/style4.css') }}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{ URL::asset('css/andre.css') }}" rel="stylesheet" type="text/css"/>
     <!--//theme-style-->
+    
     <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
     <!--- start-rate---->
     <script src="{{ URL::asset('js/jstarbox.js') }}"></script>
@@ -87,9 +89,39 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     @auth
                         <div class="col-sm-offset-10 col-md-offset-10 header-login">
                             <ul>
-                                <li>Akun</li>
                                 @if (Route::has('register'))
-                                    <li><a href="{{ route('logout') }}">Logout</a></li>
+                                    <li>
+                                        <div class="notification">
+                                            {{-- @if () --}}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                                                    <path id="notification-normal" d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+                                                </svg>
+                                            {{-- @else
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+                                                    <path id="notification-fill" d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+                                                </svg>
+                                            @endif --}}
+                                            <div class="notification-content">
+                                                <ul>
+                                                    <li>
+                                                        Profile
+                                                    </li>
+                                                    <li>
+                                                        {{ route('logout') }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <button class="dropbtn">welcome, {{Auth::user()->name}}</button>
+                                            <div class="dropdown-content">
+                                                <a href="#">Profile</a>
+                                                <a href="{{ route('logout') }}">Logout</a>
+                                            </div>
+                                        </div>
+                                    </li>
                                 @endif
                             </ul>
                         </div>
@@ -105,6 +137,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     @endauth
                 </div>
             @endif
+
             {{-- <div class="container pl-3">
                     <div class="col-sm-10 header-social">
                         <ul>
@@ -124,7 +157,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>
                 </div> --}}
         </div>
-
+        
         <div class="container">
             <div class="head-top">
                 <div class="col-sm-8 col-md-offset-2 h_menu4">
@@ -319,7 +352,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             });
 
                         });
-
                     </script>
                 </div>
                 <div class="clearfix"></div>
@@ -331,12 +363,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </body>
 
 <div class="footer">
+    <script src="{{ URL::asset('js/andre.js') }}"> </script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{{ URL::asset('js/simpleCart.min.js') }}"> </script>
     <!-- slide -->
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
     <!--light-box-files -->
     <script src="{{ URL::asset('js/jquery.chocolat.js') }}"></script>
+    
     <link rel="stylesheet" href="{{ URL::asset('css/chocolat.css') }}" type="text/css" media="screen" charset="utf-8">
     <!--- start-rate---->
     <script src="{{ URL::asset('js/jstarbox.js') }}"></script>
@@ -347,6 +381,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         });
 
     </script>
+    
 </div>
 
 </html>

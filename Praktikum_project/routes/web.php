@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +23,5 @@ Route::get('/checkout', function () {
 
 Auth::routes();
 
-
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('logout', 'HomeController@logout');
