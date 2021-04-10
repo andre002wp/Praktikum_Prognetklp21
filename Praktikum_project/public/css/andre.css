@@ -1,7 +1,9 @@
-
-
+.navbar-main{
+  margin-left: 0px !important;
+}
 
 /* Dropdown Button */
+
 .dropbtn {
     background-color: #333;
     color: white;

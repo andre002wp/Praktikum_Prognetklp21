@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcomenew');
+});
+
+Route::get('/home', function () {
+    return view('welcomenew');
 });
 
 Route::get('/checkout', function () {
