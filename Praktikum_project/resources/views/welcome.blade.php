@@ -3,7 +3,10 @@
 @section('content')
     <div class="content-wrapper">
         <div class="container">
-        ini welcome.blade.php
+        Notification
+        </div>
+        <div>
+            {{Auth::user()->Notification}}
         </div>
     </div>
 @endsection

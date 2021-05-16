@@ -7,19 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AdminNotification extends Notification
+class test extends Notification
 {
     use Queueable;
-    protected $data;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct()
     {
-        $this->data = $data;
+        //
     }
 
     /**
@@ -30,7 +29,7 @@ class AdminNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail'];
     }
 
     /**
@@ -39,12 +38,12 @@ class AdminNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-
-    public function toDatabase($notifiable)
+    public function toMail($notifiable)
     {
-        return [
-
-        ]
+        return (new MailMessage)
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
@@ -55,6 +54,8 @@ class AdminNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        return $this->data;
+        return [
+            //
+        ];
     }
 }
