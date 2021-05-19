@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -30,5 +31,11 @@ class HomeController extends Controller
     public function logout(Request $request) {
         Auth::logout();
         return redirect('/');
+    }
+
+    public function marknotif(){
+        $user = User::find(Auth::user()->id);
+        $user->unreadNotifications()->update(['read_at' => now()]);
+        return redirect()->back();
     }
 }
