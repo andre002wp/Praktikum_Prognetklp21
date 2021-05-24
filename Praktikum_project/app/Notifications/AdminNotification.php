@@ -43,7 +43,8 @@ class AdminNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-
+            // 'invoice_id' => $this->invoice->id, // menyesuaikan
+            // 'amount' => $this->invoice->amount,
         ]
     }
 

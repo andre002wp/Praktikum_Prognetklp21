@@ -25,7 +25,7 @@ Route::get('/checkout', function () {
     return view('checkout');
 });
 Route::get('/marknotif', 'HomeController@marknotif');
-Route::get('/transaksi_show', 'TransaksiController@index');
+Route::get('/transaksi', 'TransaksiController@index');
 
 
 Auth::routes();

@@ -15,7 +15,7 @@ class TransaksiController extends Controller
     {
         // $data = array('title' => 'Data Transaksi');
         // return view('transaksi_show', $data);
-        return view('transaksi_index');
+        return view('transaksi');
     }
 
     /**
