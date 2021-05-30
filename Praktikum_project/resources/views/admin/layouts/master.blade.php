@@ -14,9 +14,9 @@
 <body class="hold-transition sidebar-mini layout-fixed" data-turbolinks="false">
     <div class="wrapper">
         <?php 
-            $id = Auth::user()->id;
-            $notif_count = Auth()->user()->unreadNotifications->count();
-            $notifications = Auth::user()->notifications;
+            // $id = Auth::user()->id;
+            // $notif_count = Auth()->user()->unreadNotifications->count();
+            // $notifications = Auth::user()->notifications;
         ?>
         @include('admin.layouts.header')
 
