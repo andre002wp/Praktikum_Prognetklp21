@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\StorageFileController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,9 +26,6 @@ Route::get('/home', function () {
 Route::get('/checkout', function () {
     return view('checkout');
 });
-Route::get('/marknotif', 'HomeController@marknotif');
-Route::get('/transaksi', 'TransaksiController@index');
-
 
 Auth::routes();
 

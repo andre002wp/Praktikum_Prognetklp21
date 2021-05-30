@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Admin | Dashboard Deveoper Awam
+    Admin | Dashboard 
 @endsection
 
 @section('css')

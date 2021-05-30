@@ -11,15 +11,14 @@ class UserNotification extends Notification
 {
     use Queueable;
 
-    protected $notif;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(UserNotification $notif)
+    public function __construct()
     {
-        $this->notif = $notif;
+        //
     }
 
     /**
@@ -30,8 +29,7 @@ class UserNotification extends Notification
      */
     public function via($notifiable)
     {
-        // return ['mail'];
-        return ['database'];
+        return ['mail'];
     }
 
     /**
@@ -54,11 +52,10 @@ class UserNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toDatabase($notifiable)
+    public function toArray($notifiable)
     {
         return [
-            'notifiable_id' => $this->notif->id,
-            'data' => $this->notif->data,
+            //
         ];
     }
 }

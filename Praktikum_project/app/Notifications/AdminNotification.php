@@ -39,13 +39,12 @@ class AdminNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-
-    public function toDatabase($notifiable)
+    public function toMail($notifiable)
     {
-        return [
-            // 'invoice_id' => $this->invoice->id, // menyesuaikan
-            // 'amount' => $this->invoice->amount,
-        ]
+        return (new MailMessage)
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
