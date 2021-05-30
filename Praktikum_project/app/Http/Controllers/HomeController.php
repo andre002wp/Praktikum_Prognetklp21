@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'verified']);
     }
 
     /**
@@ -23,8 +23,9 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        return view('welcome');
+    { 
+        $products = Product::paginate(9);
+        return view('welcome', compact('products'));
     }
 
     public function logout(Request $request) {
@@ -33,6 +34,10 @@ class HomeController extends Controller
     }
 
     public function notif() {
+        return view('notif');
+    }
+
+    public function marknotiff() {
         return view('notif');
     }
 }
