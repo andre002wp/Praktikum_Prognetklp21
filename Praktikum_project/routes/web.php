@@ -29,5 +29,8 @@ Route::get('/checkout', function () {
 
 Auth::routes();
 
+Route::get('/marknotif', 'HomeController@marknotif');
+Route::get('/notif', 'HomeController@norif');
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', 'HomeController@logout');

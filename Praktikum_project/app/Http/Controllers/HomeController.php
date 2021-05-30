@@ -31,4 +31,8 @@ class HomeController extends Controller
         Auth::logout();
         return redirect('/');
     }
+
+    public function notif() {
+        return view('notif');
+    }
 }
