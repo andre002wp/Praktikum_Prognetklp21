@@ -25,7 +25,7 @@ class Transactions extends Migration
             $table->integer('user_id');
             $table->integer('courier_id');
             $table->string('proof_of_payment')->nullable();
-            $table->timestamps()->nullable();
+            $table->timestamps();
             $table->enum('status')->nullable();
         });
     }

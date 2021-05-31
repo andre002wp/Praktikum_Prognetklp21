@@ -20,7 +20,7 @@ class TransactionDetails extends Migration
             $table->integer('qty');
             $table->integer('discount')->nullable();
             $table->integer('selling_price')->nullable();
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
     }
 

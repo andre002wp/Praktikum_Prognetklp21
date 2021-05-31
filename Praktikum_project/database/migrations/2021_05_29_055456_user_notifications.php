@@ -19,7 +19,7 @@ class UserNotifications extends Migration
             $table->string('notifiable_type');
             $table->integer('notifiable_id');
             $table->text('data');
-            $table->timestamps('read_at');
+            $table->timestamp('read_at');
             $table->timestamps();
         });
     }
