@@ -17,6 +17,7 @@ class ProductCategories extends Migration
             $table->id();
             $table->string('category_name');
             $table->timestamps();
+            $table->timestamp('deleted_at');
         });
     }
 

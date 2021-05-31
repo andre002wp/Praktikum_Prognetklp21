@@ -15,11 +15,11 @@ class Carts extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
-            $table->string('product_id');
-            $table->timestamp('qty');
+            $table->integer('user_id');
+            $table->integer('product_id');
+            $table->integer('qty');
             $table->timestamps();
-            $table->string('status')->nullable();
+            $table->enum('status',['checkedout','notyet','cancelled'])->default('notyet');;
         });
     }
 

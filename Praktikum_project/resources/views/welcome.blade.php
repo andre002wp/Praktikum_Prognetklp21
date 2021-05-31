@@ -20,7 +20,7 @@
                                         {{ $product->description}}
                                 </p>
 
-                                <a href="{{ url('purchase')}}/{{ $product->id}}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> purchase</a>
+                                <a href="{{ url('cart')}}/{{ $product->id}}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> purchase</a>
                             </div>
                         </div>
                     </div>

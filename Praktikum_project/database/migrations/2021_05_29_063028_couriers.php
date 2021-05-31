@@ -15,8 +15,9 @@ class Couriers extends Migration
     {
         Schema::create('couriers', function (Blueprint $table) {
             $table->id();
-            $table->integer('courier');
+            $table->string('courier');
             $table->timestamps();
+            $table->timestamp('deleted_at');
         });
     }
 

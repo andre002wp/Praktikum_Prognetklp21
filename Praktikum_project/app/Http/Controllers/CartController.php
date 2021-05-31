@@ -21,4 +21,16 @@ class CartController extends Controller
             return view('cart', ['cart'=>$cart]);
         }
     }
+
+    public function purchase(Request $request, $id)
+    {
+        $user_id = Auth::user()->id;
+        $cart = Cart::create([
+            'user_id' => $user_id,
+            'product_id' => $id,
+            'qty' => $request->jumlah_pesanan,
+        ]);
+        return redirect('home')->with('add','Carts added');
+        
+    }
 }

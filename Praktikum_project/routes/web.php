@@ -52,8 +52,8 @@ Route::prefix('admin')->group(function () {
 
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', 'HomeController@logout');
-Route::get('purchase/{id}', 'PurchaseController@index');
-Route::post('purchase/{id}', 'PurchaseController@purchase');
+Route::get('cart/{id}', 'PurchaseController@index');
+Route::post('cart/{id}', 'CartController@purchase');
 Route::get('cart', 'CartController@show');
 Route::get('/marknotif', 'HomeController@marknotif');
 Route::get('/notif', 'HomeController@notif');

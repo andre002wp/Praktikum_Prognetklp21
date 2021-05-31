@@ -41,7 +41,7 @@
                                                 <td>Jumlah Pesanan</td>
                                                 <td>:</td>
                                                 <td>
-                                                    <form action="{{ url('purchase')}}/{{$product->id}}" method="post">
+                                                    <form action="{{ url('cart')}}/{{$product->id}}" method="post">
                                                         @csrf
                                                         <input type="text" name="jumlah_pesanan" class="form-control" required="">
                                                         <button type="submit" class="btn btn-primary mt-3"><i class="fa fa-shopping-cart"></i> Add to cart</button>

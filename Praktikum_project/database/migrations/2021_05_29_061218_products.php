@@ -20,6 +20,7 @@ class Products extends Migration
             $table->text('description');
             $table->double('product_rate')->nullable();
             $table->timestamps();
+            $table->timestamp('deleted_at');
             $table->integer('stock')->nullable();
             $table->integer('weight')->nullable();
         });

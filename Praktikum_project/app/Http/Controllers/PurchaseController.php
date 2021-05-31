@@ -24,7 +24,7 @@ class PurchaseController extends Controller
     {
         dd($request);
         $product = Product::where('id', $id)->first();
-
+        
         //simpan ke db transaksi
         $transaksi = new Transaksi;
         $transaksi->timeout = date('Y-m-d H:i:s', strtotime('+1 days'));

@@ -38,8 +38,7 @@
               </td>
               <td>
                 @php
-                  $home = new Home;
-                  $harga = $home->diskon($isi->product->discount,$isi->product->price);
+                  $harga = 0;
                 @endphp
                 @if ($harga != 0)
                   <div class="cart_item_price">
@@ -108,7 +107,7 @@
         </table>
         <div class="d-flex flex-row-reverse">
         <div class="checkout_btn_inner">
-          <form action="/checkout" method="POST">
+          <form action="action="{{url('checkout')}}" method="POST"" method="POST">
             @csrf
               <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
               <input type="hidden" name="sub_total" value="{{$total}}">

@@ -26,7 +26,7 @@ class Transactions extends Migration
             $table->integer('courier_id');
             $table->string('proof_of_payment')->nullable();
             $table->timestamps();
-            $table->enum('status',['unverified', 'verified', 'delivered','success','expired','canceled'])->default('unverified');;
+            $table->enum('status',['unverified', 'verified', 'delivered','success','expired','canceled'])->default('unverified');
         });
     }
 
