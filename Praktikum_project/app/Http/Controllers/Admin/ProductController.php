@@ -19,7 +19,7 @@ class ProductController extends Controller
         return view ('admin.product.add');
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         return view ('admin.product.edit',[
             'products' => Product::find($id),
