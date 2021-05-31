@@ -11,7 +11,10 @@ Route::get('/product/view/{id}', 'cart@add');
 Route::get('/product/buy/{id}', 'cart@cart');
 
 //courier
+// Route::resource('/courier','Admin\CourierController');
 Route::get('/courier','Admin\CourierController@index')->name('courier');
+Route::Post('/courier','Admin\CourierController@store');
+Route::get('/courier{id}','Admin\CourierController@delete')->name('delete.courier');
 Route::get('/courier/add', 'Admin\CourierController@add')->name('add.courier');
 Route::get('/courier/edit', 'Admin\CourierController@edit')->name('edit.courier');
 

@@ -12,9 +12,11 @@ class CourierController extends Controller
 {
     public $courier;
 
+
     public function index() //method menampilkan halaman utama
     {
-        $couriers = Courier::all();
+        $couriers = Courier::whereNull('deleted_at')->get();
+        $this->courier = $couriers;
         return view ('admin.courier.index',compact(['couriers']));
     }
 
@@ -22,18 +24,14 @@ class CourierController extends Controller
     {
         return view ('admin.courier.add');
     }
-    
+
     public function store(Request $request) //method untuk input data ke database
     {
-        $request->validate([
-            'courier' => ['required','min:2']
-
+        
+        $courier = Courier::create([
+            'courier' => $request->courier,
+            'slug' => Str::slug($this->courier)
         ]);
-
-        $cr = new Courier;
-        $cr->courier = $request->courier;
-        $cr->save();
-        return redirect('/courier')->with('success','Data Tersimpan');
     }
 
     public function edit(Courier $courier) //method untuk menampilkan halaman edit
@@ -52,7 +50,7 @@ class CourierController extends Controller
     public function delete($id)
     {
         $courier = Courier::find($id);
-        $courier->delete_at = now();
+        $courier->deleted_at = now();
         $courier->save();
         return view ('admin.courier.index');
     }

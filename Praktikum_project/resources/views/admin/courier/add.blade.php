@@ -57,7 +57,7 @@
                             @endif
                             
         <!-- form start -->
-        <form action="/courier" method="POST" >
+        <form action="{{url('admin/courier')}}" method="POST" >
         <div class="card-body">
             <h4>Couriers Name</h4>
             <div class="input-group mb-3">
@@ -71,6 +71,7 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
+        @csrf
         </form>
 
                         </div>
