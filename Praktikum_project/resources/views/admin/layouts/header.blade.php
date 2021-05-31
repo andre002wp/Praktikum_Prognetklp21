@@ -8,14 +8,6 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a class="nav-link">Home</a>
       </li>
-      <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url('cart')}}">
-          <i class="fas fa-cart-plus"></i></i>
-          <span class="badge badge-warning navbar-badge"></span>
-        </a>
-        </li>
-        </ul>
     </ul>
 
    

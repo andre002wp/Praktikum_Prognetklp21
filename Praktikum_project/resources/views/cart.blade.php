@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.master')
 
 @section('content')
 @php
@@ -111,13 +111,13 @@
             @csrf
               <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
               <input type="hidden" name="sub_total" value="{{$total}}">
-              <button type="submit" class="btn btn-success mr-2 center-block">Proceed to checkout
+              <button type="submit" class="btn btn-success mr-2 center-block">Checkout
               <i class="fa fa-angle-right right"></i>
             </button>
           </form>
         </div>
         <div>
-        <a href="/home" class="btn btn-warning mr-2 center-block">Continue Shopping</a>
+        <a href="/home" class="btn btn-primary mr-2 center-block">Shopping</a>
         <div>
       </div>
     </div>

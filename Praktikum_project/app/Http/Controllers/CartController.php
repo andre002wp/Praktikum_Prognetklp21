@@ -16,8 +16,8 @@ class CartController extends Controller
             $id = Auth::user()->id;
             $cart = Cart::with(['product' => function($q){
                 $q->with('product_image',);
-            }])->where('user_id', '=', $id)->where('status', '=', 'notyet')->get();
-
+            }])->where('user_id', '=', $id)->get();
+            //dd($id);
             return view('cart', ['cart'=>$cart]);
         }
     }

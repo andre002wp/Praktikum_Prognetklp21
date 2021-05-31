@@ -39,21 +39,27 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route ('product') }}" class="nav-link active">
+                <a href="{{ route ('product') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Product</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{{ route ('categories') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v2</p>
+                  <p>Categories</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="{{ route ('courier') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
+                  <p>Courier</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route ('transaksi') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Transaksi</p>
                 </a>
               </li>
             </ul>
