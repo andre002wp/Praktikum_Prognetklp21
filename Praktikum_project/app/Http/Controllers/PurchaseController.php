@@ -22,6 +22,7 @@ class PurchaseController extends Controller
 
     public function purchase(Request $request, $id)
     {
+        dd($request);
         $product = Product::where('id', $id)->first();
 
         //simpan ke db transaksi
@@ -38,11 +39,11 @@ class PurchaseController extends Controller
         $transaksi->status = 'unverified';
         $transaksi->save();
 
-        //simpan ke db pesanan detail
-        $new_transaksi = Transaksi::where('user_id', Auth::user()->id)->where('status', unverified)->first();
+        // //simpan ke db pesanan detail
+        // $new_transaksi = Transaksi::where('user_id', Auth::user()->id)->where('status', unverified)->first();
 
-        $detail_transaksi = new DetailTransaksi;
-        $detail_transaksi->
+        // $detail_transaksi = new DetailTransaksi;
+        // $detail_transaksi->
 
     }
 }
