@@ -29,7 +29,7 @@
                     <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href=" {{ route('product') }} ">Product</a></li>
-                        <li class="breadcrumb-item active">Add Product</li>
+                        <li class="breadcrumb-item active">Edit Product</li>
                     </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -46,7 +46,7 @@
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Add Product</h3>
+                                <h3 class="card-title">Edit Product</h3>
                             </div>
                             <!-- /.card-header -->
 
