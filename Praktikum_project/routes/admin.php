@@ -22,6 +22,7 @@ Route::get('/courier/edit', 'Admin\CourierController@edit')->name('edit.courier'
 
 //categories
 Route::get('/categories','Admin\CategoriesController@index')->name('categories');
-Route::Post('/categories','Admin\CourierController@store');
+Route::Post('/categories','Admin\CategoriesController@store');
+Route::get('/categories{id}','Admin\CategoriesController@delete')->name('delete.categories');
 Route::get('/categories/add', 'Admin\CategoriesController@add')->name('add.categories');
 Route::get('/categories/edit', 'Admin\CategoriesController@edit')->name('edit.categories');

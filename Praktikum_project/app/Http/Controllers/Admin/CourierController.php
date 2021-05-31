@@ -32,6 +32,7 @@ class CourierController extends Controller
             'courier' => $request->courier,
             'slug' => Str::slug($this->courier)
         ]);
+        return redirect('admin/courier')->with('add','Data Berhasil ditambahkan');
     }
 
     public function edit(Courier $courier) //method untuk menampilkan halaman edit

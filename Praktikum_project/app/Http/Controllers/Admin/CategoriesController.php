@@ -10,7 +10,7 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        $categories = Categories::all();
+        $categories = Categories::whereNull('deleted_at')->get();
         return view ('admin.categories.index',compact(['categories']));
     }
 
@@ -21,15 +21,11 @@ class CategoriesController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'category_name' => ['required','min:4']
-
+        // dd($request);
+        $courier = Categories::create([
+            'category_name' => $request->category_name,
         ]);
-        
-        $ct = new Categories;
-        $ct->category_name = $request->category_name;
-        $ct->save();
-        return redirect('/categories')->with('success','Data Tersimpan');
+        return redirect('admin/categories')->with('create','Data Berhasil dirubah');
     }
 
     public function edit(Categories $categories) //method untuk menampilkan halaman edit
@@ -43,8 +39,8 @@ class CategoriesController extends Controller
         $request->validate([
             'category_name' => ['required', 'max:30']
         ]);
-        $category = new Product_Categories();
-        $category = Product_Categories::find($id);
+        $category = new Categories();
+        $category = Categories::find($id);
         $category->category_name= $request->category_name;
         $category->save();
         return redirect('/categories')->with('edits','Data Berhasil dirubah');
@@ -53,13 +49,9 @@ class CategoriesController extends Controller
 
     public function delete($id)
     {
-        $cat = Product_Categories::find($id);
-        $product_cat_det = DB::table('product_category_details')->where('product_id','=',$cat->id)->get();
-        if($product_cat_det->isEmpty()){
-            DB::delete('delete from product_category_details where product_id = ?', [$cat->id]);
-        }
-        $cat->delete();
-
-        return redirect('/categories')->with('delete','Data Barang Berhasil Dihapus');
+        $category = Categories::find($id);
+        $category->deleted_at = now();
+        $category->save();
+        return redirect('admin/categories')->with('delete','Data Barang Berhasil Dihapus');
     }
 }
