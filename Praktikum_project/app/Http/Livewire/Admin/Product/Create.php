@@ -42,15 +42,15 @@ class Create extends Component
 
         $this->product_id = DB::table('products')->max('id');
         $image_name = $this->image->getClientOriginalName();
-        $this->image->storeas('livewire-tmp/product',  $image_name);
+        $this->image->storeas('C:\Users\asus\OneDrive\Dokumen\GitHub\Praktikum_Prognetklp21\Praktikum_project\storage\app\public\livewire-tmp\product',  $image_name);
         $product_image = ProductImage::create([
             'product_id' => $this->product_id,
             'image_name' => $image_name,
             'slug' => str::slug($this->product_name)
         ]);
-        dd($product_image);
-        // $this->deleteInput();
-
+        // dd($product_image);
+        $this->deleteInput();
+        // return redirect('admin/product')->with('add','Product berhasil ditambahkan');
         session()->flash('message', 'Product berhasil ditambahkan');
         
     }

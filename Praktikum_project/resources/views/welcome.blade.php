@@ -8,8 +8,11 @@
                 @foreach($products as $product)
                     <div class="col-md-4">
                         <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="..." alt="Card image cap">
-                            
+                            @foreach ($productimages as $image)
+                                @if($image->product_id == $product->id)
+                                    <img src=" {{url('storage/livewire-tmp/product/'.$image->image_name)}} " alt="{{ $image->image_name}}" width="240px" height="240px">
+                                @endif
+                            @endforeach
                             <div class="card-body">
                                 <h5 class="card-title">{{ $product->product_name }}</h5>
                                 <p class="card-text">
