@@ -64,3 +64,5 @@ Route::post('/update_qty', 'CartController@update');
 Route::delete('delete-cart', 'CartController@destroy')->name('delete-cart');
 Route::delete('delete/{cart:id}', 'CartController@destroy')->name('delete');
 
+Route::post('/checkout', 'CheckoutController@index');
+
