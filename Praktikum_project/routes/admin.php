@@ -17,6 +17,7 @@ Route::Post('/courier','Admin\CourierController@store');
 Route::get('/courier{id}','Admin\CourierController@delete')->name('delete.courier');
 Route::get('/courier/add', 'Admin\CourierController@add')->name('add.courier');
 Route::get('/courier/edit', 'Admin\CourierController@edit')->name('edit.courier');
+Route::Post('/courier','Admin\CourierController@store');
 
 
 
@@ -25,10 +26,5 @@ Route::get('/categories','Admin\CategoriesController@index')->name('categories')
 Route::Post('/categories','Admin\CategoriesController@store');
 Route::get('/categories{id}','Admin\CategoriesController@delete')->name('delete.categories');
 Route::get('/categories/add', 'Admin\CategoriesController@add')->name('add.categories');
-Route::get('/categories/edit', 'Admin\CategoriesController@edit')->name('edit.categories');
-
-// Detail transaksi
-Route::get('/transaksi','Admin\AdminTransaksiController@index')->name('transaksi')->middleware('auth:admin');
-Route::get('/transaksi/detail/{id}','Admin\AdminDetailTransaksiController@index')->name('detail_transaksi')->middleware('auth:admin');
-Route::post('/transaksi/detail/status', 'AdminDetailTransaksiController@membatalkanPesanan');
-Route::post('/transaksi/detail/review', 'ResponseController@create');
+Route::get('/categories/edit{id}', 'Admin\CategoriesController@edit')->name('edit.categories');
+Route::Post('/categories/edit{id}', 'Admin\CategoriesController@update')->name('update.categories');

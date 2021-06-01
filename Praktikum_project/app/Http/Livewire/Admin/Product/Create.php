@@ -14,7 +14,7 @@ class Create extends Component
     use WithFileUploads;
 
     public $product_name;
-    public $image_name;
+    public $image;
     public $price;
     public $description;
     public $stock;
@@ -25,6 +25,7 @@ class Create extends Component
     {
         $this->validate([
             'product_name' => 'required|min:6',
+            'image' => 'image|required',
         ]);
 
         // $img = $this->storeImage();
@@ -40,15 +41,15 @@ class Create extends Component
         ]);
 
         $this->product_id = DB::table('products')->max('id');
-        $this->image_name = $this->product_name.$this->product_id;
-
+        $image_name = $this->image->getClientOriginalName();
+        $this->image->storeas('livewire-tmp/product',  $image_name);
         $product_image = ProductImage::create([
             'product_id' => $this->product_id,
-            'image_name' => $this->image_name,
+            'image_name' => $image_name,
             'slug' => str::slug($this->product_name)
         ]);
-
-        $this->deleteInput();
+        dd($product_image);
+        // $this->deleteInput();
 
         session()->flash('message', 'Product berhasil ditambahkan');
         

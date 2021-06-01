@@ -36,7 +36,7 @@
                                             <td>
                                                 @foreach ($productimages as $image)
                                                     @if($image->product_id == $product->id)
-                                                        <img src=" {{url('storage/livewire-tmp/images/'.$image->image_name)}} " alt="{{ $image->image_name}}" width="100px">
+                                                        <img src=" {{url('storage/livewire-tmp/product/'.$image->image_name)}} " alt="{{ $image->image_name}}" width="100px">
                                                     @endif
                                                 @endforeach
                                                 {{-- <img src="{{route('get.image', $product->id)}}" alt="{{ $product->product_name}}" width="100px"> --}}

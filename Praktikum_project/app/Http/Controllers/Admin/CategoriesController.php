@@ -28,9 +28,10 @@ class CategoriesController extends Controller
         return redirect('admin/categories')->with('create','Data Berhasil dirubah');
     }
 
-    public function edit(Categories $categories) //method untuk menampilkan halaman edit
+    public function edit($id) //method untuk menampilkan halaman edit
     {
-        $categories = Categories::find($categories)->first();
+        $categories = Categories::find($id)->first();
+        // dd($categories);
         return view('admin.categories.edit',compact('categories')); 
     }
 
