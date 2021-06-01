@@ -74,7 +74,7 @@
                   @endphp
                 @endif
               </td>
-              <td class="product-remove">
+              <td class="product-remove">   
                                             <form action="{{Route('delete',['cart'=>$data->id])}}" method="post">
                                                 @method('delete')
                                                 @csrf

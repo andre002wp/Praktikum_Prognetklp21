@@ -20,7 +20,6 @@ Route::get('/courier/edit{id}', 'Admin\CourierController@edit')->name('edit.cour
 Route::Post('/courier/edit{id}', 'Admin\CourierController@update')->name('update.courier');
 
 
-
 //categories
 Route::get('/categories','Admin\CategoriesController@index')->name('categories')->middleware('auth:admin');
 Route::Post('/categories','Admin\CategoriesController@store');
