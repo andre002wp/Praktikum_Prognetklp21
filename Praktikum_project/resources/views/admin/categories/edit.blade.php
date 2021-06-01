@@ -50,14 +50,14 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-        <form method="POST" wire:submit.prevent="submit">
+        <form method="POST" action="{{ route('edit.categories', $categories->id) }}">
         <div class="card-body">
             <h4>Category Name</h4>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-desktop"></i></i></span>
                 </div>
-                <input type="text" wire:model="category_name" class="form-control @error('categories') is invalid @enderror" placeholder="insert category name">
+                <input type="text" name="category_name" class="form-control @error('categories') is invalid @enderror" placeholder="{{$categories->category_name}}">
             </div>
         
             <div class="card-footer">

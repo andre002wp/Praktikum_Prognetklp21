@@ -17,6 +17,7 @@ Route::Post('/courier','Admin\CourierController@store');
 Route::get('/courier{id}','Admin\CourierController@delete')->name('delete.courier');
 Route::get('/courier/add', 'Admin\CourierController@add')->name('add.courier');
 Route::get('/courier/edit', 'Admin\CourierController@edit')->name('edit.courier');
+Route::Post('/courier','Admin\CourierController@store');
 
 
 
@@ -25,4 +26,5 @@ Route::get('/categories','Admin\CategoriesController@index')->name('categories')
 Route::Post('/categories','Admin\CategoriesController@store');
 Route::get('/categories{id}','Admin\CategoriesController@delete')->name('delete.categories');
 Route::get('/categories/add', 'Admin\CategoriesController@add')->name('add.categories');
-Route::get('/categories/edit', 'Admin\CategoriesController@edit')->name('edit.categories');
+Route::get('/categories/edit{id}', 'Admin\CategoriesController@edit')->name('edit.categories');
+Route::Post('/categories/edit{id}', 'Admin\CategoriesController@update')->name('update.categories');
