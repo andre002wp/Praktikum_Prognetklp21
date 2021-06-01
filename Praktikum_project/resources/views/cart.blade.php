@@ -29,7 +29,8 @@
                   <!-- <input type="hidden" id="user_id" value="{{$data->user_id}}"> -->
                   <!-- <input type="hidden" class="stock{{$loop->iteration-1}}" value="{{$data->product->stock}}"> -->
                   @foreach ($data->product->product_image as $image)
-                  <img class="w-25" src="/uploads/product_images/{{$image->image_name}}" alt="" height="200" width="200">
+                  
+                    <img class="w-25" src="{{url('storage/livewire-tmp/product/'.$image->image_name)}}" alt="" height="200" width="200">
                   @break
 							    @endforeach
                   <div class="media-body">
@@ -75,7 +76,7 @@
                 @endif
               </td>
               <td class="product-remove">   
-                <form action="{{Route('delete',['cart'=>$data->id])}}" method="post">
+                <form action="{{Route('delete',$data->id)}}" method="post">
                     @method('delete')
                     @csrf
                       <button type="submit" class="btn btn-danger"
