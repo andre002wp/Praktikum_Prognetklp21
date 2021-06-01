@@ -57,20 +57,21 @@
                             @endif
                             
         <!-- form start -->
-        <form method="POST" >
+        <form method="POST" action="{{ route('edit.courier', $courier->id) }}">
         <div class="card-body">
             <h4>Couriers Name</h4>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-desktop"></i></i></span>
                 </div>
-                <input type="text" name="courier" class="form-control @error('courier') is invalid @enderror" placeholder="insert courier name">
+                <input type="text" name="courier" class="form-control @error('courier') is invalid @enderror" placeholder="{{$courier->courier}}">
             </div>
         
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
+        @csrf
         </form>
 
                         </div>
