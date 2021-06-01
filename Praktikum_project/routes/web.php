@@ -15,7 +15,7 @@ use App\Http\Controllers\CartController;
 */
 
 Route::get('/', function () {
-    return view('welcomenew');
+    return view('home');
 });
 
 // Route::get('/home', function () {

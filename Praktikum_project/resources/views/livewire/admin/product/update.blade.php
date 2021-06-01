@@ -1,8 +1,8 @@
 
 <div>
     <form method="POST" wire:submit.prevent="update">
-    {{ method_field('PUT') }}
-    @csrf
+        {{ method_field('PUT') }}
+        @csrf
             <div class="card-body">
                 <h4>Product Name</h4>
                 <div class="input-group mb-3">
