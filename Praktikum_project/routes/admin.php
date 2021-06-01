@@ -16,8 +16,8 @@ Route::get('/courier','Admin\CourierController@index')->name('courier');
 Route::Post('/courier','Admin\CourierController@store');
 Route::get('/courier{id}','Admin\CourierController@delete')->name('delete.courier');
 Route::get('/courier/add', 'Admin\CourierController@add')->name('add.courier');
-Route::get('/courier/edit', 'Admin\CourierController@edit')->name('edit.courier');
-Route::Post('/courier','Admin\CourierController@store');
+Route::get('/courier/edit{id}', 'Admin\CourierController@edit')->name('edit.courier');
+Route::Post('/courier/edit{id}', 'Admin\CourierController@update')->name('update.courier');
 
 
 

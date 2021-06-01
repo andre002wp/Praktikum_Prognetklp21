@@ -35,14 +35,15 @@ class CourierController extends Controller
         return redirect('admin/courier')->with('add','Data Berhasil ditambahkan');
     }
 
-    public function edit(Courier $courier) //method untuk menampilkan halaman edit
+    public function edit($id) //method untuk menampilkan halaman edit
     {
-        $courier = Courier::find($courier)->first();
+        $courier = Courier::find($id);
         return view('admin.courier.edit',compact('courier')); 
     }
 
-    public function update(Request $request, Courier $courier) //method untuk mengupdate data di database
+    public function update(Request $request, $id) //method untuk mengupdate data di database
     {
+        $courier = Courier::find($id);
         $courier->courier = $request->courier;
         $courier->save();
         return redirect('admin/courier')->with('edits','Data Berhasil dirubah');

@@ -30,7 +30,7 @@ class CategoriesController extends Controller
 
     public function edit($id) //method untuk menampilkan halaman edit
     {
-        $categories = Categories::find($id)->first();
+        $categories = Categories::find($id);
         // dd($categories);
         return view('admin.categories.edit',compact('categories')); 
     }
@@ -40,11 +40,10 @@ class CategoriesController extends Controller
         $request->validate([
             'category_name' => ['required', 'max:30']
         ]);
-        $category = new Categories();
         $category = Categories::find($id);
         $category->category_name= $request->category_name;
         $category->save();
-        return redirect('/categories')->with('edits','Data Berhasil dirubah');
+        return redirect('admin/categories')->with('edits','Data Berhasil dirubah');
        
     }
 
