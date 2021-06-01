@@ -34,7 +34,7 @@ class CartController extends Controller
         
     }
 
-    public function destroy(cart $data, Request $request)
+    public function destroy(Cart $data, Request $request)
     {
         if ($request->ajax()) {
             $data = Cart::find($request->id);
