@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Product;
+use App\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,8 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     { 
-        $products = Product::paginate(9);
-        return view('welcome', compact('products'));
+        $productimages = ProductImage::all();
+        $products = Product::whereNull('deleted_at')->paginate(9);
+        return view('welcome', compact('products'),compact('productimages'));
     }
 
     public function logout(Request $request) {
