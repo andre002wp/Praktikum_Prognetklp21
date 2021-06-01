@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,9 +53,14 @@ Route::prefix('admin')->group(function () {
 
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', 'HomeController@logout');
+Route::get('/marknotif', 'HomeController@marknotif');
+Route::get('/notif', 'HomeController@notif');
+
+//cart
 Route::get('cart/{id}', 'PurchaseController@index');
 Route::post('cart/{id}', 'CartController@purchase');
 Route::get('cart', 'CartController@show');
-Route::get('/marknotif', 'HomeController@marknotif');
-Route::get('/notif', 'HomeController@notif');
+Route::post('/update_qty', 'CartController@update');
+Route::delete('delete-cart', 'CartController@destroy')->name('delete-cart');
+Route::delete('delete/{cart:id}', 'CartController@destroy')->name('delete');
 

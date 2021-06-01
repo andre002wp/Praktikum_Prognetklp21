@@ -12,27 +12,28 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Product</th>
-              <th scope="col">Price</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Total</th>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <!-- single product -->
-            @forelse ($cart as $isi)
+            
+            @forelse ($cart as $data)
             <tr>
               <td>
                 <div class="media">
-                  <input type="hidden" class="id_cart{{$loop->iteration-1}}" value="{{$isi->id}}">
-                  <input type="hidden" id="user_id" value="{{$isi->user_id}}">
-                  <input type="hidden" class="stock{{$loop->iteration-1}}" value="{{$isi->product->stock}}">
-                  @foreach ($isi->product->product_image as $image)
-                  <img class="w-25" src="/uploads/product_images/{{$image->image_name}}" alt="" height="250" width="250">
+                  <!-- <input type="hidden" class="id_cart{{$loop->iteration-1}}" value="{{$data->id}}"> -->
+                  <!-- <input type="hidden" id="user_id" value="{{$data->user_id}}"> -->
+                  <!-- <input type="hidden" class="stock{{$loop->iteration-1}}" value="{{$data->product->stock}}"> -->
+                  @foreach ($data->product->product_image as $image)
+                  <img class="w-25" src="/uploads/product_images/{{$image->image_name}}" alt="" height="200" width="200">
                   @break
 							    @endforeach
                   <div class="media-body">
-                    <p>{{$isi->product->product_name}}</p>
+                    <p>{{$data->product->product_name}}</p>
                   </div>
                 </div>
               </td>
@@ -42,46 +43,51 @@
                 @endphp
                 @if ($harga != 0)
                   <div class="cart_item_price">
-                    Rp<span class="float-lef grey-text">{{number_format($harga)}}</li>
-                    Rp<span class="float-lef grey-text"><small><s>{{number_format($isi->product->price)}}</s></small></span>
+                    <!-- Rp<span class="float-lef grey-text">{{number_format($harga)}}</li> -->
+                    Rp<span class="float-lef grey-text"><small><s>{{number_format($data->product->price)}}</s></small></span>
                     <span class="hide float-lef grey-text price{{$loop->iteration-1}}">{{$harga}}</li>
                   </div>
                 @else
                   <div class="cart_item_price">
-                    Rp.<span class="float-lef grey-text">{{number_format($isi->product->price)}}</li>
-                    <span class="hide float-lef grey-text price{{$loop->iteration-1}}">{{$isi->product->price}}</li>
+                    Rp.<span class="float-lef grey-text">{{number_format($data->product->price)}}</li>
+                    <span class="hide float-lef grey-text price{{$loop->iteration-1}}">{{$data->product->price}}</li>
                   </div>
                 @endif
               </td>
               <td>
                 <p class="text-danger" style="display:none" id="notif{{$loop->iteration-1}}"></p>
                 <div class="btn-group radio-group ml-2" data-toggle="buttons">
-                  <span class="qty{{$loop->iteration-1}} mr-3">{{$isi->qty}} </span>
-                  <button class="btn btn-sm btn-primary btn-rounded tombol-kurang">-
-                  </button>
-                  <button class="btn btn-sm btn-success btn-rounded tombol-tambah">+
-                  </button>
-                  <button type="button" class="fa fa-trash btn btn-sm btn-danger tombolhapus" data-toggle="tooltip" data-placement="top" title="Remove item">
+                  <span class="qty{{$loop->iteration-1}} mr-3">{{$data->qty}} </span>
+              
                 </div>
               </td>
               <td>
                 @if ($harga != 0)
-                  <strong>Rp.</strong><strong class="cart_item_total sub-total{{$loop->iteration-1}}">{{number_format($harga*$isi->qty)}}</strong>
+                  <strong>Rp.</strong><strong class="cart_item_total sub-total{{$loop->iteration-1}}">{{number_format($harga*$data->qty)}}</strong>
                   @php
-                    $total = $total + ($harga*$isi->qty);
+                    $total = $total + ($harga*$data->qty);
                   @endphp
                 @else
-                  <strong>Rp.</strong><strong class="cart_item_total sub-total{{$loop->iteration-1}}">{{number_format($isi->product->price*$isi->qty)}}</strong>
+                  <strong>Rp.</strong><strong class="cart_item_total sub-total{{$loop->iteration-1}}">{{number_format($data->product->price*$data->qty)}}</strong>
                   @php
-                    $total = $total + ($isi->product->price*$isi->qty);
+                    $total = $total + ($data->product->price*$data->qty);
                   @endphp
                 @endif
               </td>
+              <td class="product-remove">
+                                            <form action="{{Route('delete',['cart'=>$data->id])}}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger"
+                                                    aria-label="Remove this item" 
+                                                    ><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
             </tr>
             @empty
             <tr>
               <td colspan="4" style="text-align:center">
-				      <p class="fa fa-shopping-cart m-auto" style="font-size:50px;"><br><br>Cart Kosong!</p>
+				      <p class="fa fa-shopping-cart m-auto" style="font-size:30px;"><br><br>Empty Cart</p>
               </td>
             </tr>
             @endforelse
@@ -123,4 +129,33 @@
     </div>
   </div>
 </section>
+@endsection
+
+@section('script')
+<script>
+  
+		jQuery('.tombolhapus').click(function(e){
+		  var index = $(".tombolhapus").index(this);
+		 var konfirmasi = confirm('Apakah anda yakin ingin menghapus produk dari keranjang?');
+		  if(konfirmasi == true){
+			jQuery.ajax({
+				url: "{{url('/update_qty')}}",
+				method: 'post',
+				data: {
+					_token: $('#signup-token').val(),
+					id: $('.id_cart'+index).val(),
+					user_id: $('#user_id').val(),
+					qty: 0
+				},
+				success: function(result){
+          location.reload();
+					console.log(result.success);
+					$('.ganti').html(result.hasil);
+					jQuery('#jumlahcart').text(result.jumlah);
+				}
+			});
+		  }
+		});
+	});
+  </script>
 @endsection

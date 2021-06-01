@@ -33,4 +33,16 @@ class CartController extends Controller
         return redirect('home')->with('add','Carts added');
         
     }
+
+    public function destroy(cart $data, Request $request)
+    {
+        if ($request->ajax()) {
+            $data = cart::find($request->id);
+            echo 'Produk Dihapus Dari Keranjang';
+            $data->delete();
+        } else {
+            $data->delete();
+            return redirect()->back()->with('error', 'Produk Dihapus Dari Keranjang');
+        }
+    }
 }
