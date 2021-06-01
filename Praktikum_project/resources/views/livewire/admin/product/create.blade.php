@@ -1,5 +1,6 @@
 <div>
 <form method="POST" wire:submit.prevent="submit">
+    {{ method_field('PUT') }}
         <div class="card-body">
             <h4>Product Name</h4>
             <div class="input-group mb-3">

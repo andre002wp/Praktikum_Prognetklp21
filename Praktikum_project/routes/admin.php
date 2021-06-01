@@ -6,6 +6,7 @@ Route::get('/dashboard', 'Admin\PageController@index')->name('dashboard');
 Route::get('/product', 'Admin\ProductController@index')->name('product');
 Route::get('/product/add', 'Admin\ProductController@add')->name('add.product');
 Route::get('/product/{id}/edit', 'Admin\ProductController@edit')->name('edit.product');
+Route::Post('/product/{id}/edit', 'Admin\ProductController@update')->name('update.product');
 Route::get('/product/{id}', 'Admin\ProductController@delete')->name('delete.product');
 Route::get('/product/view/{id}', 'cart@add');
 Route::get('/product/buy/{id}', 'cart@cart');

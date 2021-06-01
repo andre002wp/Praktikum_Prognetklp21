@@ -78,7 +78,7 @@ return [
     */
 
     'links' => [
-        public_path('storage/livewire-tmp') => storage_path('app/livewire-tmp'),
+        public_path('storage/livewire-tmp') => storage_path('app\livewire-tmp'),
     ],
 
 ];

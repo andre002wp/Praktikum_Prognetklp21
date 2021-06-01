@@ -30,26 +30,34 @@ class Create extends Component
 
         // $img = $this->storeImage();
 
-        $product = Product::create([
-            'product_name' => $this->product_name,
-            'price' => $this->price,
-            'description' => $this->description,
-            'product_rate' => 0,
-            'stock' => $this->stock,
-            'weight' => $this->weight,
-            'slug' => str::slug($this->product_name)
-        ]);
+        // $product = Product::create([
+        //     'product_name' => $this->product_name,
+        //     'price' => $this->price,
+        //     'description' => $this->description,
+        //     'product_rate' => 0,
+        //     'stock' => $this->stock,
+        //     'weight' => $this->weight,
+        //     'slug' => str::slug($this->product_name)
+        // ]);
 
         $this->product_id = DB::table('products')->max('id');
         $image_name = $this->image->getClientOriginalName();
-        $this->image->storeas('C:\Users\asus\OneDrive\Dokumen\GitHub\Praktikum_Prognetklp21\Praktikum_project\storage\app\public\livewire-tmp\product',  $image_name);
-        $product_image = ProductImage::create([
-            'product_id' => $this->product_id,
-            'image_name' => $image_name,
-            'slug' => str::slug($this->product_name)
-        ]);
+        $this->image->storePubliclyAs('public\livewire-tmp\product',  $image_name);
+        // $product_image = ProductImage::create([
+        //     'product_id' => $this->product_id,
+        //     'image_name' => $image_name,
+        //     'slug' => str::slug($this->product_name)
+        // ]);
+
+        // $destinationPath = public_path('storage/livewire-tmp\product'); 
+        // if (!is_dir($destinationPath)) {
+        //     mkdir($destinationPath, 0777, TRUE); 
+        // }
+
+        // $this->image->move($destinationPath,$image_name);
+
         // dd($product_image);
-        $this->deleteInput();
+        // $this->deleteInput();
         // return redirect('admin/product')->with('add','Product berhasil ditambahkan');
         session()->flash('message', 'Product berhasil ditambahkan');
         
