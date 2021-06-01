@@ -8,6 +8,7 @@ use App\ProductImage;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
+use File;
 
 class Create extends Component
 {
@@ -30,25 +31,26 @@ class Create extends Component
 
         // $img = $this->storeImage();
 
-        // $product = Product::create([
-        //     'product_name' => $this->product_name,
-        //     'price' => $this->price,
-        //     'description' => $this->description,
-        //     'product_rate' => 0,
-        //     'stock' => $this->stock,
-        //     'weight' => $this->weight,
-        //     'slug' => str::slug($this->product_name)
-        // ]);
+        $product = Product::create([
+            'product_name' => $this->product_name,
+            'price' => $this->price,
+            'description' => $this->description,
+            'product_rate' => 0,
+            'stock' => $this->stock,
+            'weight' => $this->weight,
+            'slug' => str::slug($this->product_name)
+        ]);
 
         $this->product_id = DB::table('products')->max('id');
         $image_name = $this->image->getClientOriginalName();
         $this->image->storePubliclyAs('public\livewire-tmp\product',  $image_name);
-        // $product_image = ProductImage::create([
-        //     'product_id' => $this->product_id,
-        //     'image_name' => $image_name,
-        //     'slug' => str::slug($this->product_name)
-        // ]);
+        $product_image = ProductImage::create([
+            'product_id' => $this->product_id,
+            'image_name' => $image_name,
+            'slug' => str::slug($this->product_name)
+        ]);
 
+        // File::move(storage_path("public\livewire-tmp\product/".$image_name),public_path("storage/livewire-tmp\product/".$image_name));
         // $destinationPath = public_path('storage/livewire-tmp\product'); 
         // if (!is_dir($destinationPath)) {
         //     mkdir($destinationPath, 0777, TRUE); 
