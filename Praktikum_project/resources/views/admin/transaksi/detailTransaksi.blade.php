@@ -33,87 +33,63 @@
                           <!-- Header -->
                           <h3 class="mt-4">Detail Transaksi</h3>
                           <br>
-                          <!-- Grid row -->
-                          <div class="row">
-
-                            <!-- Grid column -->
-                            <div class="col-md-12">
-
-                              <div class="md-form mb-0">
-                                <label for="form-contact-name" class="">Nama Penerima</label>
-                                <input type="text" id="nama" class="form-control" value="{{$transaksi->user->name}}" disabled>
+                          <br>
+                          
+                              <div class="row md-12">
+                                  <label for="colFormLabelSm" class="col-sm-2 col-form-label">Nama Penerima</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="nama" class="form-control" value="{{$transaksi->user->name}}" disabled>
+                                </div>
+                              </div>
+                              
+                              <div class="row md-12">
+                                  <label for="colFormLabelSm" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" id="email" class="form-control" value="{{$transaksi->user->email}}" disabled>
+                                </div>
                               </div>
 
-                            </div>
-                            <!-- Grid column -->
-
-                            <!-- Grid column -->
-                            <div class="col-md-12">
-
-                              <div class="md-form mb-0">
-                                <label for="form-contact-email" class="">Email</label>
-                                <input type="email" id="email" class="form-control" value="{{$transaksi->user->email}}" disabled>
+                              <div class="row md-12">
+                                    <label for="colFormLabelSm" class="col-sm-2 col-form-label">Nomer Telpon</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->telp}}" disabled>
+                                </div>
                               </div>
 
-                            </div>
-                            <!-- Grid column -->
-
-                          </div>
-                          <!-- Grid row -->
-
-                          <!-- Grid row -->
-                          <div class="row">
-
-                            <!-- Grid column -->
-                            <div class="col-md-12">
-
-                              <div class="md-form mb-0">
-                                <label for="form-contact-phone" class="">Nomor Telepon</label>
-                                <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->telp}}" disabled>
+                              <div class="row md-12">
+                                    <label for="colFormLabelSm" class="col-sm-2 col-form-label">Provinsi</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->province}}" disabled>
+                                </div>
                               </div>
 
-                            </div>
-                            <!-- Grid column -->
-
-                            <!-- Grid column -->
-                            <div class="col-md-12">
-
-                              <div class="md-form mb-0">
-                                <label for="form-province" class="">Provinsi</label>
-                                <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->province}}" disabled>
-                              </div>
-
-                            </div>
-                            <div class="col-md-12">
-
-                                <div class="md-form mb-0">
-                                    <label for="form-regecy" class="">Kota</label>    
+                              <div class="row md-12">
+                                    <label for="colFormLabelSm" class="col-sm-2 col-form-label">Kota</label>
+                                <div class="col-sm-10">    
                                     <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->regency}}" disabled>
                                 </div>
-  
-                            </div>
-                            <div class="col-md-12">
+                              </div>
 
-                                <div class="md-form mb-0">
-                                    <label for="form-contact-company" class="">Alamat</label>
+                              <div class="row md-12">
+                                    <label for="colFormLabelSm" class="col-sm-2 col-form-label">Alamat</label>
+                                <div class="col-sm-10">
                                     <input type="text" id="alamat" class="form-control" value="{{$transaksi->address}}" disabled>
                                 </div>
-  
-                            </div>
-                            <div class="col-md-12">
-                                <div class="md-form mb-0">
-                                    <label for="form-contact-company" class="">Kurir</label>
+                              </div>
+
+                              <div class="row md-12">
+                                    <label for="colFormLabelSm" class="col-sm-2 col-form-label">Kurir</label>
+                                <div class="col-sm-10">
                                   <input type="text" id="alamat" class="form-control" value="{{$transaksi->courier->courier}}" disabled>
-  
                                 </div>
-                            </div>
+                              </div>
 
                             <!-- Grid column -->
 
-                          </div>
-                          <!-- Grid row -->
+                            </div>
+                            <!-- Grid row -->
 
-                          <!-- Grid row -->
+                           <!-- Grid row -->
 
 
                         </div>
@@ -168,7 +144,7 @@
                                               @csrf
                                               <input type="hidden" name="id" value="{{$transaksi->id}}">
                                               <input type="hidden" name="status" value="3">
-                                              <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Apa yakin ingin acc pesanan ini?')">Verify</button>
+                                              <button type="submit" class="btn btn-outline-success" onclick="return confirm('Apa yakin ingin acc pesanan ini?')">Verify</button>
                                             </form>
                                         </div>  
                                     @endif
@@ -198,13 +174,13 @@
                                         @if (is_null($transaksi->proof_of_payment))
                                        
                                         @else
-                                            <div style="margin-top:10px;" class="d-flex justify-content-center">
-                                                <button id="tombol" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalContactForm">Proof Of Payment</button>
+                                            <div class="d-flex flex-row bd-highlight mb-3">
+                                                <button id="tombol" class="btn btn-outline-info" data-toggle="modal" data-target="#modalContactForm">Proof Of Payment</button>
                                             </div>
                                         @endif
 
-                                        <div style="margin-top:10px;" class="d-flex justify-content-center">
-                                          <a href="/admin/transaksi"><button class="btn btn-warning btn-rounded">Back</button></a>
+                                        <div class="d-flex flex-row bd-highlight mb-3">
+                                          <a href="/admin/transaksi"><button type="button" class="btn btn-outline-secondary">Back</button></a>
                                         </div>
                             </li>
                           </ul>
@@ -218,162 +194,4 @@
                   </div>
                   <!-- Form with header -->
                 </section>
-                <!-- Section: Contact v.3 -->
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-        <!-- Grid column -->
-
-      </div>
-      <!-- Grid row -->
-
-    </div>
-
-  </main>
-  <!-- Main Layout -->
-      <!-- Main Container -->
-      <br><br>
-      <div style="width:1000px;" class="container">
-        <section class="section my-5 pb-5">
-  
-          
-              <!-- Table body -->
-              <tbody>
-  
-                <!-- First row -->
-                @foreach ($transaksi->transaction_detail as $item)
-                    
-                
-                <tr>
-  
-                  <th scope="row">
-                      @foreach ($item->product->relasi_product_image as $image)
-                      
-                          <img style="width:100px;height:100px;" src="{{asset('/uploads/product_images/'.$image->image_name)}}" alt=""class="img-fluid z-depth-0">
-                          @break
-                      @endforeach
-                  </th>
-  
-                  <td>
-                    <h5 class="mt-3">
-                      <input type="hidden" name="id" id="product_id{{$loop->iteration-1}}" value="{{$item->product->id}}">
-                      <strong>{{$item->product->product_name}}</strong>
-                    </h5>
-                  </td>
-                  <td></td>
-                  <td>{{$item->discount}}%</td>
-                  <td>Rp.{{$item->selling_price}}</td>
-                  <td class="text-center text-md-left">
-                    <span>{{$item->qty}} </span>
-                  </td>
-                        @foreach($item->product->product_review as $review)
-                            <td>
-                            {{$review->rate}}
-                            <input type="hidden" name="review_id" id="review_id{{$loop->iteration-1}}" value="{{$review->id}}">
-
-                            </td>
-                            <td>
-                            {{$review->content}}
-                            </td>
-                            
-                        @endforeach
-                            <input type="hidden" name="id" id="product_id{{$loop->iteration-1}}" value="{{$item->product->id}}">
-                            <input type="hidden" name="name" id="product_name{{$loop->iteration-1}}" value="{{$item->product->product_name}}">
-                            @php
-                                $status = 0;
-                            @endphp
-                            @foreach ($item->product->product_review as $pr)
-                                @php
-                                    if($item->product->id == $pr->product_id){
-                                          $status = $status + 1;
-                                    }else{
-                                          $status = $status;
-                                    }
-                                @endphp
-                            @endforeach
-                  </td>
-                  <td>
-                     @if ($status != 0)               
-                        <button class="btn btn-sm btn-success lihat-review" data-toggle="modal" data-target="#modalLihatReview"
-                            data-produk="{{$item->product->product_name}}" >Berikan Balasan</button>
-                    @else
-                        <button class="btn btn-sm btn-success lihat-review" data-toggle="modal" data-target="#modalLihatReview" disabled>Belum Ada Review</button>
-                    @endif     
-                  </td>
-                </tr>
-                @endforeach
-  
-              </tbody>
-              <!-- Table body -->
-  
-            </table>
-  
-          </div>
-          <!-- Shopping Cart table -->
-  
-        </section>
-      </div>
-      <!-- Main Container -->
-      <div class="modal" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog cascading-modal" role="document">
-        <!-- Content -->
-        <div class="modal-content">
-      
-          <!-- Header -->
-          <div class="modal-header light-blue darken-3 white-text">
-            <h4>Bukti Pembayaran</h4>
-          </div>
-      
-          <!-- Body -->
-          <div class="modal-body mb-0">
-            <div align="center" class="d-flex justify-content-center">
-                <img style="width:300px;height:300px;" src="{{url('proof_payment/'.$transaksi->proof_of_payment)}}"  id="output_image" onload="preview_image(event)" class="mb-2 mw-50 w-50 h-50 rounded">
-              </div>
-          </div>
-        </div>
-        <!-- Content -->
-      </div>
-      </div>
-
-      <div class="modal fade" id="modalLihatReview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog cascading-modal" role="document">
-                  <!-- Content -->
-                  <div class="modal-content">
-
-                    <!-- Header -->
-                    <div class="modal-header light-blue darken-3 white-text">
-                      <h4 class="mb-2" id="product_name" name="product_name"></h4>
-                      <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-
-                    
-
-                    <!-- Body -->
-                    <div class="modal-body mb-0">
-                        <input type="hidden" name="review_id" id="review_id" value="">
-                        <input type="hidden" name="admin_id" id="admin_id" value="1">
-                        <input id="signup-token" name="_token" type="hidden" value="{{csrf_token()}}">
-                      <br><br>
-                      <div class="md-form form-sm">
-                        <label >Masukan Balasan</label>
-                        <textarea type="text" id="content" class="md-textarea form-control form-control-sm text-dark" rows="3" required></textarea>
-                      </div>
-                      <br><br>
-                      <div class="text-center mt-1-half">
-                        <button type="submit" class="btn btn-info mb-2" id="kirim-review">Send</button>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Content -->
-                </div>
-              </div>
-                                    
-@endsection
+                <!-- Sec

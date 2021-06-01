@@ -38,7 +38,7 @@
               </p>
             </a>
             <li class="nav-item">
-                <a href="{{ route ('courier') }}" class="nav-link">
+                <a href="{{ route ('user.transaksi') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Transaksi</p>
                 </a>
