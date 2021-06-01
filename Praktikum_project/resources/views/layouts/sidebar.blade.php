@@ -9,7 +9,11 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          @guest
+            <a href="#" class="d-block"></a>
+          @else
+            <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          @endguest
         </div>
 
         <div class="ml-auto pr-2 pt-1">
