@@ -67,4 +67,4 @@ Route::delete('delete/{cart:id}', 'CartController@destroy')->name('delete');
 Route::post('/checkout', 'CheckoutController@index');
 
 //transaksi
-Route::get('/transaksi/{id}', 'TransactionController@index');
+Route::get('/transaksi', 'TransaksiController@index')->name('user.transaksi');
