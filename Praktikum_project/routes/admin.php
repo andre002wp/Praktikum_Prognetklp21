@@ -27,3 +27,11 @@ Route::get('/categories{id}','Admin\CategoriesController@delete')->name('delete.
 Route::get('/categories/add', 'Admin\CategoriesController@add')->name('add.categories');
 Route::get('/categories/edit{id}', 'Admin\CategoriesController@edit')->name('edit.categories');
 Route::Post('/categories/edit{id}', 'Admin\CategoriesController@update')->name('update.categories');
+
+
+//transaksi
+Route::get('/transaksi', 'Admin\AdminTransaksiController@index')->name('transaksi')->middleware('auth:admin');
+Route::get('/transaksi/detail/{id}', 'Admin\AdminDetailTransaksiController@index')->name('transaksi-detail')->middleware('auth:admin');
+Route::post('/transaksi/detail/status', 'TransactionDetailController@membatalkanPesanan');
+Route::post('/transaksi/detail/proof', 'TransactionDetailController@uploadProof');
+Route::post('/transaksi/detail/review', 'ProductReviewController@store');

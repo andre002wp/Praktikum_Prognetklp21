@@ -57,7 +57,7 @@
                 <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-desktop"></i></i></span>
                 </div>
-                <input type="text" name="category_name" class="form-control @error('categories') is invalid @enderror" placeholder="insert courier name">
+                <input type="text" name="category_name" class="form-control @error('categories') is invalid @enderror" placeholder="insert category name">
             </div>
         
             <div class="card-footer">

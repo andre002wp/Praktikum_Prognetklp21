@@ -43,14 +43,14 @@
                 @endphp
                 @if ($harga != 0)
                   <div class="cart_item_price">
-                    <!-- Rp<span class="float-lef grey-text">{{number_format($harga)}}</li> -->
+                    Rp<span class="float-lef grey-text">{{number_format($harga)}}</li>
                     Rp<span class="float-lef grey-text"><small><s>{{number_format($data->product->price)}}</s></small></span>
-                    <span class="hide float-lef grey-text price{{$loop->iteration-1}}">{{$harga}}</li>
+                    <!-- <span class="hide float-lef grey-text price{{$loop->iteration-1}}">{{$harga}}</li> -->
                   </div>
                 @else
                   <div class="cart_item_price">
                     Rp.<span class="float-lef grey-text">{{number_format($data->product->price)}}</li>
-                    <span class="hide float-lef grey-text price{{$loop->iteration-1}}">{{$data->product->price}}</li>
+                    <!-- <span class="hide float-lef grey-text price{{$loop->iteration-1}}">{{$data->product->price}}</li> -->
                   </div>
                 @endif
               </td>
@@ -75,14 +75,14 @@
                 @endif
               </td>
               <td class="product-remove">   
-                                            <form action="{{Route('delete',['cart'=>$data->id])}}" method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger"
-                                                    aria-label="Remove this item" 
-                                                    ><i class="fa fa-trash"></i></button>
-                                            </form>
-                                        </td>
+                <form action="{{Route('delete',['cart'=>$data->id])}}" method="post">
+                    @method('delete')
+                    @csrf
+                      <button type="submit" class="btn btn-danger"
+                        aria-label="Remove this item"><i class="fa fa-trash"></i>
+                      </button>
+                </form>
+              </td>
             </tr>
             @empty
             <tr>
@@ -113,7 +113,7 @@
         </table>
         <div class="d-flex flex-row-reverse">
         <div class="checkout_btn_inner">
-          <form action="action="{{url('checkout')}}" method="POST"" method="POST">
+          <form action="{{url('checkout')}}" method="POST" method="POST">
             @csrf
               <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
               <input type="hidden" name="sub_total" value="{{$total}}">
@@ -129,33 +129,4 @@
     </div>
   </div>
 </section>
-@endsection
-
-@section('script')
-<script>
-  
-		jQuery('.tombolhapus').click(function(e){
-		  var index = $(".tombolhapus").index(this);
-		 var konfirmasi = confirm('Apakah anda yakin ingin menghapus produk dari keranjang?');
-		  if(konfirmasi == true){
-			jQuery.ajax({
-				url: "{{url('/update_qty')}}",
-				method: 'post',
-				data: {
-					_token: $('#signup-token').val(),
-					id: $('.id_cart'+index).val(),
-					user_id: $('#user_id').val(),
-					qty: 0
-				},
-				success: function(result){
-          location.reload();
-					console.log(result.success);
-					$('.ganti').html(result.hasil);
-					jQuery('#jumlahcart').text(result.jumlah);
-				}
-			});
-		  }
-		});
-	});
-  </script>
 @endsection

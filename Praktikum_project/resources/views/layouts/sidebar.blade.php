@@ -37,6 +37,12 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <li class="nav-item">
+                <a href="{{ route ('courier') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Transaksi</p>
+                </a>
+              </li>
           @guest
               <li class="nav-item">
                   <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
