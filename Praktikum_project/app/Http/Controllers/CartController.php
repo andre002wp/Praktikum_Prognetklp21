@@ -17,7 +17,7 @@ class CartController extends Controller
             $cart = Cart::with(['product' => function($q){
                 $q->with('product_image',);
             }])->where('user_id', '=', $id)->get();
-            //dd($id);
+            // dd($cart);
             return view('cart', ['cart'=>$cart]);
         }
     }

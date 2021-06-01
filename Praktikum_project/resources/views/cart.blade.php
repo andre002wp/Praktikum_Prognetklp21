@@ -118,6 +118,9 @@
             @csrf
               <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
               <input type="hidden" name="sub_total" value="{{$total}}">
+              <input type="hidden" name="product_id" value="{{$data->product->id}}">
+              <input type="hidden" name="weight" value="{{$data->product->weight}}">
+              <input type="hidden" name="qty" value="{{$data->qty}}">
               <button type="submit" class="btn btn-success mr-2 center-block">Checkout
               <i class="fa fa-angle-right right"></i>
             </button>

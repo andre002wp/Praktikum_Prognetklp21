@@ -24,13 +24,7 @@
             @csrf
             <div class="col-md-12 form-group p_star">
               <label>Nama</label>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                name="name"
-                value="{{Auth::user()->name}}"
-              />
+              <input type="text" class="form-control" id="name" name="name"value="{{Auth::user()->name}}"/>
             </div>
             <div class="col-md-6 form-group p_star">
               <label>No Telp</label>
@@ -101,10 +95,9 @@
                   <li>
                     <a href="#">
                       @if (is_null($item->product))
-                        {{$item->product_name}}<span class="middle">x {{$qty}}</span>
+                        {{$item->product->product_name}}<span class="middle">x {{$qty}}</span>
                         @php
-                          $home = new Home;
-                          $hasil = $home->diskon($item->discount,$item->price);
+                          $hasil = $item->product->price*$qty;
                         @endphp
                         @if ($hasil != 0)
                           <span>Rp{{number_format($hasil)}}</span>
@@ -112,10 +105,9 @@
                           <span>Rp{{number_format($item->price)}}</span>
                         @endif
                       @else
-                        {{$item->product->product_name}}<span class="middle">x {{$item->qty}}</span>
+                        {{$item->product->product_name}}<span class="middle">x {{$qty}}</span>
                         @php
-                          $home = new Home;
-                          $hasil = $home->diskon($item->product->discount,$item->product->price);
+                          $hasil = $item->product->price*$qty;
                         @endphp
                         @if ($hasil != 0)
                         <span>Rp{{number_format($hasil)}}</span>

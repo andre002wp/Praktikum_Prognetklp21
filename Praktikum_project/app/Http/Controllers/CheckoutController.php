@@ -14,14 +14,15 @@ class CheckoutController extends Controller
 {
     public function index(Request $request){
         if(!is_null($request->product_id)){
-            $cart = Product::with('product_image', 'discount')->where('id', '=', $request->product_id)->get();
+            $cart = Product::with('product_image')->where('id', '=', $request->product_id)->get();
             $subtotal = $request->subtotal;
             $weight = $request->weight;
             $qty = $request->qty;
             $product_id = $request->product_id;
+            $lalaland = 1;
         }else{
             $cart = Cart::with(['product' => function($q){
-                $q->with('product_image','discount');
+                $q->with('product_image');
             }])->where('user_id', '=', $request->user_id)->where('status', '=', 'notyet')->get();
             $subtotal = $request->sub_total;
 
@@ -33,11 +34,12 @@ class CheckoutController extends Controller
             
             $qty = 0;
             $product_id = 0;
+            $lalaland = 0;
         }
         $provinsi = Provinsi::all();
         $kurir = kurir::all();
-
-        return view('user.checkout',[
+        // dd($cart);
+        return view('checkout',[
             'cart'=>$cart,
             'subtotal'=>$subtotal,
             'provinsi' => $provinsi,
