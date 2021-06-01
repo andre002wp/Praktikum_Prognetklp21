@@ -34,10 +34,11 @@ class CartController extends Controller
         
     }
 
-    public function destroy(cart $data, Request $request)
+    public function destroy(Request $request,$id)
     {
+        // dd($id);
+        $data = Cart::find($id);
         if ($request->ajax()) {
-            $data = Cart::find($request->id);
             echo 'Produk Dihapus Dari Keranjang';
             $data->delete();
         } else {
