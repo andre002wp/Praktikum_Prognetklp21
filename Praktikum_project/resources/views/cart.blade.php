@@ -114,7 +114,7 @@
         </table>
         <div class="d-flex flex-row-reverse">
         <div class="checkout_btn_inner">
-          <form action="{{url('checkout')}}" method="POST" method="POST">
+          <form action="{{url('checkout')}}" method="POST">
             @csrf
               <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
               <input type="hidden" name="sub_total" value="{{$total}}">

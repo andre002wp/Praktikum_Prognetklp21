@@ -53,9 +53,9 @@
                   style="border: 1px solid #C8C8C8; border-radius:3px; padding:5px 7px; color: #707070; font-size: 16px;"
                   name="province" id="provinsi" class="form-select dropdown_item_select checkout_input cekongkir" required
                 >
-                  <option></option>
+                  <option selected disabled></option>
                     @foreach ($provinsi as $prov)
-                      <option value="{{$prov->id}}">{{$prov->title}}</option>
+                      <option value="{{$prov->id}}">{{$prov->name}}</option>
                     @endforeach
                 </select>
             </div>
@@ -63,9 +63,8 @@
               <label>Kota</label>
               <select 
                 style="border: 1px solid #C8C8C8; border-radius:3px; padding:5px 7px; color: #707070; font-size: 16px;"
-                name="regency" id="kota" class="form-select country_select dropdown_item_select checkout_input cekongkir" required
-              >
-                <option value=""></option>
+                name="regency" id="kota" class="form-select country_select dropdown_item_select checkout_input cekongkir" required>
+                <option disabled></option>
               </select>
             </div>
             <div class="col-md-12 form-group p_star">
@@ -95,9 +94,9 @@
                   <li>
                     <a href="#">
                       @if (is_null($item->product))
-                        {{$item->product->product_name}}<span class="middle">x {{$qty}}</span>
+                        {{$item->product_name}}<span class="middle">x {{$qty}}</span>
                         @php
-                          $hasil = $item->product->price*$qty;
+                          $hasil = $item->price*$qty;
                         @endphp
                         @if ($hasil != 0)
                           <span>Rp{{number_format($hasil)}}</span>
@@ -105,14 +104,14 @@
                           <span>Rp{{number_format($item->price)}}</span>
                         @endif
                       @else
-                        {{$item->product->product_name}}<span class="middle">x {{$qty}}</span>
+                        {{$item->product_name}}<span class="middle">x {{$qty}}</span>
                         @php
                           $hasil = $item->product->price*$qty;
                         @endphp
                         @if ($hasil != 0)
                         <span>Rp{{number_format($hasil)}}</span>
                         @else
-                        <span>{{number_format($item->product->price)}}</span>
+                        <span>{{number_format($item->price)}}</span>
                         @endif  
                       @endif
                     </a>
@@ -135,7 +134,7 @@
                 <li>
                   <a href="#">
                     Total
-                    <span class = "font-weight-bold">Rp<span class = "font-weight-bold" id="total-biaya"></span></span>
+                    <span class = "font-weight-bold">Rp<span class = "font-weight-bold" id="total-biaya">{{ number_format($subtotal*$qty)}}</span></span>
                   </a>
                 </li>
               </ul>
@@ -166,11 +165,13 @@
 @section('script')
 <script>
     $(document).ready(function(e){
+        console.log(#name);
+        // $('#name').empty();// gajalan ni jquerynya e
         function formatNumber(num) {
           return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
         }
         $('#provinsi').change(function(e){
-            var id_provinsi = $('#provinsi').val()
+            var id_provinsi = $('#provinsi').val();
             if(id_provinsi){
                 jQuery.ajax({
                     url: '/kota/'+id_provinsi,

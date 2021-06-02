@@ -68,3 +68,5 @@ Route::post('/checkout', 'CheckoutController@index');
 
 //transaksi
 Route::get('/transaksi', 'TransaksiController@index')->name('user.transaksi');
+Route::get('/kota/{id}', 'CheckOngkirController@getCities');
+
