@@ -93,15 +93,15 @@ class TransaksiController extends Controller
     }
 
     public function payment($id){
-            $transaksi = Transaction::orderBy('id', 'DESC')->where('user_id','=',$id)->get();
-            foreach($transaksi as $item){
-                if($item->timeout < date('Y-m-d H:i:s') & $item->status == 'unverified'){
-                    $item->status = 'expired';
-                    $item->save();
-                }
-            }
-            return view('transaksi', ['transaksi' => $transaksi]);
-        
+            // $transaksi = Transaction::orderBy('id', 'DESC')->where('user_id','=',$id)->get();
+            // foreach($transaksi as $item){
+            //     if($item->timeout < date('Y-m-d H:i:s') & $item->status == 'unverified'){
+            //         $item->status = 'expired';
+            //         $item->save();
+            //     }
+            // }
+            // return view('transaksi', ['transaksi' => $transaksi]);
+        return view('transaksi', ['transaksi' => 1]);
     }
 
 }
