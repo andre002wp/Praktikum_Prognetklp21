@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     { 
         $productimages = ProductImage::all();
-        $products = Product::whereNull('deleted_at')->paginate(9);
+        $products = Product::whereNull('deleted_at')->paginate(12);
         return view('welcome', compact('products'),compact('productimages'));
     }
 

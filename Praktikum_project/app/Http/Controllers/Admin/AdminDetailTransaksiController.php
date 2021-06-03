@@ -22,10 +22,38 @@ class AdminDetailTransaksiController extends Controller
                 $trxs->with('relasi_product_image');
             }]);
         }, 'courier'])->find($id);
-
-        //$review = Product_Review::where('user_id', '=', $transak
         
         return view('admin.transaksi.detailTransaksi',['transaksi' => $transaksi]);
-     
+    }
+
+    public function updateStatus(Request $request){
+        $transaksi = Transaction::with('transaction_detail')->find($request->id);
+        $user = User::find($transaksi->user_id);
+        if($request->status == 1){
+            $transaksi->status = 'canceled';
+            $transaksi->save();
+            return redirect('/transaksi/detail/'.$request->id);
+        
+        }elseif($request->status == 2){
+            $transaksi->status = 'success';
+            $transaksi->save();
+            return redirect('/transaksi/detail/'.$request->id);
+
+        }elseif($request->status == 3){
+            $transaksi->status = 'verified';
+            $transaksi->save();
+
+            foreach($transaksi->transaction_details as $data){
+                $produk = Product::find($data->product_id);
+                $produk->stock = $produk->stock - $data->qty;
+                $produk->save();
+            }
+            return redirect('admin/transaksi/detail/'.$request->id);
+            
+        }else{
+            $transaksi->status = 'delivered';
+            $transaksi->save();
+            return redirect('admin/transaksi/detail/'.$request->id);
+        }
     }
 }

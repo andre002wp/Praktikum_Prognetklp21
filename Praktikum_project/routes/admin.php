@@ -12,7 +12,6 @@ Route::get('/product/view/{id}', 'cart@add');
 Route::get('/product/buy/{id}', 'cart@cart');
 
 //courier
-// Route::resource('/courier','Admin\CourierController');
 Route::get('/courier','Admin\CourierController@index')->name('courier')->middleware('auth:admin');
 Route::Post('/courier','Admin\CourierController@store');
 Route::get('/courier{id}','Admin\CourierController@delete')->name('delete.courier');
@@ -33,6 +32,4 @@ Route::Post('/categories/edit{id}', 'Admin\CategoriesController@update')->name('
 //transaksi
 Route::get('/transaksi', 'Admin\AdminTransaksiController@index')->name('transaksi')->middleware('auth:admin');
 Route::get('/transaksi/detail/{id}', 'Admin\AdminDetailTransaksiController@index')->name('transaksi-detail')->middleware('auth:admin');
-Route::post('/transaksi/detail/status', 'TransactionDetailController@membatalkanPesanan');
-Route::post('/transaksi/detail/proof', 'TransactionDetailController@uploadProof');
-Route::post('/transaksi/detail/review', 'ProductReviewController@store');
+Route::post('/transaksi/detail/status', 'Admin\AdminDetailTransaksiController@updateStatus');

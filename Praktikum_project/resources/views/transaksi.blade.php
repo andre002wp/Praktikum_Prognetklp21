@@ -9,39 +9,39 @@
         <table class="table">
           <thead>
             <tr>
-            <th>No</th>
-                                <th>Jatuh Tempo</th>
-                                <th>Alamat</th>
-                                <th>Kota</th>
-                                <th>Provinsi</th>
-                                <th>Total</th>
-                                <th class="text-center">Status</th>
-                                <th class="text-center">Action</th>
+              <th><strong>Id Transaksi</strong></th>
+              <th><strong>Id User</strong></th>
+              <th><strong>Alamat</strong></th>
+              <th><strong>Kota</strong></th>
+              <th><strong>Provinsi</strong></th>
+              <th><strong>Total</strong></th>
+              <th><strong>Status</strong></th>
+              <th><strong>Aksi</strong></th>
             </tr>
           </thead>
           <tbody>
-          @php
-                            $no = 1;
-                            @endphp
-                            @foreach ($transactions as $transaksi)
-                            <tr>
-                                <td>{{$no++}}</td>
-                                <td>{{$transaksi->timeout}}</td>
-                                <td>{{$transaksi->address}}</td>
-                                <td>{{$transaksi->regency}}</td>
-                                <td>{{$transaksi->province}}</td>
-                                <td>Rp.{{number_format($transaksi->total, 0, ',', '.')}}</td>
-                                <td class="text-center">{{$transaksi->status}}
-                                </td>
-
-                                <td class="text-center">
-
-                                    <a href="{{Route('show-transaksi',['transaction'=>$transaksi->id])}}"
-                                        class=" btn btn-sm btn-dark"><i class="fas fa-eye"></i></a>
-
-                                </td>
-                            </tr>
-                            @endforeach
+            @foreach ($transaksi as $list)
+              <tr>             
+                <td>{{$list->id}}</td>
+                <td>{{$list->user_id}}</td>
+                <td>{{$list->address}}</td>
+                <td>{{$list->regency}}</td>
+                <td>{{$list->province}}</td>
+                <td>Rp{{number_format($list->total)}}</td>
+                <td>
+                  @if ($list->status == 'success' || $list->status == 'delivered')
+                    <span class="btn-sm btn-success mt-1">{{$list->status}}</span>
+                  @elseif ($list->status == 'verified' || $list->status == 'in delivery')
+                    <span class="btn-sm btn-warning mt-1">{{$list->status}}</span>
+                  @else
+                    <span class="btn-sm btn-danger mt-1">{{$list->status}}</span>
+                  @endif
+                </td>
+                <td>
+                  <a href="/admin/transaksi/detail/{{$list->id}}"><strong>Detail Transaksi</strong></a>
+                </td>
+              </tr>
+            @endforeach
           </tbody>
         </table>
       </div>

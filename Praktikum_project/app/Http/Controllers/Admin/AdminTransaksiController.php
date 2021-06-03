@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Transaction;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class AdminTransaksiController extends Controller

@@ -37,8 +37,8 @@
 				<form class="login100-form validate-form flex-sb flex-w" method="POST" action="{{ route('login') }}">
                     @csrf
 
-					<span class="login100-form-title p-b-32">
-						Login Form
+					<span class="login100-form-title p-b-24">
+						Login Toko Elektronik
 					</span>
 
 					<span class="txt1 p-b-11">
@@ -117,7 +117,7 @@
                     <div class="flex-col-c p-t-20" style="margin-left:auto;margin-right:auto">
 						<span class="txt2 p-b-10">
                             <p >
-							    Create have an account?
+							    Create an account?
                             </p>
 						</span>
 

@@ -1,4 +1,3 @@
-
 <div>
     <form method="POST" wire:submit.prevent="update">
         {{ method_field('PUT') }}

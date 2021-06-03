@@ -34,7 +34,7 @@
             <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">DataCategory</h3>
+                    <h3 class="card-title">Data Category</h3>
                     <a href="{{ route ('add.categories') }}" class="btn btn-primary float-right"><i class="fas fa-plus-square"></i></a>
                 </div>
                 <!-- /.card-header -->

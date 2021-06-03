@@ -10,7 +10,7 @@
           <thead>
             <tr>
               <th><strong>Id Transaksi</strong></th>
-              <th><strong>Id User</strong></th>
+              <th><strong>Jatuh Tempo</strong></th>
               <th><strong>Alamat</strong></th>
               <th><strong>Kota</strong></th>
               <th><strong>Provinsi</strong></th>
@@ -23,11 +23,11 @@
             @foreach ($transaksi as $list)
               <tr>             
                 <td>{{$list->id}}</td>
-                <td>{{$list->user_id}}</td>
+                <td>{{$list->timeout}}</td>
                 <td>{{$list->address}}</td>
                 <td>{{$list->regency}}</td>
                 <td>{{$list->province}}</td>
-                <td>Rp{{number_format($list->total)}}</td>
+                <td>Rp {{number_format($list->total)}}</td>
                 <td>
                   @if ($list->status == 'success' || $list->status == 'delivered')
                     <span class="btn-sm btn-success mt-1">{{$list->status}}</span>

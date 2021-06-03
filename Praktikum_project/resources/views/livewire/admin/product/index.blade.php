@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">DataProduct</h3>
+                            <h3 class="card-title">Data Product</h3>
                             <a href="{{ route ('add.product') }}" class="btn btn-success btn-sm float-right"><i class="fas fa-plus-square"></i></a>
                         </div>
                         <!-- /.card-header -->
@@ -29,7 +29,7 @@
                                         <tr>
                                             <td>{{ $product->id }}</td>
                                             <td>{{ $product->product_name }}</td>
-                                            <td>{{ $product->price }}</td>
+                                            <td>Rp {{ number_format($product->price)}}</td>
                                             <td>{{ $product->description }}</td>
                                             <td>{{ $product->stock }}</td>
                                             <td>{{ $product->weight }}</td>

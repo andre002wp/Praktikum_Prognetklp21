@@ -18,10 +18,6 @@ Route::get('/', function () {
     return view('Auth.login');
 });
 
-// Route::get('/home', function () {
-//     return view('welcomenew');
-// });
-
 Route::get('/checkout', function () {
     return view('checkout');
 });
@@ -51,20 +47,26 @@ Route::prefix('admin')->group(function () {
 
 });
 
-//Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', 'HomeController@logout');
 Route::get('/marknotif', 'HomeController@marknotif');
 Route::get('/notif', 'HomeController@notif');
 
 //cart
-Route::get('cart/{id}', 'PurchaseController@index');
+Route::get('purchase/{id}', 'PurchaseController@index');
 Route::post('cart/{id}', 'CartController@purchase');
 Route::get('cart', 'CartController@show');
-Route::post('/update_qty', 'CartController@update');
 Route::delete('delete-cart', 'CartController@destroy')->name('delete-cart');
 Route::delete('delete/{cart:id}', 'CartController@destroy')->name('delete');
 
-Route::post('/checkout', 'CheckoutController@index');
+Route::post('/checkout', 'CheckoutController@index')->name('user.checkout');
 
 //transaksi
 Route::get('/transaksi', 'TransaksiController@index')->name('user.transaksi');
+Route::get('/transaksi/{id}', 'TransaksiController@payment');
+Route::post('/payment', 'TransaksiController@store');
+
+//ongkir
+Route::post('cekongkir', [CheckoutController::class, 'cekongkir'])->name('cekongkir');
+Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('checkout-all', [CheckoutController::class, 'store'])->name('checkout-all');
+Route::get('getkota', [CheckoutController::class, 'getkota'])->name('getkota');

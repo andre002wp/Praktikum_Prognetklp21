@@ -19,6 +19,7 @@ class CheckoutController extends Controller
             $weight = $request->weight;
             $qty = $request->qty;
             $product_id = $request->product_id;
+            
         }else{
             $cart = Cart::with(['product' => function($q){
                 $q->with('product_image','discount');
@@ -37,7 +38,7 @@ class CheckoutController extends Controller
         $provinsi = Provinsi::all();
         $kurir = kurir::all();
 
-        return view('user.checkout',[
+        return view('checkout',[
             'cart'=>$cart,
             'subtotal'=>$subtotal,
             'provinsi' => $provinsi,

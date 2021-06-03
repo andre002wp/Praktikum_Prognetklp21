@@ -34,7 +34,7 @@
             <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">DataCourier</h3>
+                    <h3 class="card-title">Data Courier</h3>
                     <a href="{{ route ('add.courier') }}" class="btn btn-success btn-sm float-right"><i class="fas fa-plus-square"></i></a>
                 </div>
                 <!-- /.card-header -->
