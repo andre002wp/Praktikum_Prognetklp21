@@ -59,14 +59,14 @@
                     @endforeach
                 </select>
             </div>
-            {{-- <div class="col-md-12 form-group p_star">
+            <!-- <div class="col-md-12 form-group p_star">
               <label>Kota</label>
               <select 
                 style="border: 1px solid #C8C8C8; border-radius:3px; padding:5px 7px; color: #707070; font-size: 16px;"
                 name="regency" id="kota" class="form-select country_select dropdown_item_select checkout_input cekongkir" required>
                 <option disabled></option>
               </select>
-            </div> --}}
+            </div> -->
             <div class="col-md-12 form-group p_star">
               <label>Alamat</label>
               <input
@@ -145,7 +145,7 @@
               <input type="hidden" name="product_id" value="{{$product_id}}">
               <input type="hidden" name="qty" value="{{$qty}}">
               <div class="d-flex justify-content-center mt-5">
-                <button type="submit" class="main_btn" id="beli">Proceed to Payment</button>
+                <button type="submit" class="main_btn" id="payment">Proceed to Payment</button>
               </div>
             </div>
           </div>

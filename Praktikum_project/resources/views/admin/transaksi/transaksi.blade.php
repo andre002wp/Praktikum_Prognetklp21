@@ -10,6 +10,7 @@
           <thead>
             <tr>
               <th><strong>Id Transaksi</strong></th>
+              <th><strong>Id User</strong></th>
               <th><strong>Jatuh Tempo</strong></th>
               <th><strong>Alamat</strong></th>
               <th><strong>Kota</strong></th>
@@ -23,6 +24,7 @@
             @foreach ($transaksi as $list)
               <tr>             
                 <td>{{$list->id}}</td>
+                <td>{{$list->user_id}}</td>
                 <td>{{$list->timeout}}</td>
                 <td>{{$list->address}}</td>
                 <td>{{$list->regency}}</td>

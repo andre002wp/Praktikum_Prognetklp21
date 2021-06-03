@@ -17,20 +17,20 @@ class TransaksiController extends Controller
         $this->middleware(['auth']);
     }
 
-    public function index(){
-        $transaksi = Transaction::all();
+    public function index($id){
+        $transaksi = Transaction::where('user_id', $id)->get();
         return view('transaksi', ['transaksi' => $transaksi]);
     }
 
     public function store(Request $request){
-        dd($request);
+        //dd($request);
         $provinsi = Province::find($request->province);
         $kota = City::where('city_id','=',$request->regency)->first();
         $transaksi = new Transaction;
         date_default_timezone_set("Asia/Makassar");
         $transaksi->timeout = date('Y-m-d H:i:s', strtotime('+1 days'));
         $transaksi->address = $request->address;
-        $transaksi->regency = $kota->regency;
+        //$transaksi->regency = $kota->regency;
         $transaksi->province = $provinsi->province;
         $transaksi->total = $request->total;
         $transaksi->shipping_cost = $request->shipping_cost;
@@ -38,7 +38,7 @@ class TransaksiController extends Controller
         $transaksi->user_id = $request->user_id;
         $transaksi->courier_id = $request->courier;
         $transaksi->status = 'unverified';
-        $transaksi->telp = $request->no_telp;
+        //$transaksi->telp = $request->no_telp;
         $transaksi->save();
         
         if($request->product_id != 0){

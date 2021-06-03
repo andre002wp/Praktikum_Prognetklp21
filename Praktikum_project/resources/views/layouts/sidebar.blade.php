@@ -42,7 +42,7 @@
               </p>
             </a>
             <li class="nav-item">
-                <a href="{{ route ('user.transaksi') }}" class="nav-link">
+                <a href="{{ route ('user.transaksi', Auth::user()->id) }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Transaksi</p>
                 </a>

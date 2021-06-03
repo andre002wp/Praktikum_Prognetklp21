@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.master')
 
 @section('content')
 
@@ -111,43 +111,25 @@
                                 @endif
                             </h6>
                           </li>
-                            <br>
-                            <li>
-                                @if($transaksi->status == "unverified" && !is_null($transaksi->proof_of_payment))
-                                  <br>
-                                  <div class="d-flex flex-row bd-highlight mb-3">
-                                      <form action="/admin/transaksi/detail/status" method="POST">
-                                        @csrf
-                                              <input type="hidden" name="id" value="{{$transaksi->id}}">
-                                              <input type="hidden" name="status" value="3">
-                                              <button type="submit" class="btn btn-outline-success" onclick="return confirm('Acc this transaction?')">Verifikasi</button>
-                                            </form>
-                                        </div>  
-                                    @endif
-                                    
-                                    @if ($transaksi->status === 'verified')
-                                            <div class="d-flex flex-row bd-highlight mb-3">
-                                            <form action="/admin/transaksi/detail/status" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{$transaksi->id}}">
-                                                <input type="hidden" name="status" value="4">
-                                                <button type="submit" class="btn btn-success btn-sm">Deliver Products</button>
-                                            </form>
-                                        </div>  
-                                    @endif
-                                    
-                                      @if (is_null($transaksi->proof_of_payment))   
-                                                               
-                                      
-                                      @else
-                                          <div class="d-flex flex-row bd-highlight mb-3">
-                                              <button id="tombol" class="btn btn-outline-info" data-toggle="modal" data-target="#modalContactForm">Proof Of Payment</button>
-                           
-                                          </div>
-                                      @endif
+                        
+                                      <div class="d-flex flex-row bd-highlight mb-3">
+                                        <a>upload bukti pembayaran</a>
+                                        @if (is_null($transaksi->proof_of_payment) && $transaksi->status == 'unverified')
+                    <form action="/transaksi/detail/upload/payment" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      <input type="hidden" name="id" value="{{$transaksi->id}}">
+                      <input type="file" name="file" id="form19" accept=".jpeg,.jpg,.png,.gif" onchange="preview_image(event)" required>
+                      <span> 
+                        <button type="submit" class="text-white btn btn-info font-weight-bold  mt-2">Send</button>
+                      </span>
+                    </form>
+                  @elseif ($transaksi->proof_of_payment)
+                    <span class = "text-white btn-sm btn-success font-weight-bold  mt-2">Sudah diupload</span>
+                  @endif
+                                      </div>
 
                                       <div class="d-flex flex-row bd-highlight mb-3">
-                                        <a href="/admin/transaksi"><button type="button" class="btn btn-outline-secondary">go to transaction</button></a>
+                                        <a href="/admin/transaksi"><button type="button" class="btn btn-outline-secondary">Batalkan pesanan</button></a>
                                       </div>
                             </li>
                           </ul>
