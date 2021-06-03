@@ -10,12 +10,16 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
     public function show(){
-        $id = Auth::user()->id;
-        $cart = Cart::with(['product' => function($pro){
-            $pro->with('product_image',);
-        }])->where('user_id', '=', $id)->get();
-        //dd($id);
-        return view('cart', ['cart'=>$cart]);  
+        if(is_null(Auth::user())){
+            return redirect('/login');
+        }else{
+            $id = Auth::user()->id;
+            $cart = Cart::with(['product' => function($q){
+                $q->with('product_image',);
+            }])->where('user_id', '=', $id)->get();
+            // dd($cart);
+            return view('cart', ['cart'=>$cart]);
+        }
     }
 
     public function purchase(Request $request, $id)

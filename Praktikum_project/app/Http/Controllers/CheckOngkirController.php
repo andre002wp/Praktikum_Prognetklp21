@@ -19,8 +19,10 @@ class CheckOngkirController extends Controller
      */
     public function getCities($id)
     {
-        $city = City::where('province_id', $id)->pluck('name', 'city_id');
-        return response()->json($city);
+        // $city = City::all();
+        $cities = City::where('province_id', $id)->pluck('name', 'city_id');
+        dd($cities);
+        return response()->json($cities);
     }
 
     /**

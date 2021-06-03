@@ -12,41 +12,33 @@
             action="/payment" method="post" class="row contact_form needs-validation"
             id="checkout_form" class="checkout_form">
             @csrf
-            <div class="col-md-5 form-group">
-              <label>Name</label>
-                <input type="text" id="name" name="name" class="form-control" value="{{Auth::user()->name}}"/>
+            <div class="col-md-12 form-group p_star">
+              <label>Nama</label>
+              <input type="text" class="form-control" id="name" name="name"value="{{Auth::user()->name}}"/>
             </div>
 
             <div class="col-md-5 form-group">
               <label>Email</label>
               <input type="text" id="email" name="email" class="form-control" value="{{Auth::user()->email}}"/>
             </div>
-
-            <div class="col-md-5 form-group">
-              <label>Phone</label>
-              <input type="text" id="number" name="no_telp" class="form-control" placeholder="phone" required/>
-            </div>
-
-            <div class="col-md-5 form-group">
-              <label>Address</label>
-              <input type="text" id="address" name="address" class="form-control" placeholder="Address" required/>
-            </div>
-            
-            <div class="col-md-5 form-group">
-              <label>Province</label>
-                <select style= "padding:5px 70px; font-size: 16px;" name="province" id="provinsi" class="form-select dropdown_item_select checkout_input cekongkir" required>
-                  @foreach ($provinsi as $province)
-                    <option value="{{$province->id}}">{{$province->title}}</option>
-                  @endforeach
+            <div class="col-md-12 form-group p_star">
+              <label>Provinsi</label>
+                <select 
+                  style="border: 1px solid #C8C8C8; border-radius:3px; padding:5px 7px; color: #707070; font-size: 16px;"
+                  name="province" id="provinsi" class="form-select dropdown_item_select checkout_input cekongkir" required
+                >
+                  <option selected disabled></option>
+                    @foreach ($provinsi as $prov)
+                      <option value="{{$prov->id}}">{{$prov->name}}</option>
+                    @endforeach
                 </select>
             </div>
             <!-- <div class="col-md-12 form-group p_star">
               <label>Kota</label>
               <select 
                 style="border: 1px solid #C8C8C8; border-radius:3px; padding:5px 7px; color: #707070; font-size: 16px;"
-                name="regency" id="kota" class="form-select country_select dropdown_item_select checkout_input cekongkir" required
-              >
-                <option value=""></option>
+                name="regency" id="kota" class="form-select country_select dropdown_item_select checkout_input cekongkir" required>
+                <option disabled></option>
               </select>
             </div> -->
            
@@ -70,7 +62,7 @@
                       @if (is_null($data->product))
                         {{$data->product_name}}<span class="middle">x {{$qty}}</span>
                         @php
-                          $hasil = $data->price;
+                          $hasil = $item->price*$qty;
                         @endphp
                         @if ($hasil != 0)
                           <span>Rp{{number_format($hasil)}}</span>
@@ -78,15 +70,14 @@
                           <span>Rp{{number_format($data->price)}}</span>
                         @endif
                       @else
-                        {{$data->product->product_name}}<span class="middle">x {{$data->qty}}</span>
+                        {{$item->product_name}}<span class="middle">x {{$qty}}</span>
                         @php
-                          
-                          $hasil = $data->product->price;
+                          $hasil = $item->product->price*$qty;
                         @endphp
                         @if ($hasil != 0)
                         <span>Rp{{number_format($hasil)}}</span>
                         @else
-                        <span>{{number_format($data->product->price)}}</span>
+                        <span>{{number_format($item->price)}}</span>
                         @endif  
                       @endif
                     
@@ -117,8 +108,8 @@
                 
                  
                     Total
-                    <span class = "font-weight-bold">Rp {{ number_format($total_biaya)}}<span class = "font-weight-bold" id="total-biaya"></span></span>
-                  
+                    <span class = "font-weight-bold">Rp<span class = "font-weight-bold" id="total-biaya">{{ number_format($subtotal*$qty)}}</span></span>
+                  </a>
                 </li>
               </ul>
               <input type="hidden" name="sub_total" value="{{$subtotal}}">
@@ -148,11 +139,13 @@
 @section('script')
 <script>
     $(document).ready(function(e){
+        console.log(#name);
+        // $('#name').empty();// gajalan ni jquerynya e
         function formatNumber(num) {
           return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
         }
         $('#provinsi').change(function(e){
-            var id_provinsi = $('#provinsi').val()
+            var id_provinsi = $('#provinsi').val();
             if(id_provinsi){
                 jQuery.ajax({
                     url: '/kota/'+id_provinsi,

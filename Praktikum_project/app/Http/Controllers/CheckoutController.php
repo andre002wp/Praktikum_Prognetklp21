@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cart;
-use App\Province as Provinsi;
+use App\Province;
 use App\City;
 use App\Courier as kurir;
 use App\Product;
@@ -14,15 +14,15 @@ class CheckoutController extends Controller
 {
     public function index(Request $request){
         if(!is_null($request->product_id)){
-            $cart = Product::with('product_image', 'discount')->where('id', '=', $request->product_id)->get();
-            $subtotal = $request->subtotal;
+            $cart = Product::with('product_image')->where('id', '=', $request->product_id)->get();
+            $subtotal = $request->sub_total;
             $weight = $request->weight;
             $qty = $request->qty;
             $product_id = $request->product_id;
-            
+            $lalaland = 1;
         }else{
             $cart = Cart::with(['product' => function($q){
-                $q->with('product_image','discount');
+                $q->with('product_image');
             }])->where('user_id', '=', $request->user_id)->where('status', '=', 'notyet')->get();
             $subtotal = $request->sub_total;
 
@@ -34,10 +34,11 @@ class CheckoutController extends Controller
             
             $qty = 0;
             $product_id = 0;
+            $lalaland = 0;
         }
-        $provinsi = Provinsi::all();
+        $provinsi = Province::all();
         $kurir = kurir::all();
-
+        // dd($provinsi);
         return view('checkout',[
             'cart'=>$cart,
             'subtotal'=>$subtotal,

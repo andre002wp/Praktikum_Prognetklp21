@@ -62,6 +62,7 @@ Route::post('/checkout', 'CheckoutController@index')->name('user.checkout');
 
 //transaksi
 Route::get('/transaksi', 'TransaksiController@index')->name('user.transaksi');
+Route::get('/kota/{id}', 'CheckOngkirController@getCities');
 Route::get('/transaksi/{id}', 'TransaksiController@payment');
 Route::post('/payment', 'TransaksiController@store');
 
@@ -70,3 +71,5 @@ Route::post('cekongkir', [CheckoutController::class, 'cekongkir'])->name('cekong
 Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('checkout-all', [CheckoutController::class, 'store'])->name('checkout-all');
 Route::get('getkota', [CheckoutController::class, 'getkota'])->name('getkota');
+
+
