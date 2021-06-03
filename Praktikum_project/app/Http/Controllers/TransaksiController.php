@@ -23,6 +23,7 @@ class TransaksiController extends Controller
     }
 
     public function store(Request $request){
+        dd($request);
         $provinsi = Province::find($request->province);
         $kota = City::where('city_id','=',$request->regency)->first();
         $transaksi = new Transaction;
@@ -88,7 +89,7 @@ class TransaksiController extends Controller
             }
         }
 
-        return redirect('/transaksi/'.$request->user_id);
+        //return redirect('/transaksi/'.$request->user_id);
     }
 
     public function payment($id){

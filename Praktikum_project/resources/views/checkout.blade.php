@@ -62,7 +62,7 @@
                       @if (is_null($data->product))
                         {{$data->product_name}}<span class="middle">x {{$qty}}</span>
                         @php
-                          $hasil = $item->price*$qty;
+                          $hasil = $data->price*$qty;
                         @endphp
                         @if ($hasil != 0)
                           <span>Rp{{number_format($hasil)}}</span>
@@ -70,14 +70,14 @@
                           <span>Rp{{number_format($data->price)}}</span>
                         @endif
                       @else
-                        {{$item->product_name}}<span class="middle">x {{$qty}}</span>
+                        {{$data->product_name}}<span class="middle">x {{$qty}}</span>
                         @php
-                          $hasil = $item->product->price*$qty;
+                          $hasil = $data->product->price*$qty;
                         @endphp
                         @if ($hasil != 0)
                         <span>Rp{{number_format($hasil)}}</span>
                         @else
-                        <span>{{number_format($item->price)}}</span>
+                        <span>{{number_format($data->price)}}</span>
                         @endif  
                       @endif
                     
