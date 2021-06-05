@@ -6,20 +6,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Transaction;
 
-class AdminNotification extends Notification
+class NewTransaction extends Notification
 {
     use Queueable;
-    protected $data;
+    public int $transaction_id;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($_transaction_id)
     {
-        $this->data = $data;
+        $this->transaction_id = $_transaction_id;
     }
 
     /**
@@ -30,7 +31,7 @@ class AdminNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -42,9 +43,9 @@ class AdminNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Seseorang baru saja membuat transaksi')
+                    ->action('Buka transaksi', url(route('transaction.show', $this->transaction_id)));
+                    // ->line('Thank you for using our application!');
     }
 
     /**
@@ -55,6 +56,11 @@ class AdminNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        return $this->data;
+        $trans = Transaction::find($this->transaction_id);
+
+        return [
+            "transaction_id" => $this->transaction_id,
+            "trans" => $trans,
+        ];
     }
 }
