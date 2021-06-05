@@ -45,9 +45,10 @@ class UserStatusTransactionChanged extends Notification
      */
     public function toMail($notifiable)
     {
+        $url =url('/transaksi/'.$this->transaction_id);
         return (new MailMessage)
             ->line('Status transaksimu berubah')
-            ->action('Buka transaksi', url(route('transaksi', $this->transaction_id)))
+            ->action('Buka transaksi', $url)
             ->line('Dari ' . $this->old_status . ' menjadi ' . $this->new_status);
     }
 
@@ -63,7 +64,6 @@ class UserStatusTransactionChanged extends Notification
 
         return [
             "transaction_id" => $this->transaction_id,
-            "transaction" => $trans,
             "old_status" => $this->old_status ,
             "new_status" => $this->new_status ,
         ];

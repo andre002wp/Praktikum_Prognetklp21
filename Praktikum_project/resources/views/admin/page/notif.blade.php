@@ -16,17 +16,14 @@
                         $notif_count = 0;
                     }
                     $notifications = Auth::user()->notifications;
-                    $notifications = DB::table('user_notifications')->where('notifiable_id',$id)->where('read_at',NULL)->orderBy('created_at','desc')->get();
+                    // dd($notifications);
                 ?>
-                @if ($notif_count>0)
-                    <a href="#"><span class="badge badge-pill badge-danger">{{$notif_count}}</span></a>
-                @endif
                 <ul >
                     <center><a href="/marknotif" class="btn" style="background-color: white;">Mark All As Read</a></center>
                     @foreach($notifications as $notif)
-                        <li>{!!$notif->data!!}</li>
+                        <li><a href="/transaksi/detail/{{$notif->data['transaction_id']}}" class="btn">Transaksi dengan id {!!$notif->data['transaction_id']!!} Telah mendapatkan review</a></li>
                         <br>
-                    @endforeach                                  
+                    @endforeach                                 
                 </ul>
             </li>
         </div>

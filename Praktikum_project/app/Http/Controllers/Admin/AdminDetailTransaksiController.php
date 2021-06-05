@@ -37,13 +37,13 @@ class AdminDetailTransaksiController extends Controller
         if($request->status == 1){
             $transaksi->status = 'canceled';
             $transaksi->save();
-            //$user->notify(new UserStatusTransactionChanged($transaksi->id, $transaksi->status, 'canceled'));
+            $user->notify(new UserStatusTransactionChanged($transaksi->id, $transaksi->status, 'canceled'));
             return redirect('/admin/transaksi');
         
         }elseif($request->status == 2){
             $transaksi->status = 'success';
             $transaksi->save();
-            //$user->notify(new UserStatusTransactionChanged($transaksi->id, $transaksi->status, 'success'));
+            $user->notify(new UserStatusTransactionChanged($transaksi->id, $transaksi->status, 'success'));
             // $allAdmins = Admin::all();
             // foreach ($allAdmins as $it) {
             //     $it->notify(new PaymentUploaded($transaksi->id));
@@ -52,7 +52,7 @@ class AdminDetailTransaksiController extends Controller
 
         }elseif($request->status == 3){
             $transaksi->status = 'verified';
-$user->notify(new UserStatusTransactionChanged($transaksi->id, $transaksi->status, 'verified'));
+            $user->notify(new UserStatusTransactionChanged($transaksi->id, $transaksi->status, 'verified'));
             $transaksi->save();
 
             // foreach($transaksi->transaction_details as $data){
@@ -65,7 +65,7 @@ $user->notify(new UserStatusTransactionChanged($transaksi->id, $transaksi->statu
         }else{
             $transaksi->status = 'delivered';
             $transaksi->save();
-            //$user->notify(new UserStatusTransactionChanged($transaksi->id, $transaksi->status, 'delivered'));
+            $user->notify(new UserStatusTransactionChanged($transaksi->id, $transaksi->status, 'delivered'));
            return redirect('/admin/transaksi');
         }
     }
