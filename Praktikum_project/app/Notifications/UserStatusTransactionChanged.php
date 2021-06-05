@@ -6,19 +6,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
-class UserNotification extends Notification
+use App\Transaction;
+class UserStatusTransactionChanged extends Notification
 {
     use Queueable;
+    public int $transaction_id;
+    public string $old_status;
+    public string $new_status;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($_transaction_id, $_old_status, $_new_status)
     {
-        //
+        $this->transaction_id = $_transaction_id;
+        $this->old_status = $_old_status ?? 'Tanpa Status';
+        $this->new_status = $_new_status ?? 'Tanpa Status';
     }
 
     /**
@@ -29,7 +34,7 @@ class UserNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -41,9 +46,9 @@ class UserNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('Status transaksimu berubah')
+            ->action('Buka transaksi', url(route('transaction.show', $this->transaction_id)))
+            ->line('Dari ' . $this->old_status . ' menjadi ' . $this->new_status);
     }
 
     /**
@@ -54,8 +59,13 @@ class UserNotification extends Notification
      */
     public function toArray($notifiable)
     {
+        $trans = Transaction::find($this->transaction_id);
+
         return [
-            //
+            "transaction_id" => $this->transaction_id,
+            "transaction" => $trans,
+            "old_status" => $this->old_status ,
+            "new_status" => $this->new_status ,
         ];
     }
 }

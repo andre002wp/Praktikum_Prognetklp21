@@ -44,12 +44,13 @@ Route::prefix('admin')->group(function () {
     // Register routes
     Route::get('/register', 'Auth\AdminRegisterController@showRegistrationForm')->name('admin.register')->middleware('guest');
     Route::post('/register', 'Auth\AdminRegisterController@register')->name('admin.register.submit');
-
+    Route::get('/notif', 'AdminController@notif');
 });
 
+Route::get('/user/notif', 'HomeController@notif');
 Route::get('logout', 'HomeController@logout');
 Route::get('/marknotif', 'HomeController@marknotif');
-Route::get('/notif', 'HomeController@notif');
+
 
 //cart
 Route::get('purchase/{id}', 'PurchaseController@index');

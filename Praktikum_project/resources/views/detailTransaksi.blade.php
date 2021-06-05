@@ -27,57 +27,57 @@
                           <!-- Header -->
                           <h3 class="mt-4">Transaction Details</h3>
                           <br><br>
-                              <div class="row md-12">
-                                  <label for="colFormLabelSm" class="col-sm-2 col-form-label">Name</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" id="nama" class="form-control" value="{{$transaksi->user->name}}" disabled>
-                                    </div>
-                              </div>
-
-                              <div class="row md-12">
-                                    <label for="colFormLabelSm" class="col-sm-2 col-form-label">Phone</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->telp}}" disabled>
-                                    </div>
-                              </div>
-                              
-                              <div class="row md-12">
-                                  <label for="colFormLabelSm" class="col-sm-2 col-form-label">Email</label>
-                                  <div class="col-sm-10">
-                                    <input type="email" id="email" class="form-control" value="{{$transaksi->user->email}}" disabled>
-                                  </div>
-                              </div>
-
-                              <div class="row md-12">
-                                    <label for="colFormLabelSm" class="col-sm-2 col-form-label">Province</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->province}}" disabled>
-                                    </div>
-                              </div>
-
-                              <div class="row md-12">
-                                    <label for="colFormLabelSm" class="col-sm-2 col-form-label">City</label>
-                                    <div class="col-sm-10">    
-                                      <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->regency}}" disabled>
-                                    </div>
-                              </div>
-
-                              <div class="row md-12">
-                                    <label for="colFormLabelSm" class="col-sm-2 col-form-label">Address</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" id="alamat" class="form-control" value="{{$transaksi->address}}" disabled>
-                                    </div>
-                              </div>
-
-                              <div class="row md-12">
-                                    <label for="colFormLabelSm" class="col-sm-2 col-form-label">Courier</label>
-                                <div class="col-sm-10">
-                                  <input type="text" id="alamat" class="form-control" value="{{$transaksi->courier->courier}}" disabled>
-                                </div>
-                              </div>
+                          <div class="row md-12">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                              <input type="text" id="nama" class="form-control" value="{{$transaksi->user->name}}" disabled>
                             </div>
+                          </div>
+
+                          <div class="row md-12">
+                                <label for="colFormLabelSm" class="col-sm-2 col-form-label">Phone</label>
+                                <div class="col-sm-10">
+                                  <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->telp}}" disabled>
+                                </div>
+                          </div>
+                          
+                          <div class="row md-12">
+                              <label for="colFormLabelSm" class="col-sm-2 col-form-label">Email</label>
+                              <div class="col-sm-10">
+                                <input type="email" id="email" class="form-control" value="{{$transaksi->user->email}}" disabled>
+                              </div>
+                          </div>
+
+                          <div class="row md-12">
+                                <label for="colFormLabelSm" class="col-sm-2 col-form-label">Province</label>
+                                <div class="col-sm-10">
+                                  <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->province}}" disabled>
+                                </div>
+                          </div>
+
+                          <div class="row md-12">
+                                <label for="colFormLabelSm" class="col-sm-2 col-form-label">City</label>
+                                <div class="col-sm-10">    
+                                  <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->regency}}" disabled>
+                                </div>
+                          </div>
+
+                          <div class="row md-12">
+                                <label for="colFormLabelSm" class="col-sm-2 col-form-label">Address</label>
+                                <div class="col-sm-10">
+                                  <input type="text" id="alamat" class="form-control" value="{{$transaksi->address}}" disabled>
+                                </div>
+                          </div>
+
+                          <div class="row md-12">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label">Courier</label>
+                            <div class="col-sm-10">
+                              <input type="text" id="alamat" class="form-control" value="{{$transaksi->courier->courier}}" disabled>
+                            </div>
+                          </div>
                         </div>
                       </div>
+                    </div>
 
                       <div class="col-lg-4">
                         <div class="card-body">
@@ -125,5 +125,13 @@
                       </div>
                     </div>
                   </div>
-                </div>
-              </section>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+@endsection
