@@ -33,7 +33,7 @@ class DetailTransaksiController extends Controller
         $transaksi->proof_of_payment = $nama_file;
         $transaksi->save();
 
-        return view('welcome');
+        return redirect('/transaksi',$request->id);
 
     }
 }
