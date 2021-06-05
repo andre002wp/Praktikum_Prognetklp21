@@ -47,7 +47,7 @@ class UserStatusTransactionChanged extends Notification
     {
         return (new MailMessage)
             ->line('Status transaksimu berubah')
-            ->action('Buka transaksi', url(route('transaction.show', $this->transaction_id)))
+            ->action('Buka transaksi', url(route('/transaksi/', $this->transaction_id)))
             ->line('Dari ' . $this->old_status . ' menjadi ' . $this->new_status);
     }
 

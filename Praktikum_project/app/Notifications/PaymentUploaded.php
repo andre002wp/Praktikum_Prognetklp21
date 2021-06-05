@@ -43,7 +43,7 @@ class PaymentUploaded extends Notification
     {
         return (new MailMessage)
                     ->line('Seseorang baru saja mengunggah bukti pembayaran')
-                    ->action('Buka transaksi', url(route('transaction.show', $this->transaction_id)));
+                    ->action('Buka transaksi', url(route('/transaksi/', $this->transaction_id)));
                     // ->line('Thank you for using our application!');
     }
 
