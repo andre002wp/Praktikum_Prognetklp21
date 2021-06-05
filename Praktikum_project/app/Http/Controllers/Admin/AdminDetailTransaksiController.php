@@ -31,13 +31,14 @@ class AdminDetailTransaksiController extends Controller
     }
 
     public function updateStatus(Request $request){
+        // dd($request);
         $transaksi = Transaction::with('transaction_detail')->find($request->id);
         $user = User::find($transaksi->user_id);
         if($request->status == 1){
             $transaksi->status = 'canceled';
             $transaksi->save();
             $user->notify(new UserStatusTransactionChanged($transaksi->id, $transaksi->status, 'canceled'));
-            return redirect('/transaksi/detail/'.$request->id);
+            return redirect('transaksi/detail/'.$request->id);
         
         }elseif($request->status == 2){
             $transaksi->status = 'success';
@@ -47,7 +48,7 @@ class AdminDetailTransaksiController extends Controller
             foreach ($allAdmins as $it) {
                 $it->notify(new PaymentUploaded($transaksi->id));
             }
-            return redirect('/transaksi/detail/'.$request->id);
+            return redirect('transaksi/detail/'.$request->id);
 
         }elseif($request->status == 3){
             $transaksi->status = 'verified';
@@ -59,13 +60,13 @@ class AdminDetailTransaksiController extends Controller
                 $produk->stock = $produk->stock - $data->qty;
                 $produk->save();
             }
-            return redirect('admin/transaksi/detail/'.$request->id);
+            return redirect('transaksi/detail/'.$request->id);
             
         }else{
             $transaksi->status = 'delivered';
             $transaksi->save();
             $user->notify(new UserStatusTransactionChanged($transaksi->id, $transaksi->status, 'delivered'));
-            return redirect('admin/transaksi/detail/'.$request->id);
+            return redirect('transaksi/detail/'.$request->id);
         }
     }
 }

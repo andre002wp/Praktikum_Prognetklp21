@@ -26,6 +26,8 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+
     public function index()
     {
         $transactions = Transaction::all();
@@ -85,5 +87,9 @@ class AdminController extends Controller
         $trans_graph_label_failed = json_encode($trans_graph_label_failed);
         $trans_graph_count_failed = json_encode($trans_graph_count_failed);
         return view('admin.page.dashboard', compact('trans_graph_label_success', 'trans_graph_count_success', 'trans_graph_label_failed', 'trans_graph_count_failed', 'trans_graph_label', 'trans_graph_count', 'trans_by_year', 'trans_by_month_year', 'transactions', 'products', 'courier', 'categories', 'discounts'));
+    }
+
+    public function notif() {
+        return view('admin.page.notif');
     }
 }
