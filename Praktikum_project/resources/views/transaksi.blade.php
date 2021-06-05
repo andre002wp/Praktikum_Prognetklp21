@@ -27,7 +27,7 @@
                 <td>{{$list->address}}</td>
                 <td>{{$list->regency}}</td>
                 <td>{{$list->province}}</td>
-                <td>Rp{{number_format($list->total)}}</td>
+                <td>Rp{{number_format($list->sub_total)}}</td>
                 <td>
                   @if ($list->status == 'success' || $list->status == 'delivered')
                     <span class="btn-sm btn-success">{{$list->status}}</span>

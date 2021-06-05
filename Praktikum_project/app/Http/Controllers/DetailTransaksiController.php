@@ -26,14 +26,19 @@ class DetailTransaksiController extends Controller
         $transaksi = Transaction::find($request->id);
             //dd($request);
         $bukti_upload = $request->file('file');
-        $path = 'proof_payment';
-        $nama_file = $bukti_upload->getClientOriginalName();
-        $bukti_upload->move($path, $nama_file);
-
-        $transaksi->proof_of_payment = $nama_file;
+        $transaksi->proof_of_payment = $bukti_upload;
         $transaksi->save();
 
-        return view('welcome');
+        return redirect('/home');
 
+    }
+
+    public function cancelTransaction(Transaction $transaksi)
+    {
+        //$transaksi = Transaction::find($request->id);
+        //dd($request);
+        $transaksi->status = 'canceled';
+        $transaksi->update();
+        return redirect()->back();
     }
 }

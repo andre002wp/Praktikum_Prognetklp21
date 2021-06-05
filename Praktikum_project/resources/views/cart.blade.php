@@ -44,32 +44,31 @@
                 @if ($price != 0)
                   <div class="cart">
                     Rp<span class="grey-text">{{number_format($price)}}</li>
-                    Rp<span class="grey-text"><small><s>{{number_format($data->product->price)}}</s></small></span>
+                    Rp<span class="grey-text"><small><s>{{number_format($data -> product -> price)}}</s></small></span>
                   </div>
                 @else
                   <div class="cart">
-                    Rp <span class="grey-text">{{number_format($data->product->price)}}</li>
+                    Rp <span class="grey-text">{{number_format($data -> product -> price)}}</li>
                   </div>
                 @endif
               </td>
 
               <td>
-                <p class="text-danger" style="display:none" id="notif{{$loop->iteration-1}}"></p>
+                <p class="text-danger" id="notif{{$loop->iteration-1}}"></p>
                 <div class="btn-group radio-group ml-2" data-toggle="buttons">
-                  <span class="qty{{$loop->iteration-1}} mr-3">{{$data->qty}} </span>
+                  <span class="qty{{$loop->iteration-1}} mr-3">{{$data -> qty}} </span>
                 </div>
               </td>
               <td>
                 @if ($price != 0)
-                  <strong>Rp</strong><strong class="cart_item_total sub-total{{$loop->iteration-1}}">{{number_format($price*$data->qty)}}</strong>
+                  <strong>Rp</strong><strong class="cart_item_total sub-total{{$loop->iteration-1}}">{{number_format($price * $data -> qty)}}</strong>
                   @php
-                    $total = $total + ($price*$data->qty);
+                    $total = $total + ($price * $data -> qty);
                   @endphp
-
                 @else
-                  <strong>Rp.</strong><strong name= "total" class="cart_item_total sub-total{{$loop->iteration-1}}">{{number_format($data->product->price*$data->qty)}}</strong>
+                  <strong>Rp.</strong><strong name= "total" class="cart_item_total sub-total{{$loop->iteration-1}}">{{number_format($data -> product -> price * $data -> qty)}}</strong>
                   @php
-                    $total = $total + ($data->product->price*$data->qty);
+                    $total = $total + ($data-> product-> price * $data-> qty);
                   @endphp
                 @endif
               </td>
@@ -91,19 +90,13 @@
               </td>
             </tr>
             @endforelse
-           
             <tr>
               <td></td><td></td><td></td>
               <td>
-                <span class="font-weight-bold text-dark">Rp </span><span class="totalShow font-weight-bold text-dark">{{number_format($total)}}</span>
-                
+                <span class="font-weight-bold text-dark">Rp </span><span class="totalShow font-weight-bold text-dark">{{number_format($total)}}</span>   
               </td>
             </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+            <tr>            
             </tr>
           </tbody>
         </table>
@@ -113,15 +106,12 @@
             @csrf
               <input type="hidden" name="sub_total" value="{{$total}}">
               <input type="hidden" name="product_id" value="{{$data->product->id}}">
-              <input type="hidden" name="weight" value="{{$data->product->weight}}">
-              <input type="hidden" name="qty" value="{{$data->qty}}">
-              <button type="submit" class="btn btn-success mr-2 center-block">Checkout
-              <i class="fa fa-angle-right right"></i>
+              <button type="submit" class="btn btn-success">Checkout
             </button>
           </form>
         </div>
         <div>
-        <a href="/home" class="btn btn-primary mr-2 center-block">Shopping</a>
+          <a href="/home" class="btn btn-primary mr-3">Shopping</a>
         <div>
       </div>
     </div>

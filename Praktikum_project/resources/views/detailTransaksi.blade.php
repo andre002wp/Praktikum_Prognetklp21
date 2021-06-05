@@ -93,44 +93,32 @@
                                 </span>
                               </h6>
                             </li>
-                            <li>
-                                <h6>Sub total: Rp {{number_format ($transaksi->total)}}</h6> 
-                            </li>
-                            <li>
-                            <li>
-                                <h6 id="biaya-ongkir">Shipping Cost: Rp {{number_format ($transaksi->shipping_cost)}}</h6>
-                            </li>                        
-                            <li>
+                            <li><h6>Sub total: Rp {{number_format ($transaksi->total)}}</h6> </li>
+                            <li><h6 id="biaya-ongkir">Shipping Cost: Rp {{number_format ($transaksi->shipping_cost)}}</h6><li>
                                 <h6>Total Cost: Rp {{number_format ($transaksi->sub_total)}}</h6>
                             </li>
-                            <h6>Bukti Pembayaran: 
-                                @if (is_null($transaksi->proof_of_payment))
-                                  <span class="badge success-color">Not available</span>
-                                @else
-                                  <span class="badge success-color">Available</span>
-                                @endif
-                            </h6>
                           </li>
-                        
-                                      <div class="d-flex flex-row bd-highlight mb-3">
-                                        <a>upload bukti pembayaran</a>
-                                        @if (is_null($transaksi->proof_of_payment) && $transaksi->status == 'unverified')
-                    <form action="/transaksi/detail/upload/payment" method="POST" enctype="multipart/form-data">
-                      @csrf
-                      <input type="hidden" name="id" value="{{$transaksi->id}}">
-                      <input type="file" name="file" id="form19" accept=".jpeg,.jpg,.png,.gif" onchange="preview_image(event)" required>
-                      <span> 
-                        <button type="submit" class="text-white btn btn-info font-weight-bold  mt-2">Send</button>
-                      </span>
-                    </form>
-                  @elseif ($transaksi->proof_of_payment)
-                    <span class = "text-white btn-sm btn-success font-weight-bold  mt-2">Sudah diupload</span>
-                  @endif
-                                      </div>
+    
+                          <div class="d-flex flex-row bd-highlight mb-3">
+                              <a>upload bukti pembayaran</a>
+                                  @if (is_null($transaksi->proof_of_payment) && $transaksi->status == 'unverified')
+                                  <form action="/transaksi/detail/upload/payment" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                      <input type="hidden" name="id" value="{{$transaksi->id}}">
+                                      <input type="file" class="ml-3" name="file" id="proof" onchange="preview_image(event)" required>
+                                      <span> <button type="submit" class="btn btn-outline-info mt-3 ml-3">Upload</button></span>
+                                  </form>
 
-                                      <div class="d-flex flex-row bd-highlight mb-3">
-                                        <a href="/admin/transaksi"><button type="button" class="btn btn-outline-secondary">Batalkan pesanan</button></a>
-                                      </div>
+                                  <form action="{{Route('cancel',['transaksi' => $transaksi->id])}}" method="POST" enctype="multipart/form-data">
+                                      @method('put')
+                                      @csrf
+                                      <button type="submit" class="btn btn-danger">Cancel Transaction</button>
+                                  </form>
+                                  
+                                  @elseif ($transaksi->proof_of_payment)
+                                    <span class = "badge blue">Uploaded</span>
+                                  @endif
+                            </div>
                             </li>
                           </ul>
                         </div>

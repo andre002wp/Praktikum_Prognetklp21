@@ -11,7 +11,7 @@ class Transaction extends Model
     }
     
     public function user(){
-        return $this->belongsTo('App\User', 'user_id', 'id');
+        return $this->belongsTo('App\User', 'user_id', 'id', 'name');
     }
 
     public function product(){

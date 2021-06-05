@@ -105,9 +105,9 @@
                             </li>
                             <h6>Bukti Pembayaran: 
                                 @if (is_null($transaksi->proof_of_payment))
-                                  <span class="badge success-color">Not available</span>
+                                  <span class="badge blue">Not available</span>
                                 @else
-                                  <span class="badge success-color">Available</span>
+                                  <span class="badge blue">Available</span>
                                 @endif
                             </h6>
                           </li>
@@ -120,7 +120,7 @@
                                         @csrf
                                               <input type="hidden" name="id" value="{{$transaksi->id}}">
                                               <input type="hidden" name="status" value="3">
-                                              <button type="submit" class="btn btn-outline-success" onclick="return confirm('Acc this transaction?')">Verifikasi</button>
+                                              <button type="submit" class="btn btn-outline-success">Verifikasi</button>
                                             </form>
                                         </div>  
                                     @endif
@@ -131,24 +131,18 @@
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{$transaksi->id}}">
                                                 <input type="hidden" name="status" value="4">
-                                                <button type="submit" class="btn btn-success btn-sm">Deliver Products</button>
+                                                <button type="submit" class="btn btn-success btn-sm">Kirim Product</button>
                                             </form>
                                         </div>  
                                     @endif
                                     
                                       @if (is_null($transaksi->proof_of_payment))   
-                                                               
-                                      
                                       @else
                                           <div class="d-flex flex-row bd-highlight mb-3">
-                                              <button id="tombol" class="btn btn-outline-info" data-toggle="modal" data-target="#modalContactForm">Proof Of Payment</button>
+                                              <button id="tombol" class="btn btn-outline-warning" data-toggle="modal" data-target="#modalContactForm">Proof Of Payment</button>
                            
                                           </div>
                                       @endif
-
-                                      <div class="d-flex flex-row bd-highlight mb-3">
-                                        <a href="/admin/transaksi"><button type="button" class="btn btn-outline-secondary">go to transaction</button></a>
-                                      </div>
                             </li>
                           </ul>
                         </div>

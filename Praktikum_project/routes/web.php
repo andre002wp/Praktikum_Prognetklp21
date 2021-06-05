@@ -55,18 +55,17 @@ Route::get('/notif', 'HomeController@notif');
 Route::get('purchase/{id}', 'PurchaseController@index');
 Route::post('cart/{id}', 'CartController@purchase');
 Route::get('cart', 'CartController@show');
-Route::delete('delete-cart', 'CartController@destroy')->name('delete-cart');
 Route::delete('delete/{cart:id}', 'CartController@destroy')->name('delete');
-
 Route::post('/checkout', 'CheckoutController@index')->name('user.checkout');
 
 //transaksi
 Route::get('/transaksi/{id}', 'TransaksiController@index')->name('user.transaksi');
 Route::get('/kota/{id}', 'CheckOngkirController@getCities');
-Route::get('/transaksi/{id}', 'TransaksiController@payment')->name('bayar.transaksi');;
+Route::get('/transaksi/bayar/{id}', 'TransaksiController@payment')->name('bayar.transaksi');;
 Route::post('/payment', 'TransaksiController@store');
 Route::get('/transaksi/detail/{id}', 'DetailTransaksiController@index')->name('transaksi_detail');
 Route::post('/transaksi/detail/upload/payment', 'DetailTransaksiController@uploadPayment');
+Route::put('cancel/{transaksi:id}', 'DetailTransaksiController@cancelTransaction')->name('cancel');
 
 //ongkir
 Route::post('cekongkir', [CheckoutController::class, 'cekongkir'])->name('cekongkir');

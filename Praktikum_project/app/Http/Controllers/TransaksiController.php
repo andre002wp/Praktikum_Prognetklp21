@@ -38,7 +38,6 @@ class TransaksiController extends Controller
         $transaksi->user_id = $request->user_id;
         $transaksi->courier_id = $request->courier;
         $transaksi->status = 'unverified';
-        //$transaksi->telp = $request->no_telp;
         $transaksi->save();
         
         if($request->product_id != 0){
