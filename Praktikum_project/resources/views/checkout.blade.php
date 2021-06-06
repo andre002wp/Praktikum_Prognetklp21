@@ -132,13 +132,13 @@
 </section>
 <script>
   $(document).ready(function(e){
-      console.log("apalah");
+      // console.log("apalah");
       // $('#name').empty();// gajalan ni jquerynya e
       function formatNumber(num) {
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
       }
       $('#provinsi').change(function(e){
-          console.log("masuk provinsi");
+          // console.log("masuk provinsi");
           var id_provinsi = $('#provinsi').val();
           if(id_provinsi){
               jQuery.ajax({

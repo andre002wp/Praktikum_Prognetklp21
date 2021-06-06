@@ -24,6 +24,7 @@
         @yield('content')
 
         @include('admin.layouts.footer')
+        
     </div>
     <!-- ./wrapper -->
 
