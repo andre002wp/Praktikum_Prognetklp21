@@ -12,6 +12,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     @include('admin.layouts._asset_header')
+    @include('admin.layouts._asset_footer')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" data-turbolinks="false">
     <div class="wrapper">
@@ -28,7 +29,7 @@
 
 {{-- asset script --}}
 
-@include('admin.layouts._asset_footer')
+
 @livewireScripts
 @stack('scripts')
 </body>

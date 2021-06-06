@@ -130,86 +130,84 @@
   </div>
   <br><br><br>
 </section>
-<!--================End Checkout Area =================-->
-@endsection
-
-@section('script')
 <script>
-    $(document).ready(function(e){
-        console.log(#name);
-        // $('#name').empty();// gajalan ni jquerynya e
-        function formatNumber(num) {
-          return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-        }
-        $('#provinsi').change(function(e){
-            var id_provinsi = $('#provinsi').val();
-            if(id_provinsi){
-                jQuery.ajax({
-                    url: '/kota/'+id_provinsi,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data){
-                        $('#kota').empty();
-                        $.each(data, function(key,value){
-                            $('#kota').append('<option value="'+key+'">'+value+'</option>');
-                        });
-                    },
-                });
-            }else{
-                $('#kota').empty();
-            }
-        });
+  $(document).ready(function(e){
+      console.log("apalah");
+      // $('#name').empty();// gajalan ni jquerynya e
+      function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+      }
+      $('#provinsi').change(function(e){
+          console.log("masuk provinsi");
+          var id_provinsi = $('#provinsi').val();
+          if(id_provinsi){
+              jQuery.ajax({
+                  url: '/kota/'+id_provinsi,
+                  type: "GET",
+                  dataType: "json",
+                  success:function(data){
+                      $('#kota').empty();
+                      $.each(data, function(key,value){
+                          $('#kota').append('<option value="'+key+'">'+value+'</option>');
+                      });
+                  },
+              });
+          }else{
+              $('#kota').empty();
+          }
+      });
 
-        $('.cekongkir').change(function(e){
-            var kurir = $('#kurir').val();
-            var provinsi = $('#provinsi').val();
-            var kota = $('#kota').val();
-            var berat = parseInt($('#weight').val());
-            if(provinsi>0 && kurir>0){
-                jQuery.ajax({
-                    url: "{{url('/ongkir')}}",
-                    method: 'POST',
-                    data: {
-                        _token: $('#signup-token').val(),
-                        destination: kota,
-                        weight: berat,
-                        courier: kurir,
-                        prov: provinsi, 
-                    },
-                    success: function(result){
-                        console.log(result.success);
-                        console.log(result.hasil["etd"]);
-                        $('#biaya-ongkir').text('Rp'+ formatNumber(result.hasil["value"]));
-                        $('#ongkir').val(result.hasil["value"]);
-                        $('#biaya-ongkir').append('<input type="hidden" id="biaya-ongkir" value="'+result.hasil["value"]+'">');
-                        $('#total-biaya').text( formatNumber({{$subtotal}}+result.hasil["value"]));
-                        $('#totalbiaya').val({{$subtotal}}+result.hasil["value"]);
-                    }
-                });
-                // console.log('wrong');
-                // console.log('kota: '+kota+' provinsi: '+provinsi+' Kurir: '+kurir)
-            }else{
-                console.log('wrong');
-                console.log('provinsi: '+provinsi+' Kurir: '+kurir)
-            }
-
-        });
-
-        $('#beli').click(function(e){
+      $('.cekongkir').change(function(e){
           var kurir = $('#kurir').val();
           var provinsi = $('#provinsi').val();
           var kota = $('#kota').val();
-          var alamat = $('#alamat').val();
-          var totals = parseInt($('#total-biaya').text());
-          var subtotal = parseInt('{{$subtotal}}');
-          var ongkir = $('#biaya-ongkir').val();
-          var user = $('#user_id').val();
-          console.log(totals)
-          if(totals==0){
-            alert('Tolong Lengkapi Masukan Data');
-            return false;
+          var berat = parseInt($('#weight').val());
+          if(provinsi>0 && kurir>0){
+              jQuery.ajax({
+                  url: "{{url('/ongkir')}}",
+                  method: 'POST',
+                  data: {
+                      _token: $('#signup-token').val(),
+                      destination: kota,
+                      weight: berat,
+                      courier: kurir,
+                      prov: provinsi, 
+                  },
+                  success: function(result){
+                      console.log(result.success);
+                      console.log(result.hasil["etd"]);
+                      $('#biaya-ongkir').text('Rp'+ formatNumber(result.hasil["value"]));
+                      $('#ongkir').val(result.hasil["value"]);
+                      $('#biaya-ongkir').append('<input type="hidden" id="biaya-ongkir" value="'+result.hasil["value"]+'">');
+                      $('#total-biaya').text( formatNumber({{$subtotal}}+result.hasil["value"]));
+                      $('#totalbiaya').val({{$subtotal}}+result.hasil["value"]);
+                  }
+              });
+              // console.log('wrong');
+              // console.log('kota: '+kota+' provinsi: '+provinsi+' Kurir: '+kurir)
+          }else{
+              console.log('wrong');
+              console.log('provinsi: '+provinsi+' Kurir: '+kurir)
           }
-        });
-    });
+
+      });
+
+      $('#beli').click(function(e){
+        var kurir = $('#kurir').val();
+        var provinsi = $('#provinsi').val();
+        var kota = $('#kota').val();
+        var alamat = $('#alamat').val();
+        var totals = parseInt($('#total-biaya').text());
+        var subtotal = parseInt('{{$subtotal}}');
+        var ongkir = $('#biaya-ongkir').val();
+        var user = $('#user_id').val();
+        console.log(totals)
+        if(totals==0){
+          alert('Tolong Lengkapi Masukan Data');
+          return false;
+        }
+      });
+  });
 </script>
+<!--================End Checkout Area =================-->
 @endsection
