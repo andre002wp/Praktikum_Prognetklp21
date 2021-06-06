@@ -15,10 +15,10 @@ class DetailTransaksiController extends Controller
     public function index($id){
         $transaksi = Transaction::with(['user','transaction_detail' => function($trx){
             $trx>with(['product' => function($trxs){
-                $trxs->with('relasi_product_image');
+                $trxs->with('product_image');
             }]);
         }, 'courier'])->find($id);
-        
+        // dd($transaksi->transaction_detail[0]->product->product_image[0]->image_name);
         return view('detailTransaksi',['transaksi' => $transaksi]);
     }
 

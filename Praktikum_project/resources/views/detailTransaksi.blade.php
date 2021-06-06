@@ -35,38 +35,38 @@
                           </div>
 
                           <div class="row md-12">
-                                <label for="colFormLabelSm" class="col-sm-2 col-form-label">Phone</label>
-                                <div class="col-sm-10">
-                                  <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->telp}}" disabled>
-                                </div>
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label">Phone</label>
+                            <div class="col-sm-10">
+                              <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->telp}}" disabled>
+                            </div>
                           </div>
                           
                           <div class="row md-12">
-                              <label for="colFormLabelSm" class="col-sm-2 col-form-label">Email</label>
-                              <div class="col-sm-10">
-                                <input type="email" id="email" class="form-control" value="{{$transaksi->user->email}}" disabled>
-                              </div>
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                              <input type="email" id="email" class="form-control" value="{{$transaksi->user->email}}" disabled>
+                            </div>
                           </div>
 
                           <div class="row md-12">
-                                <label for="colFormLabelSm" class="col-sm-2 col-form-label">Province</label>
-                                <div class="col-sm-10">
-                                  <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->province}}" disabled>
-                                </div>
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label">Province</label>
+                            <div class="col-sm-10">
+                              <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->province}}" disabled>
+                            </div>
                           </div>
 
                           <div class="row md-12">
-                                <label for="colFormLabelSm" class="col-sm-2 col-form-label">City</label>
-                                <div class="col-sm-10">    
-                                  <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->regency}}" disabled>
-                                </div>
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label">City</label>
+                            <div class="col-sm-10">    
+                              <input type="text" id="nomor-telp" class="form-control" value="{{$transaksi->regency}}" disabled>
+                            </div>
                           </div>
 
                           <div class="row md-12">
-                                <label for="colFormLabelSm" class="col-sm-2 col-form-label">Address</label>
-                                <div class="col-sm-10">
-                                  <input type="text" id="alamat" class="form-control" value="{{$transaksi->address}}" disabled>
-                                </div>
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label">Address</label>
+                            <div class="col-sm-10">
+                              <input type="text" id="alamat" class="form-control" value="{{$transaksi->address}}" disabled>
+                            </div>
                           </div>
 
                           <div class="row md-12">
@@ -79,49 +79,68 @@
                       </div>
                     </div>
 
-                      <div class="col-lg-4">
-                        <div class="card-body">
-                          <h3 class="my-4 pb-2">Detail</h3>
-                          <ul class="text-lg-left list-unstyled ml-4">
-                            <li>
-                              <h6>Status: 
-                                <span class="badge blue">
-                                  @if ($transaksi->status == "unverified" && !is_null($transaksi->proof_of_payment)) Waiting Confirmation
-                                  @else
-                                    {{$transaksi->status}}
-                                  @endif
-                                </span>
-                              </h6>
-                            </li>
-                            <li><h6>Sub total: Rp {{number_format ($transaksi->total)}}</h6> </li>
-                            <li><h6 id="biaya-ongkir">Shipping Cost: Rp {{number_format ($transaksi->shipping_cost)}}</h6><li>
-                                <h6>Total Cost: Rp {{number_format ($transaksi->sub_total)}}</h6>
-                            </li>
+                    <div class="col-lg-4">
+                      <div class="card-body">
+                        <h3 class="my-4 pb-2">Detail</h3>
+                        <ul class="text-lg-left list-unstyled ml-4">
+                          <li>
+                            <h6>Status: 
+                              <span class="badge blue">
+                                @if ($transaksi->status == "unverified" && !is_null($transaksi->proof_of_payment)) Waiting Confirmation
+                                @else
+                                  {{$transaksi->status}}
+                                @endif
+                              </span>
+                            </h6>
                           </li>
-    
+                          <li><h6>Sub total: Rp {{number_format ($transaksi->total)}}</h6> </li>
+                          <li><h6 id="biaya-ongkir">Shipping Cost: Rp {{number_format ($transaksi->shipping_cost)}}</h6></li>
+                          <li><h6>Total Cost: Rp {{number_format ($transaksi->sub_total)}}</h6></li>
                           <div class="d-flex flex-row bd-highlight mb-3">
-                              <a>upload bukti pembayaran</a>
-                                  @if (is_null($transaksi->proof_of_payment) && $transaksi->status == 'unverified')
-                                  <form action="/transaksi/detail/upload/payment" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                      <input type="hidden" name="id" value="{{$transaksi->id}}">
-                                      <input type="file" class="ml-3" name="file" id="proof" onchange="preview_image(event)" required>
-                                      <span> <button type="submit" class="btn btn-outline-info mt-3 ml-3">Upload</button></span>
-                                  </form>
+                            <a>upload bukti pembayaran</a>
+                            @if (is_null($transaksi->proof_of_payment) && $transaksi->status == 'unverified')
+                              <form action="/transaksi/detail/upload/payment" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                  <input type="hidden" name="id" value="{{$transaksi->id}}">
+                                  <input type="file" class="ml-3" name="file" id="proof" onchange="preview_image(event)" required>
+                                  <span> <button type="submit" class="btn btn-outline-info mt-3 ml-3">Upload</button></span>
+                              </form>
 
-                                  <form action="{{Route('cancel',['transaksi' => $transaksi->id])}}" method="POST" enctype="multipart/form-data">
-                                      @method('put')
-                                      @csrf
-                                      <button type="submit" class="btn btn-danger">Cancel Transaction</button>
-                                  </form>
-                                  
-                                  @elseif ($transaksi->proof_of_payment)
-                                    <span class = "badge blue">Uploaded</span>
-                                  @endif
-                            </div>
-                            </li>
-                          </ul>
-                        </div>
+                              <form action="{{Route('cancel',['transaksi' => $transaksi->id])}}" method="POST" enctype="multipart/form-data">
+                                  @method('put')
+                                  @csrf
+                                  <button type="submit" class="btn btn-danger">Cancel Transaction</button>
+                              </form>
+                            
+                            @elseif ($transaksi->proof_of_payment)
+                              <span class = "badge blue">Uploaded</span>
+                            @endif
+
+                          </div>
+                        </ul>
+                        @if ($transaksi->status == 'delivered')
+                          <h3 class="my-4 pb-2">Rate Your Order</h3>
+                          @foreach ($transaksi->transaction_detail as $det_trans)
+                            <img src="{{url('storage/livewire-tmp/product/'.$det_trans->product->product_image[0]->image_name)}}" alt="" height="300px" width="500px">
+                            <form class="form-horizontal poststars" action="#" id="addStar" method="POST">
+                              {{ csrf_field() }}
+                              <div class="form-group required">
+                                <div class="col-sm-12">
+                                  <input class="star star-5" value="5" id="star-5" type="radio" name="star"/>
+                                  <label class="star star-5" for="star-5"><i class="far fa-star"></i></label>
+                                  <input class="star star-4" value="4" id="star-4" type="radio" name="star"/>
+                                  <label class="star star-4" for="star-4"></label>
+                                  <input class="star star-3" value="3" id="star-3" type="radio" name="star"/>
+                                  <label class="star star-3" for="star-3"></label>
+                                  <input class="star star-2" value="2" id="star-2" type="radio" name="star"/>
+                                  <label class="star star-2" for="star-2"></label>
+                                  <input class="star star-1" value="1" id="star-1" type="radio" name="star"/>
+                                  <label class="star star-1" for="star-1"></label>
+                                  </div>
+                              </div>
+                            </form>
+                          @endforeach
+                        @endif
                       </div>
                     </div>
                   </div>
