@@ -31,7 +31,7 @@ class NewTransaction extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['database'];
     }
 
     /**
@@ -42,10 +42,10 @@ class NewTransaction extends Notification
      */
     public function toMail($notifiable)
     {
+        $url =url('/transaksi/'.$this->transaction_id);
         return (new MailMessage)
-                    ->line('Seseorang baru saja membuat transaksi')
-                    ->action('Buka transaksi', url(route('transaction.show', $this->transaction_id)));
-                    // ->line('Thank you for using our application!');
+            ->line('Seseorang baru saja membuat transaksi')
+            ->action('Buka transaksi', $url);
     }
 
     /**

@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-
+use Kavist\RajaOngkir\Facades\RajaOngkir;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -71,9 +72,13 @@ Route::post('/transaksi/detail/upload/payment', 'DetailTransaksiController@uploa
 Route::put('cancel/{transaksi:id}', 'DetailTransaksiController@cancelTransaction')->name('cancel');
 
 //ongkir
-Route::post('cekongkir', [CheckoutController::class, 'cekongkir'])->name('cekongkir');
-Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout');
-Route::post('checkout-all', [CheckoutController::class, 'store'])->name('checkout-all');
-Route::get('getkota', [CheckoutController::class, 'getkota'])->name('getkota');
+Route::post('cekongkir', 'CheckOngkirController@check_ongkir')->name('cekongkir');
+// Route::get('checkout', 'CheckOngkirController@index')->name('checkout');
+// Route::post('checkout-all', 'CheckOngkirController@store')->name('checkout-all');
+// Route::get('getkota', 'CheckOngkirController@getkota')->name('getkota');
+
+//bayar
+Route::post('/checkout/transaksi', 'CheckoutController@submit');
+
 
 

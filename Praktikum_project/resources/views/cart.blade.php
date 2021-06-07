@@ -101,15 +101,18 @@
           </tbody>
         </table>
         <div class="d-flex flex-row-reverse">
-        <div class="checkout_btn_inner">
-          <form action="{{url('checkout')}}" method="POST">
-            @csrf
-              <input type="hidden" name="sub_total" value="{{$total}}">
-              <input type="hidden" name="product_id" value="{{$data->product->id}}">
-              <button type="submit" class="btn btn-success">Checkout
-            </button>
-          </form>
-        </div>
+        @if (!empty($data->product))
+          <div class="checkout_btn_inner">
+            <form action="{{url('checkout')}}" method="POST">
+              @csrf
+                <input type="hidden" name="sub_total" value="{{$total}}">
+                <input type="hidden" name="product_id" value="{{$data->product->id}}">
+                <input type="hidden" name="qty" value="{{$data->qty}}">
+                <button type="submit" class="btn btn-success">Checkout
+              </button>
+            </form>
+          </div>
+        @endif
         <div>
           <a href="/home" class="btn btn-primary mr-3">Shopping</a>
         <div>

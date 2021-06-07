@@ -43,7 +43,7 @@ class Create extends Component
 
         $this->product_id = DB::table('products')->max('id');
         $image_name = $this->image->getClientOriginalName();
-        $this->image->storePubliclyAs('public\livewire-tmp\product',  $image_name);
+        $this->image->storePubliclyAs('livewire-tmp\product',  $image_name);
         $product_image = ProductImage::create([
             'product_id' => $this->product_id,
             'image_name' => $image_name,
@@ -59,7 +59,7 @@ class Create extends Component
         // $this->image->move($destinationPath,$image_name);
 
         // dd($product_image);
-        // $this->deleteInput();
+        $this->deleteInput();
         // return redirect('admin/product')->with('add','Product berhasil ditambahkan');
         session()->flash('message', 'Product berhasil ditambahkan');
         

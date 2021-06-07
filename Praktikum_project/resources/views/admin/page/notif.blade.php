@@ -7,22 +7,20 @@
         </div>
         <div>
             <li class="hassubs active">
-                <?php 
-                    $id = Auth::user()->id;
-                    if(Auth::user()->unreadNotifications != null){
-                        $notif_count = Auth::user()->unreadNotifications->count();
-                    }
-                    else {
-                        $notif_count = 0;
-                    }
+                <?php
                     $notifications = Auth::user()->notifications;
                     // dd($notifications);
                 ?>
                 <ul >
-                    <center><a href="/marknotif" class="btn" style="background-color: white;">Mark All As Read</a></center>
+                    <center><a href="/admin/marknotif" class="btn" style="background-color: white;">Mark All As Read</a></center>
                     @foreach($notifications as $notif)
-                        <li><a href="/transaksi/detail/{{$notif->data['transaction_id']}}" class="btn">Transaksi dengan id {!!$notif->data['transaction_id']!!} Telah mendapatkan review</a></li>
-                        <br>
+                        @if($notif->type == "App\Notifications\NewTransaction")
+                            <li><a href="/admin/transaksi" class="btn">Telah dibuat transaksi dengan id {!!$notif->data['transaction_id']!!}</a></li>
+                            <br>
+                        @elseif($notif->type == "App\Notifications\NewReview")
+                            <li><a href="/admin/transaksi" class="btn">Transaksi dengan id {!!$notif->data['transaction_id']!!} Telah mendapatkan review</a></li>
+                            <br>
+                        @endif
                     @endforeach                                 
                 </ul>
             </li>

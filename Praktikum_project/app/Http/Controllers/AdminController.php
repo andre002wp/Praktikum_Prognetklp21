@@ -7,6 +7,7 @@ use App\Courier;
 use App\Categories;
 use App\Discount;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -91,5 +92,14 @@ class AdminController extends Controller
 
     public function notif() {
         return view('admin.page.notif');
+    }
+
+    public function marknotif() {
+        $notif_unread = Auth::user()->unreadNotifications;
+        foreach($notif_unread as $notif){
+            $notif->read_at = now();
+            $notif->save();
+        }
+        return redirect('/admin');
     }
 }

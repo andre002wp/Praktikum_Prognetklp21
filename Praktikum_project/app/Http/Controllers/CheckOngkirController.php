@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Province;
 use App\City;
 use Illuminate\Http\Request;
+use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 class CheckOngkirController extends Controller
 {
@@ -21,7 +22,7 @@ class CheckOngkirController extends Controller
     {
         // $city = City::all();
         $cities = City::where('province_id', $id)->pluck('name', 'city_id');
-        dd($cities);
+        // dd($cities);
         return response()->json($cities);
     }
 
@@ -33,12 +34,15 @@ class CheckOngkirController extends Controller
     {
         $cost = RajaOngkir::ongkosKirim([
             'origin'        => $request->city_origin, // ID kota/kabupaten asal
-            'destination'   => $request->city_destination, // ID kota/kabupaten tujuan
+            'destination'   => $request->destination, // ID kota/kabupaten tujuan
             'weight'        => $request->weight, // berat barang dalam gram
             'courier'       => $request->courier // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
         ])->get();
-
-
         return response()->json($cost);
+            
+        // } catch (\Throwable $th) {
+        //     return response([], 400);
+        // }
+        
     }
 }

@@ -37410,11 +37410,13 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+$(document).ready(function () {
+  __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-var Turbolinks = __webpack_require__(/*! turbolinks */ "./node_modules/turbolinks/dist/turbolinks.js");
+  var Turbolinks = __webpack_require__(/*! turbolinks */ "./node_modules/turbolinks/dist/turbolinks.js");
 
-Turbolinks.start();
+  Turbolinks.start();
+});
 
 /***/ }),
 

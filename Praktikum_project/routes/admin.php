@@ -1,6 +1,9 @@
 <?php
 Route::get('/dashboard', 'Admin\PageController@index')->name('dashboard')->middleware('auth:admin');
 
+//
+Route::get('/marknotif', 'AdminController@marknotif');
+
 //product
 Route::get('/product', 'Admin\ProductController@index')->name('product')->middleware('auth:admin');
 Route::get('/product/add', 'Admin\ProductController@add')->name('add.product')->middleware('auth:admin');

@@ -38,4 +38,13 @@ class HomeController extends Controller
     public function notif() {
         return view('/notif');
     }
+
+    public function marknotif() {
+        $notif_unread = Auth::user()->unreadNotifications;
+        foreach($notif_unread as $notif){
+            $notif->read_at = now();
+            $notif->save();
+        }
+        return redirect('/home');
+    }
 }

@@ -8,7 +8,7 @@
         <div class="col-lg-8">
           <h3>Detail Pemesanan</h3>
           <form
-            action="bayar.transaksi/1" method="post"
+            action="/checkout/transaksi" method="post"
             class="row contact_form needs-validation"
             id="checkout_form" class="checkout_form"
           >
@@ -26,21 +26,21 @@
               <label>Provinsi</label>
                 <select 
                   style="padding:5px 60px;"
-                  name="province" id="provinsi" class="form-select dropdown_item_select checkout_input cekongkir" required>
+                  name="province" id="provinsi" class="form-select dropdown_item_select checkout_input" required>
                   <option selected disabled></option>
                     @foreach ($provinsi as $province)
                       <option value="{{$province->id}}">{{$province->name}}</option>
                     @endforeach
                 </select>
             </div>
-            <!-- <div class="col-md-12 form-group p_star">
+            <div class="col-md-12 form-group p_star">
               <label>Kota</label>
               <select 
                 style="border: 1px solid #C8C8C8; border-radius:3px; padding:5px 7px; color: #707070; font-size: 16px;"
                 name="regency" id="kota" class="form-select country_select dropdown_item_select checkout_input cekongkir" required>
                 <option disabled></option>
               </select>
-            </div> -->
+            </div>
             <div class="col-md-12 form-group p_star">
               <label>Alamat</label>
               <input
@@ -55,10 +55,18 @@
               <select style="border: 1px solid #C8C8C8; border-radius:3px; padding:5px 7px; color: #707070; font-size: 16px;" name="courier" id="kurir" class="form-select country_select dropdown_item_select checkout_input cekongkir" required>
                 <option></option>
                 @foreach ($kurir as $k)
-                    <option value="{{$k->id}}">{{$k->courier}}</option>
+                    <option value="{{$k->courier}}">{{$k->courier}}</option>
                 @endforeach
               </select>
-            </div> 
+            </div>
+            <div class="col-md-12 form-group p_star">
+              <label for="">Layanan Pengiriman</label>
+              <select 
+                style="border: 1px solid #C8C8C8; border-radius:3px; padding:5px 7px; color: #707070; font-size: 16px;"
+                name="courier_service" id="courier_service" class="form-select country_select dropdown_item_select checkout_input" required>
+                <option disabled></option>
+              </select>
+          </div> 
           </div>
           <div class="col-lg-4">
             <div class="order_box">
@@ -93,25 +101,24 @@
                 @endforeach
                 <li>     
                     Sub Total
-                    <span>Rp{{ number_format($subtotal)}}</span>            
+                    <span id="biaya-total">Rp{{ number_format($subtotal)}}</span>            
                 </li>
                 <li>
                     Shipping
                     <span id="biaya-ongkir">Rp</span>
-                  
                 </li>
               </ul>
               <ul class="list list_2">
                 <li>
                   
                     Total
-                    <span class = "font-weight-bold">Rp<span class = "font-weight-bold" id="total-biaya">{{ number_format($subtotal*$qty)}}</span></span>
+                    <span class = "font-weight-bold" id="total-biaya">Rp{{ number_format($subtotal*$qty)}}</span>
                   
                 </li>
               </ul>
               <input type="hidden" name="sub_total" value="{{$subtotal}}">
-              <input type="hidden" name="total" id="totalbiaya">
-              <input type="hidden" name="shipping_cost" id="ongkir">
+              <input type="hidden" name="total" id="totalbiaya" value="">
+              <input type="hidden" name="shipping_cost" id="ongkir" value="">
               <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
               <input type="hidden" name="product_id" value="{{$product_id}}">
               <input type="hidden" name="qty" value="{{$qty}}">
@@ -132,13 +139,11 @@
 </section>
 <script>
   $(document).ready(function(e){
-      // console.log("apalah");
-      // $('#name').empty();// gajalan ni jquerynya e
       function formatNumber(num) {
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
       }
       $('#provinsi').change(function(e){
-          // console.log("masuk provinsi");
+          console.log("masuk provinsi");
           var id_provinsi = $('#provinsi').val();
           if(id_provinsi){
               jQuery.ajax({
@@ -162,29 +167,32 @@
           var provinsi = $('#provinsi').val();
           var kota = $('#kota').val();
           var berat = parseInt($('#weight').val());
-          if(provinsi>0 && kurir>0){
+          // console.log('wrong ajax');
+          // console.log('kota destinasi: '+kota+' berat: '+berat+' Kurir: '+kurir)
+          if((provinsi).length>0 && (kurir).length>0){
               jQuery.ajax({
-                  url: "{{url('/ongkir')}}",
+                  url: "{{url('cekongkir')}}",
                   method: 'POST',
                   data: {
                       _token: $('#signup-token').val(),
+                      city_origin:114,
                       destination: kota,
                       weight: berat,
-                      courier: kurir,
-                      prov: provinsi, 
+                      courier: kurir, 
                   },
                   success: function(result){
-                      console.log(result.success);
-                      console.log(result.hasil["etd"]);
-                      $('#biaya-ongkir').text('Rp'+ formatNumber(result.hasil["value"]));
-                      $('#ongkir').val(result.hasil["value"]);
-                      $('#biaya-ongkir').append('<input type="hidden" id="biaya-ongkir" value="'+result.hasil["value"]+'">');
-                      $('#total-biaya').text( formatNumber({{$subtotal}}+result.hasil["value"]));
-                      $('#totalbiaya').val({{$subtotal}}+result.hasil["value"]);
+                      // console.log(result[0].costs);
+                      $('#courier_service').empty();
+                      $.each(result[0].costs, function(key,value){
+                        console.log(value['cost'][0]['value']);
+                          $('#courier_service').append('<option value="'+value['cost'][0]['value']+'">'+value['service']+" "+value['cost'][0]['etd']+" Harga("+value['cost'][0]['value']+')</option>');
+                      });
+                      // $('#ongkir').val(result.hasil["value"]);
+                      // $('#biaya-ongkir').append('<input type="hidden" id="biaya-ongkir" value="'+value['cost'][0]['value']+'">');
+                      // $('#total-biaya').text( formatNumber({{$subtotal}}+result.hasil["value"]));
+                      // $('#totalbiaya').val({{$subtotal}}+result.hasil["value"]);
                   }
               });
-              // console.log('wrong');
-              // console.log('kota: '+kota+' provinsi: '+provinsi+' Kurir: '+kurir)
           }else{
               console.log('wrong');
               console.log('provinsi: '+provinsi+' Kurir: '+kurir)
@@ -192,20 +200,17 @@
 
       });
 
-      $('#beli').click(function(e){
-        var kurir = $('#kurir').val();
-        var provinsi = $('#provinsi').val();
-        var kota = $('#kota').val();
-        var alamat = $('#alamat').val();
-        var totals = parseInt($('#total-biaya').text());
-        var subtotal = parseInt('{{$subtotal}}');
-        var ongkir = $('#biaya-ongkir').val();
-        var user = $('#user_id').val();
-        console.log(totals)
-        if(totals==0){
-          alert('Tolong Lengkapi Masukan Data');
-          return false;
-        }
+      $('#courier_service').change(function(e){
+          
+          var id_provinsi = $('#provinsi').val();
+          var harga_shipping = $('#courier_service').val();
+          var Total = parseInt('{{$subtotal}}');
+          Total = +Total + +harga_shipping;// I would use the unary plus operator to convert them to numbers first. klo ga 120008000 gaditambah
+          console.log("ganti service "+Total);
+          $('#biaya-ongkir').text('Rp'+ formatNumber(harga_shipping));
+          $('#total-biaya').text('Rp'+ formatNumber(Total));
+          $('#totalbiaya').val(Total);
+          $('#ongkir').val(harga_shipping);
       });
   });
 </script>
