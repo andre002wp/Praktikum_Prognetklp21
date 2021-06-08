@@ -51,7 +51,6 @@ class CheckoutController extends Controller
     }
 
     public function submit(Request $request){
-        dd($request);
         $provinsi = Province::find($request->province);
         $kota = City::where('city_id','=',$request->regency)->first();
         $courier = Kurir::where('courier','=',$request->courier)->first();
@@ -74,54 +73,30 @@ class CheckoutController extends Controller
             $it->notify(new NewTransaction($transaksi->id));
         }
 
-        if($request->product_id != 0){
-            $detail_transaksi = new Transaction_Detail;
-            $detail_transaksi->transaction_id = $transaksi->id;
-            $detail_transaksi->product_id = $request->product_id;
-            $detail_transaksi->qty = $request->qty;
-            $produk = Product::with('discount')->find($request->product_id);
-            if($produk->discount->count()){
+        $cart = Cart::with(['product' => function($q){
+            $q->with('product_image');
+        }])->where('user_id', '=', $request->user_id)->where('status', '=', 'notyet')->get();
+        foreach($cart as $cart_item){
+            $item = new Transaction_Detail;
+            $item->transaction_id = $transaksi->id;
+            $item->qty = $cart_item->qty;
+            $produk = Product::with('discount')->find($cart_item->product_id);
+            $item->product_id = $produk->id;
+            if($produk->discount->count()>0){
                 foreach($produk->discount as $diskon){
                     if($diskon->end > date('Y-m-d')){
-                        $detail_transaksi->discount = $diskon->percentage;
+                        $item->discount = $diskon->percentage;
                     }else{
-                        $detail_transaksi->discount = 0;
+                        $item->discount = 0;
                     }
                 }
             }else{
-                $detail_transaksi->discount = 0;
+                $item->discount = 0;
             }
-            $detail_transaksi->selling_price = $produk->price;
-            $detail_transaksi->save();
-        }
-        else{
-            $cart = Cart::with(['product' => function($q){
-                $q->with('product_image','discount');
-            }])->where('user_id', '=', $request->user_id)->where('status', '=', 'notyet')->get();
-    
-            foreach($cart as $item){
-                $item = new Transaction_Detail;
-                $item->transaction_id = $transaksi->id;
-                $item->product_id = $request->product_id;
-                $item->qty = $request->qty;
-                $produk = Product::with('discount')->find($request->product_id);
-                if($produk->discount->count()){
-                    foreach($produk->discount as $diskon){
-                        if($diskon->end > date('Y-m-d')){
-                            $item->discount = $diskon->percentage;
-                        }else{
-                            $item->discount = 0;
-                        }
-                    }
-                }else{
-                    $item->discount = 0;
-                }
-                $item->selling_price = $produk->price;
-                $item->save();
-            }
+            $item->selling_price = $produk->price;
+            $item->save();
         }
 
-        $cart = Cart::where('user_id', '=', $request->user_id)->where('status', '=', 'notyet')->get();
         foreach($cart as $cart_done){
             $cart_done->status = "checkedout";
             $cart_done->save();
