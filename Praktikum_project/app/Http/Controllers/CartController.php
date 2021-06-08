@@ -20,6 +20,9 @@ class CartController extends Controller
 
     public function purchase(Request $request, $id)
     {
+        $validated = $request->validate([
+            'jumlah_pesanan' => 'required',
+        ]);
         $user = Auth::user()->id;
         $cart = Cart::create([
             'user_id' => $user,

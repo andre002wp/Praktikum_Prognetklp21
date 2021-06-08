@@ -38,7 +38,7 @@
               <select 
                 style="border: 1px solid #C8C8C8; border-radius:3px; padding:5px 7px; color: #707070; font-size: 16px;"
                 name="regency" id="kota" class="form-select country_select dropdown_item_select checkout_input cekongkir" required>
-                <option disabled></option>
+                <option selected disabled>Pilih Kota</option>
               </select>
             </div>
             <div class="col-md-12 form-group p_star">
@@ -53,7 +53,7 @@
             <div class="col-md-12 form-group p_star">
               <label>Kurir</label>
               <select style="border: 1px solid #C8C8C8; border-radius:3px; padding:5px 7px; color: #707070; font-size: 16px;" name="courier" id="kurir" class="form-select country_select dropdown_item_select checkout_input cekongkir" required>
-                <option></option>
+                <option selected disabled></option>
                 @foreach ($kurir as $k)
                     <option value="{{$k->courier}}">{{$k->courier}}</option>
                 @endforeach
@@ -64,7 +64,7 @@
               <select 
                 style="border: 1px solid #C8C8C8; border-radius:3px; padding:5px 7px; color: #707070; font-size: 16px;"
                 name="courier_service" id="courier_service" class="form-select country_select dropdown_item_select checkout_input" required>
-                <option disabled></option>
+                <option selected disabled></option>
               </select>
           </div> 
           </div>
@@ -137,6 +137,7 @@
                   dataType: "json",
                   success:function(data){
                       $('#kota').empty();
+                      $('#kota').append('<option selected disabled>Pilih Kota</option>');
                       $.each(data, function(key,value){
                           $('#kota').append('<option value="'+key+'">'+value+'</option>');
                       });
@@ -168,6 +169,7 @@
                   success: function(result){
                       // console.log(result[0].costs);
                       $('#courier_service').empty();
+                      $('#courier_service').append('<option selected disabled>Pilih Service</option>');
                       $.each(result[0].costs, function(key,value){
                         console.log(value['cost'][0]['value']);
                           $('#courier_service').append('<option value="'+value['cost'][0]['value']+'">'+value['service']+" "+value['cost'][0]['etd']+" Harga("+value['cost'][0]['value']+')</option>');

@@ -44,7 +44,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="/home" class="nav-link active">
+            <a href="/home" class="nav-link {{ (request()->is('home*')) ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -52,7 +52,7 @@
               </p>
             </a>
             <li class="nav-item">
-                <a href="{{ route ('user.transaksi', Auth::user()->id) }}" class="nav-link">
+                <a href="{{ route ('user.transaksi', Auth::user()->id) }}" class="nav-link {{ (request()->is('transaksi*')) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Transaksi</p>
                 </a>

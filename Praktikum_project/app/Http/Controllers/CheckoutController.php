@@ -51,6 +51,7 @@ class CheckoutController extends Controller
     }
 
     public function submit(Request $request){
+
         $provinsi = Province::find($request->province);
         $kota = City::where('city_id','=',$request->regency)->first();
         $courier = Kurir::where('courier','=',$request->courier)->first();
@@ -95,6 +96,8 @@ class CheckoutController extends Controller
             }
             $item->selling_price = $produk->price;
             $item->save();
+            $produk->stock = $produk->stock-$cart_item->qty;
+            $produk->save();
         }
 
         foreach($cart as $cart_done){

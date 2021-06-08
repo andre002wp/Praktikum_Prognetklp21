@@ -70,12 +70,13 @@ Route::put('cancel/{transaksi:id}', 'DetailTransaksiController@cancelTransaction
 
 //ongkir
 Route::post('cekongkir', 'CheckOngkirController@check_ongkir')->name('cekongkir');
-// Route::get('checkout', 'CheckOngkirController@index')->name('checkout');
-// Route::post('checkout-all', 'CheckOngkirController@store')->name('checkout-all');
-// Route::get('getkota', 'CheckOngkirController@getkota')->name('getkota');
 
 //bayar
 Route::post('/checkout/transaksi', 'CheckoutController@submit');
+
+//rate
+Route::post('/addRating', 'DetailTransaksiController@addrating')->name('addRating');
+
 
 
 

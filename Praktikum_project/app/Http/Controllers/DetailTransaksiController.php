@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Transaction;
+use App\ProductReview;
+use App\Admin;
+use App\Notifications\NewReview;
+use Illuminate\Support\Facades\Auth;
 
 class DetailTransaksiController extends Controller
 {
@@ -18,8 +22,9 @@ class DetailTransaksiController extends Controller
                 $trxs->with('product_image');
             }]);
         }, 'courier'])->find($id);
+        $reviews = ProductReview::where('transaction_id','=',$transaksi->id)->get();
         // dd($transaksi->transaction_detail[0]->product->product_image[0]->image_name);
-        return view('detailTransaksi',['transaksi' => $transaksi]);
+        return view('detailTransaksi',['transaksi' => $transaksi,"reviews" => $reviews]);
     }
 
     public function uploadPayment(Request $request){
@@ -38,6 +43,28 @@ class DetailTransaksiController extends Controller
         //$transaksi = Transaction::find($request->id);
         //dd($request);
         $transaksi->status = 'canceled';
+        $transaksi->update();
+        return redirect()->back();
+    }
+
+    public function addrating(Request $request)
+    {
+        // dd($request);
+        $user = Auth::user()->id;
+        $review = ProductReview::create([
+            'user_id' => $user,
+            'transaction_id'=> $request->transaction_id,
+            'rate'=> $request->star,
+            'content'=> $request->content,
+        ]);
+        
+        $allAdmins = Admin::all();
+        foreach ($allAdmins as $it) {
+            $it->notify(new NewReview($it->id));
+        }
+
+        $transaksi = Transaction::find($request->transaction_id);
+        $transaksi->status = 'success';
         $transaksi->update();
         return redirect()->back();
     }
