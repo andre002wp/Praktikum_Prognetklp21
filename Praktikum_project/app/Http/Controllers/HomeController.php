@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Product;
 use App\ProductImage;
+use App\Categories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +28,8 @@ class HomeController extends Controller
     { 
         $productimages = ProductImage::all();
         $products = Product::whereNull('deleted_at')->paginate(12);
-        return view('welcome', compact('products'),compact('productimages'));
+        $categories = Categories::all();
+        return view('welcome',['productimages' => $productimages,'categories' => $categories,'products' => $products]);
     }
 
     public function logout(Request $request) {
