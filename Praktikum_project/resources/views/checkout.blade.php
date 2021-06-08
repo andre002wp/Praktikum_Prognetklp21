@@ -74,29 +74,15 @@
               <ul class="list">
                 @foreach ($cart as $data)
                   <li>
-            
-                      @if (is_null($data->product))
-                        {{$data->product_name}}<span class="middle">x {{$qty}}</span>
-                        @php
-                          $hasil = $data->price*$qty;
-                        @endphp
-                        @if ($hasil != 0)
-                          <span>Rp{{number_format($hasil)}}</span>
-                        @else
-                          <span>Rp{{number_format($data->price)}}</span>
-                        @endif
-                      @else
-                        {{$data->product_name}}<span class="middle">x {{$qty}}</span>
-                        @php
-                          $hasil = $data->product->price*$qty;
-                        @endphp
-                        @if ($hasil != 0)
-                        <span>Rp{{number_format($hasil)}}</span>
-                        @else
-                        <span>{{number_format($data->price)}}</span>
-                        @endif  
-                      @endif
-                   
+                    <span class="middle">{{$data->product->product_name}} x {{$data->qty}}</span>
+                    @php
+                      $hasil = $data->product->price*$data->qty
+                    @endphp
+                    @if ($hasil != 0)
+                      <span>Rp{{number_format($hasil)}}</span>
+                    @else
+                      <span>{{number_format($data->price)}}</span>
+                    @endif
                   </li>
                 @endforeach
                 <li>     
@@ -112,7 +98,7 @@
                 <li>
                   
                     Total
-                    <span class = "font-weight-bold" id="total-biaya">Rp{{ number_format($subtotal*$qty)}}</span>
+                    <span class = "font-weight-bold" id="total-biaya">Rp{{ number_format($subtotal)}}</span>
                   
                 </li>
               </ul>
@@ -120,8 +106,7 @@
               <input type="hidden" name="total" id="totalbiaya" value="">
               <input type="hidden" name="shipping_cost" id="ongkir" value="">
               <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-              <input type="hidden" name="product_id" value="{{$product_id}}">
-              <input type="hidden" name="qty" value="{{$qty}}">
+              <input type="hidden" name="cart" value="{{$cart}}">
               <div class="d-flex justify-content-center mt-5">
                 <button type="submit" class="btn btn-success" id="payment">Payment Now</button>
               </div>

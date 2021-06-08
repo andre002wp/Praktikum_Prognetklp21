@@ -15,9 +15,11 @@
 
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <img src="{{url('storage/livewire-tmp/product/'.$product->product_image[0]->image_name)}}" width="400" alt="Card image cap">
-                                </div>
+                                @if(!empty($product->product_image[0]))
+                                    <div class="col-md-6">
+                                        <img src="{{url('storage/livewire-tmp/product/'.$product->product_image[0]->image_name)}}" width="400" alt="Card image cap">
+                                    </div>
+                                @endif
                                 <div class="col-md-6 mt-5">
                                     <h2>{{ $product->product_name}}</h2>
                                     <table class="table">

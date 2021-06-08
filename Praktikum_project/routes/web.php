@@ -21,10 +21,6 @@ Route::get('/', function () {
     return view('Auth.login');
 });
 
-Route::get('/checkout', function () {
-    return view('checkout');
-});
-
 Auth::routes();
 
 // verify route
@@ -60,6 +56,7 @@ Route::get('purchase/{id}', 'PurchaseController@index');
 Route::post('cart/{id}', 'CartController@purchase');
 Route::get('cart', 'CartController@show');
 Route::delete('delete/{cart:id}', 'CartController@destroy')->name('delete');
+Route::get('/checkout', 'CheckoutController@index')->name('user.checkout');
 Route::post('/checkout', 'CheckoutController@index')->name('user.checkout');
 
 //transaksi

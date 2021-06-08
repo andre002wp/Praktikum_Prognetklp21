@@ -16,43 +16,33 @@ use App\Notifications\NewTransaction;
 
 class CheckoutController extends Controller
 {
-    public function index(Request $request){
-        if(!is_null($request->product_id)){
-            $cart = Product::with('product_image')->where('id', '=', $request->product_id)->get();
-            $subtotal = $request->sub_total;
-            $weight = $cart[0]->weight;
-            $qty = $request->qty;
-            $product_id = $request->product_id;
-        }else{
-            $user_id = Auth::User()->id;
-            $cart = Cart::with(['product' => function($q){
-                $q->with('product_image');
-            }])->where('user_id', '=', $user_id)->where('status', '=', 'notyet')->get();
-
-            $subtotal = 0;
-            foreach($cart as $item){
-                $subtotal = $subtotal + ($item->product->price * $item->qty);
-            }
-
-            $weight = 0;
-            foreach($cart as $item){
-               $weight = $weight + ($item->product->weight * $item->qty);
-            }
-            
-            $qty = 0;
-            $product_id = 0;
+    public function index(){
+        
+        $user_id = Auth::User()->id;
+        $cart = Cart::with(['product' => function($q){
+            $q->with('product_image');
+        }])->where('user_id', '=', $user_id)->where('status', '=', 'notyet')->get();
+        
+        $subtotal = 0;
+        foreach($cart as $item){
+            $subtotal = $subtotal + ($item->product->price * $item->qty);
         }
+
+        $weight = 0;
+        foreach($cart as $item){
+            $weight = $weight + ($item->product->weight * $item->qty);
+        }
+        
         $provinsi = Province::all();
         $kurir = Kurir::all();
-        // dd($qty);
+        // dd($cart[0]);
+        
         return view('checkout',[
             'cart'=>$cart,
             'subtotal'=>$subtotal,
             'provinsi' => $provinsi,
             'kurir' => $kurir,
-            'weight'=>$weight,
-            'qty'=>$qty,
-            'product_id'=>$product_id]);
+            'weight'=>$weight,]);
     }
 
     public function getCities($id){
@@ -61,7 +51,7 @@ class CheckoutController extends Controller
     }
 
     public function submit(Request $request){
-        //dd($request);
+        dd($request);
         $provinsi = Province::find($request->province);
         $kota = City::where('city_id','=',$request->regency)->first();
         $courier = Kurir::where('courier','=',$request->courier)->first();
@@ -110,25 +100,23 @@ class CheckoutController extends Controller
             }])->where('user_id', '=', $request->user_id)->where('status', '=', 'notyet')->get();
     
             foreach($cart as $item){
-                $detail_transaksi = new Transaction_Detail;
-                $detail_transaksi->transaction_id = $transaksi->id;
-                $detail_transaksi->product_id = $item->product->id;
-                $detail_transaksi->qty = $item->qty;
-                if($item->product->discount->count()){
-                    foreach($item->product->discount as $diskon){
+                $item = new Transaction_Detail;
+                $item->transaction_id = $transaksi->id;
+                $item->product_id = $request->product_id;
+                $item->qty = $request->qty;
+                $produk = Product::with('discount')->find($request->product_id);
+                if($produk->discount->count()){
+                    foreach($produk->discount as $diskon){
                         if($diskon->end > date('Y-m-d')){
-                            $detail_transaksi->discount = $diskon->percentage;
+                            $item->discount = $diskon->percentage;
                         }else{
-                            $detail_transaksi->discount = 0;
+                            $item->discount = 0;
                         }
                     }
                 }else{
-                    $detail_transaksi->discount = 0;
+                    $item->discount = 0;
                 }
-                $detail_transaksi->selling_price = $item->product->price;
-                $detail_transaksi->save();
-    
-                $item->status = 'checkedout';
+                $item->selling_price = $produk->price;
                 $item->save();
             }
         }
@@ -138,6 +126,7 @@ class CheckoutController extends Controller
             $cart_done->status = "checkedout";
             $cart_done->save();
         }
-        return redirect('/home');
+        
+        return redirect('/transaksi/detail/'.$transaksi->id);
     }
 }
