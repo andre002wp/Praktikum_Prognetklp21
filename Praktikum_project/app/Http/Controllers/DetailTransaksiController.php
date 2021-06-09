@@ -23,17 +23,17 @@ class DetailTransaksiController extends Controller
             }]);
         }, 'courier'])->find($id);
         $reviews = ProductReview::where('transaction_id','=',$transaksi->id)->get();
-        // dd($transaksi->transaction_detail[0]->product->product_image[0]->image_name);
+        // dd($transaksi->transaction_detail[0]->product->product_image->count());
         return view('detailTransaksi',['transaksi' => $transaksi,"reviews" => $reviews]);
     }
 
     public function uploadPayment(Request $request){
         $transaksi = Transaction::find($request->id);
-            //dd($request);
-        $bukti_upload = $request->file('file');
-        $transaksi->proof_of_payment = $bukti_upload;
+        $bukti_upload = $request->file('proof');
+        $image_name = $bukti_upload->getClientOriginalName();
+        $bukti_upload->storePubliclyAs('livewire-tmp\buktipayment',  $image_name);
+        $transaksi->proof_of_payment = $image_name;
         $transaksi->save();
-
         return redirect('/home');
 
     }

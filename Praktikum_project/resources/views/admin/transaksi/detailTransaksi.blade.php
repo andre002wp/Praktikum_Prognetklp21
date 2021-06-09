@@ -140,7 +140,26 @@
                                       @else
                                           <div class="d-flex flex-row bd-highlight mb-3">
                                               <button id="tombol" class="btn btn-outline-warning" data-toggle="modal" data-target="#modalContactForm">Proof Of Payment</button>
-                           
+                                          </div>
+                                          
+                                          <!-- Modal -->
+                                          <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title" id="exampleModalLabel">Bukti Pembayaran</h5>
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <img src="{{url('storage/livewire-tmp\buktipayment/'.$transaksi->proof_of_payment)}}" alt="" height="300px" width="450px">
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                              </div>
+                                            </div>
                                           </div>
                                       @endif
                             </li>

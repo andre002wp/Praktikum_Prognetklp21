@@ -102,7 +102,7 @@
                               <form action="/transaksi/detail/upload/payment" method="POST" enctype="multipart/form-data">
                                 @csrf
                                   <input type="hidden" name="id" value="{{$transaksi->id}}">
-                                  <input type="file" class="ml-3" name="file" id="proof" onchange="preview_image(event)" required>
+                                  <input type="file" class="ml-3" name="proof" id="proof" onchange="preview_image(event)" required>
                                   <span> <button type="submit" class="btn btn-outline-info mt-3 ml-3">Upload</button></span>
                               </form>
 
@@ -121,7 +121,9 @@
                         @if ($transaksi->status == 'delivered')
                           <h3 class="my-4 pb-2">Rate Your Order</h3>
                           @foreach ($transaksi->transaction_detail as $det_trans)
-                            <img src="{{url('storage/livewire-tmp/product/'.$det_trans->product->product_image[0]->image_name)}}" alt="" height="300px" width="500px">
+                            @if ($det_trans->product->product_image->count()>0)
+                              <img src="{{url('storage/livewire-tmp/product/'.$det_trans->product->product_image[0]->image_name)}}" alt="" height="300px" width="500px">
+                            @endif
                           @endforeach
                             <form action="{{ route('addRating') }}" method="POST">
                               @csrf
