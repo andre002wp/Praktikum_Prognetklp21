@@ -15,8 +15,10 @@ class ProductReviews extends Migration
     {
         Schema::create('product_reviews', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id');
             $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('transaction_id');
+            $table->foreign('transaction_id')->references('id')->on('transactions');
             $table->integer('rate');
             $table->text('content');
             $table->timestamps();

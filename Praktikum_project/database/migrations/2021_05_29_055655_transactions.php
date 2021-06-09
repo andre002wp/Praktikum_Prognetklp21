@@ -23,7 +23,9 @@ class Transactions extends Migration
             $table->double('shipping_cost');
             $table->double('sub_total');
             $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('courier_id');
+            $table->foreign('courier_id')->references('id')->on('couriers');
             $table->string('proof_of_payment')->nullable();
             $table->timestamps();
             $table->enum('status',['unverified', 'verified', 'delivered','success','expired','canceled'])->default('unverified');

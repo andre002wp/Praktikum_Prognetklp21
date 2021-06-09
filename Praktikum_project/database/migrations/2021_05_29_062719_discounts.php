@@ -16,6 +16,7 @@ class Discounts extends Migration
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id')->nullable();
+            $table->foreign('product_id')->references('id')->on('products');
             $table->integer('percentage')->nullable();
             $table->date('start')->nullable();
             $table->date('end')->nullable();
