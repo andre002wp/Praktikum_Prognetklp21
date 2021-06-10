@@ -45,9 +45,7 @@
                     @endforeach
                 @endif
                 <div>
-                    @if($products->count()>8)
-                        <span>{{$products->links()}}</span>   
-                    @endif
+                    <span>{{$products->links()}}</span>
                 </div>
             </div>
         </div>
