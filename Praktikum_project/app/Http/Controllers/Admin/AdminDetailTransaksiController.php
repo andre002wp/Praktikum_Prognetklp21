@@ -64,6 +64,7 @@ class AdminDetailTransaksiController extends Controller
             
         }else{
             $transaksi->status = 'delivered';
+            $transaksi->nomor_resi = $request->nomor_resi;
             $transaksi->save();
             $user->notify(new UserStatusTransactionChanged($transaksi->id, $transaksi->status, 'delivered'));
            return redirect('/admin/transaksi');

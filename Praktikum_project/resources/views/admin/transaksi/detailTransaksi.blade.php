@@ -131,6 +131,7 @@
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{$transaksi->id}}">
                                                 <input type="hidden" name="status" value="4">
+                                                <input type="text" name="nomor_resi" class="form-control" id="nomor_resi" placeholder="Nomor Resi" required>
                                                 <button type="submit" class="btn btn-success btn-sm">Kirim Product</button>
                                             </form>
                                         </div>  
