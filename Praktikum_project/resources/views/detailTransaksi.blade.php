@@ -93,9 +93,9 @@
                               </span>
                             </h6>
                           </li>
-                          <li><h6>Sub total: Rp {{number_format ($transaksi->total)}}</h6> </li>
+                          <li><h6>Sub total: Rp {{number_format ($transaksi->sub_total)}}</h6> </li>
                           <li><h6 id="biaya-ongkir">Shipping Cost: Rp {{number_format ($transaksi->shipping_cost)}}</h6></li>
-                          <li><h6>Total Cost: Rp {{number_format ($transaksi->sub_total)}}</h6></li>
+                          <li><h6>Total Cost: Rp {{number_format ($transaksi->total)}}</h6></li>
                           <div class="d-flex flex-row bd-highlight mb-3">
                             <a>upload bukti pembayaran</a>
                             @if (is_null($transaksi->proof_of_payment) && $transaksi->status == 'unverified')
@@ -124,15 +124,21 @@
                             @if ($det_trans->product->product_image->count()>0)
                               <img src="{{url('storage/livewire-tmp/product/'.$det_trans->product->product_image[0]->image_name)}}" alt="" height="300px" width="500px">
                             @endif
-                            @foreach ($reviews as $rev)
-                              @if($det_trans->product->id === $rev->product_id)
-                                <p>Kamu sudah memberikan ulasan</p>
-                              @else
-                                <div class="d-flex flex-row bd-highlight mb-3">
-                                  <button data-prodid="{{ $det_trans->product->id  }}" data-transid="{{ $transaksi->id  }}" class="btn btn-outline-warning reviewbtn" data-toggle="modal" data-target="#add_Review">Add Review</button>
-                                </div>
-                              @endif
-                            @endforeach
+                            @if($reviews->count()<1)
+                              <div class="d-flex flex-row bd-highlight mb-3">
+                                <button data-prodid="{{ $det_trans->product->id  }}" data-transid="{{ $transaksi->id  }}" class="btn btn-outline-warning reviewbtn" data-toggle="modal" data-target="#add_Review">Add Review</button>
+                              </div>
+                            @else
+                              @foreach ($reviews as $rev)
+                                @if($det_trans->product->id === $rev->product_id)
+                                  <p>Kamu sudah memberikan ulasan</p>
+                                @else
+                                  <div class="d-flex flex-row bd-highlight mb-3">
+                                    <button data-prodid="{{ $det_trans->product->id  }}" data-transid="{{ $transaksi->id  }}" class="btn btn-outline-warning reviewbtn" data-toggle="modal" data-target="#add_Review">Add Review</button>
+                                  </div>
+                                @endif
+                              @endforeach
+                            @endif
                           @endforeach
                           
                           <!-- Modal -->
@@ -165,13 +171,13 @@
                                           <input class="star star-2" value="2" id="star-2" type="radio" name="star"/>
                                           <label class="star star-2" for="star-2"></label>
                                           <input class="star star-1" value="1" id="star-1" type="radio" name="star"/>
-                                          <label class="star star-1" for="star-1"></label>
+                                          <label class="star star-1" for="star-1" required></label>
                                         </div>
                                         <div class="col-sm-12">
                                           <label for="Reviews col-sm-12">
                                             Ulasan
                                           </label>
-                                          <textarea class="form-control" name="content" id="" cols="30" rows="10"></textarea>
+                                          <textarea class="form-control" name="content" id="" cols="30" rows="10" required></textarea>
                                         </div>
                                       </div>
                                     </div>

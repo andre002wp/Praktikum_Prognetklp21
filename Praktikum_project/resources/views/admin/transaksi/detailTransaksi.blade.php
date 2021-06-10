@@ -93,14 +93,14 @@
                             </h6>
                           </li>
                           <li>
-                              <h6>Sub total: Rp {{number_format ($transaksi->total)}}</h6> 
+                              <h6>Sub total: Rp {{number_format ($transaksi->sub_total)}}</h6> 
                           </li>
                           <li>
                           <li>
                               <h6 id="biaya-ongkir">Shipping Cost: Rp {{number_format ($transaksi->shipping_cost)}}</h6>
                           </li>                        
                           <li>
-                              <h6>Total Cost: Rp {{number_format ($transaksi->sub_total)}}</h6>
+                              <h6>Total Cost: Rp {{number_format ($transaksi->total)}}</h6>
                           </li>
                           <h6>Bukti Pembayaran: 
                               @if (is_null($transaksi->proof_of_payment))
