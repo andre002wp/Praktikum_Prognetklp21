@@ -67,12 +67,13 @@ class AdminController extends Controller
             array_push($trans_graph_count_success, count($trans_by_month_year_success[$it]));
         }
 
-        $trans_by_month_year_failed = Transaction::whereIn('status', ['expired', 'cancelled'])
+        $trans_by_month_year_failed = Transaction::whereIn('status', ['expired', 'canceled'])
             ->get()
             ->groupBy(function ($val) {
                 // return Carbon::parse($val->created_at)->format('m');
                 return '20' . Carbon::parse($val->created_at)->format('y') . ' ' . Carbon::parse($val->created_at)->format('m');
             });
+        // dd($trans_by_month_year_failed);
         $trans_graph_label_failed = [];
         $trans_graph_count_failed = [];
         foreach ($trans_by_month_year_failed->keys()->sort() as $it) {

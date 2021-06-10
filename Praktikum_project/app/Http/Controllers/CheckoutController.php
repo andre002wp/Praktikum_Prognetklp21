@@ -34,7 +34,7 @@ class CheckoutController extends Controller
         }
         
         $provinsi = Province::all();
-        $kurir = Kurir::all();
+        $kurir = Kurir::whereNull('deleted_at')->get();
         // dd($cart[0]);
         
         return view('checkout',[

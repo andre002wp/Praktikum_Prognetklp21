@@ -67,7 +67,7 @@
                                             <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-desktop"></i></i></span>
                                             </div>
-                                            <input type="text" name="product_name" class="form-control @error('product_name') is invalid @enderror" placeholder="{{$products->product_name}}">
+                                            <input type="text" name="product_name" class="form-control @error('product_name') is invalid @enderror" placeholder="{{$products->product_name}}" value="{{$products->product_name}}">
                                         </div>
                                         @error('product_name')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -78,7 +78,7 @@
                                             <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-desktop"></i></i></span>
                                             </div>
-                                            <input type="text" name="price" class="form-control @error('price') is invalid @enderror" placeholder="{{$products->price}}">
+                                            <input type="text" name="price" class="form-control @error('price') is invalid @enderror" placeholder="{{$products->price}}" value="{{$products->price}}">
                                             <!-- @error('price')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror -->
@@ -89,7 +89,7 @@
                                             <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-desktop"></i></i></span>
                                             </div>
-                                            <input type="text" name="description" class="form-control @error('description') is invalid @enderror" placeholder="{{$products->description}}">
+                                            <input type="text" name="description" class="form-control @error('description') is invalid @enderror" placeholder="{{$products->description}}" value="{{$products->description}}">
                                             <!-- @error('description')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror -->
@@ -100,7 +100,7 @@
                                             <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-desktop"></i></i></span>
                                             </div>
-                                            <input type="text" name="stock" class="form-control @error('stock') is invalid @enderror" placeholder="{{$products->stock}}">
+                                            <input type="text" name="stock" class="form-control @error('stock') is invalid @enderror" placeholder="{{$products->stock}}" value="{{$products->stock}}">
                                             <!-- @error('stock')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror -->
@@ -111,7 +111,7 @@
                                             <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-desktop"></i></i></span>
                                             </div>
-                                            <input type="text" name="weight" class="form-control @error('weight') is invalid @enderror" placeholder="{{$products->weight}}">
+                                            <input type="text" name="weight" class="form-control @error('weight') is invalid @enderror" placeholder="{{$products->weight}}" value="{{$products->weight}}">
                                             <!-- @error('weight')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror -->

@@ -57,7 +57,7 @@
                 <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-desktop"></i></i></span>
                 </div>
-                <input type="text" name="category_name" class="form-control @error('categories') is invalid @enderror" placeholder="{{$categories->category_name}}">
+                <input type="text" name="category_name" class="form-control @error('categories') is invalid @enderror" placeholder="{{$categories->category_name}}" value="{{$categories->category_name}}">
             </div>
         
             <div class="card-footer">

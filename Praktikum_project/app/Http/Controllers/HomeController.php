@@ -27,11 +27,19 @@ class HomeController extends Controller
     public function index()
     { 
         $productimages = ProductImage::all();
-        $products = Product::whereNull('deleted_at')->paginate(12);
+        $products = Product::whereNull('deleted_at')->paginate(9);
         $categories = Categories::all();
         return view('welcome',['productimages' => $productimages,'categories' => $categories,'products' => $products]);
     }
 
+    public function categories($id)
+    {
+        $productimages = ProductImage::all();
+        $products = Product::whereNull('deleted_at')->where('category_id','=',$id)->paginate(9);
+        $categories = Categories::all();
+        return view('welcome',['productimages' => $productimages,'categories' => $categories,'products' => $products]);
+    }
+    
     public function logout(Request $request) {
         Auth::logout();
         return redirect('/');

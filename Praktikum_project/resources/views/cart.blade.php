@@ -54,9 +54,11 @@
               </td>
 
               <td>
-                <p class="text-danger" id="notif{{$loop->iteration-1}}"></p>
                 <div class="btn-group radio-group ml-2" data-toggle="buttons">
-                  <span class="qty{{$loop->iteration-1}} mr-3">{{$data -> qty}} </span>
+                  <input id="signup-token" name="_token" type="hidden" value="{{csrf_token()}}">
+                  <button class="qty btn btn-primary btn-sm" id="minus" data-id="{{$data->id}}"><i class="fas fa-arrow-left"></i></button>
+                  <span class="mr-3" id="qtyspan{{$data->id}}">{{$data -> qty}} </span>
+                  <button class="qty btn btn-primary btn-sm" id="plus" data-id="{{$data->id}}"><i class="fas fa-arrow-right"></i></button>
                 </div>
               </td>
               <td>
@@ -120,4 +122,24 @@
     </div>
   </div>
 </section>
+<script>
+  $(document).ready(function(e){
+      $('.qty').click(function(e){
+          var id_produk = $(this).attr('data-id');
+          var action = $(this).attr('id');
+          jQuery.ajax({
+            url: "{{url('updatecart')}}",
+            method: 'POST',
+            data: {
+                _token: $('#signup-token').val(),
+                product_id:id_produk,
+                action: action,
+            },
+            success: function(result){
+              $('#qtyspan'+id_produk).text(result);
+            }
+          });
+      });
+  });
+</script>
 @endsection

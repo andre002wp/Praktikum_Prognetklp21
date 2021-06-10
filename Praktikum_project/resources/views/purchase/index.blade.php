@@ -10,7 +10,7 @@
                 <div class="col-md-12 mt-3">
                     <div class="card">
                         <div class="card-header">
-                            <h4>{{ $product->product_name}}</h4>
+                            <h4>Detail Produk</h4>
                         </div>
 
                         <div class="card-body">
@@ -64,8 +64,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12 mt-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Reviews</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mt-5">
+                                    @forelse($product->product_review as $reviews)
+                                        <ul>
+                                            {{$reviews->user->name}} Give {{$reviews->rate}}/5 Star and said {{$reviews->content}}
+                                        </ul>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         
         </div>
     </div>
 @endsection

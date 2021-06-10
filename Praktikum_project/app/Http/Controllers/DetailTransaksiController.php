@@ -23,7 +23,7 @@ class DetailTransaksiController extends Controller
             }]);
         }, 'courier'])->find($id);
         $reviews = ProductReview::where('transaction_id','=',$transaksi->id)->get();
-        // dd($transaksi->transaction_detail[0]->product->product_image->count());
+        // dd($reviews);
         return view('detailTransaksi',['transaksi' => $transaksi,"reviews" => $reviews]);
     }
 
@@ -49,10 +49,10 @@ class DetailTransaksiController extends Controller
 
     public function addrating(Request $request)
     {
-        // dd($request);
         $user = Auth::user()->id;
         $review = ProductReview::create([
             'user_id' => $user,
+            'product_id' => $request->product_id,
             'transaction_id'=> $request->transaction_id,
             'rate'=> $request->star,
             'content'=> $request->content,
@@ -63,9 +63,20 @@ class DetailTransaksiController extends Controller
             $it->notify(new NewReview($it->id));
         }
 
-        $transaksi = Transaction::find($request->transaction_id);
-        $transaksi->status = 'success';
-        $transaksi->update();
+        $all_reviewed = 1;
+        $transaksi = Transaction::with('transaction_detail')->find($request->transaction_id);
+        foreach ($transaksi->transaction_detail as $details) {
+            $prod_review = ProductReview::where('product_id', '=', $details->product_id)->first();
+            if ($prod_review === null) {
+                $all_reviewed = 0;
+            }
+        }
+        // dd($all_reviewed);
+        if($all_reviewed === 1){
+            $transaksi->status = 'success';
+            $transaksi->update();
+            $transaksi->save();
+        }
         return redirect()->back();
     }
 }

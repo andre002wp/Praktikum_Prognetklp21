@@ -2,11 +2,19 @@
 
 @section('content')
     <div class="content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link {{ (request()->is('/home')) ? 'active' : '' }}" href="/home">Home</a>
+                    @foreach($categories as $kat)
+                        <a class="nav-item nav-link {{ (request()->is('/home/'.$kat->id)) ? 'active' : '' }}" name="categories" id="{{$kat->category_name}}" href="/home/{{$kat->id}}">{{$kat->category_name}}</a>
+                    @endforeach 
+                </div>
+            </div>
+        </nav>
+        <div class="ml-4">
+        </div>
         <div class="container">
-            @foreach($categories as $kat)
-                <input type="radio" id="{{$kat->category_name}}" class="categories" name="categories" value="{{$kat->id}}"/>
-                <label for="{{$kat->category_name}}">{{$kat->category_name}}</label><br>
-            @endforeach
             <div class="row justify-content-center">
                 <?php 
                     $filter=0;
@@ -44,7 +52,7 @@
         
         $('.categories').click(function(e){
             var val = $(this).val();
-            console.log(val);
+            // console.log(val);
         });
     });
 </script>

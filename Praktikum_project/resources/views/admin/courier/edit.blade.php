@@ -64,7 +64,7 @@
                 <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-desktop"></i></i></span>
                 </div>
-                <input type="text" name="courier" class="form-control @error('courier') is invalid @enderror" placeholder="{{$courier->courier}}">
+                <input type="text" name="courier" class="form-control @error('courier') is invalid @enderror" placeholder="{{$courier->courier}}" value="{{$courier->courier}}">
             </div>
         
             <div class="card-footer">

@@ -53,8 +53,8 @@
                         <td>{{ $cat->id }}</td>
                         <td>{{ $cat->category_name }}</td>
                         <td>
-                            <a href="{{ route('edit.categories', $cat->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></a>
-                            <a href="{{ route('delete.categories', $cat->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></a>
+                            <a href="{{ route('edit.categories', $cat->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                            <a href="{{ route('delete.categories', $cat->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                     @endforeach

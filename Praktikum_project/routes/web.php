@@ -27,6 +27,7 @@ Auth::routes();
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+Route::get('/home/{id}', 'HomeController@categories')->middleware('verified');
 Route::post('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 Route::prefix('admin')->group(function () {
@@ -58,6 +59,8 @@ Route::get('cart', 'CartController@show');
 Route::delete('delete/{cart:id}', 'CartController@destroy')->name('delete');
 Route::get('/checkout', 'CheckoutController@index')->name('user.checkout');
 Route::post('/checkout', 'CheckoutController@index')->name('user.checkout');
+Route::post('updatecart', 'CartController@updateqty')->name('updatecart');
+
 
 //transaksi
 Route::get('/transaksi/{id}', 'TransaksiController@index')->name('user.transaksi');

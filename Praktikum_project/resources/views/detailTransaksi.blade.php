@@ -124,43 +124,69 @@
                             @if ($det_trans->product->product_image->count()>0)
                               <img src="{{url('storage/livewire-tmp/product/'.$det_trans->product->product_image[0]->image_name)}}" alt="" height="300px" width="500px">
                             @endif
+                            @foreach ($reviews as $rev)
+                              @if($det_trans->product->id === $rev->product_id)
+                                <p>Kamu sudah memberikan ulasan</p>
+                              @else
+                                <div class="d-flex flex-row bd-highlight mb-3">
+                                  <button data-prodid="{{ $det_trans->product->id  }}" data-transid="{{ $transaksi->id  }}" class="btn btn-outline-warning reviewbtn" data-toggle="modal" data-target="#add_Review">Add Review</button>
+                                </div>
+                              @endif
+                            @endforeach
                           @endforeach
-                            <form action="{{ route('addRating') }}" method="POST">
-                              @csrf
-                              <input type="hidden" name="transaction_id" value="{{ $transaksi->id }}">
-                              <div>
-                                <label for="newRating">
-                                  Rating
-                                </label>
-                                <div class="form-group required">
-                                  <div class="col-sm-12">
-                                    <input class="star star-5" value="5" id="star-5" type="radio" name="star"/>
-                                    <label class="star star-5" for="star-5"></label>
-                                    <input class="star star-4" value="4" id="star-4" type="radio" name="star"/>
-                                    <label class="star star-4" for="star-4"></label>
-                                    <input class="star star-3" value="3" id="star-3" type="radio" name="star"/>
-                                    <label class="star star-3" for="star-3"></label>
-                                    <input class="star star-2" value="2" id="star-2" type="radio" name="star"/>
-                                    <label class="star star-2" for="star-2"></label>
-                                    <input class="star star-1" value="1" id="star-1" type="radio" name="star"/>
-                                    <label class="star star-1" for="star-1"></label>
+                          
+                          <!-- Modal -->
+                          <div class="modal fade" id="add_Review" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Tambahkan Review</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <form action="{{ route('addRating') }}" method="POST">
+                                    <input type="hidden" id="transaction_form" name="transaction_id" value="">
+                                    <input type="hidden" id="product_form" name="product_id" value="">
+                                    @csrf
+                                    <div>
+                                      <div class="form-group required">
+                                        <div class="col-sm-12">
+                                          <label for="newRating">
+                                            Rating
+                                          </label>
+                                          <input class="star star-5" value="5" id="star-5" type="radio" name="star"/>
+                                          <label class="star star-5" for="star-5"></label>
+                                          <input class="star star-4" value="4" id="star-4" type="radio" name="star"/>
+                                          <label class="star star-4" for="star-4"></label>
+                                          <input class="star star-3" value="3" id="star-3" type="radio" name="star"/>
+                                          <label class="star star-3" for="star-3"></label>
+                                          <input class="star star-2" value="2" id="star-2" type="radio" name="star"/>
+                                          <label class="star star-2" for="star-2"></label>
+                                          <input class="star star-1" value="1" id="star-1" type="radio" name="star"/>
+                                          <label class="star star-1" for="star-1"></label>
+                                        </div>
+                                        <div class="col-sm-12">
+                                          <label for="Reviews col-sm-12">
+                                            Ulasan
+                                          </label>
+                                          <textarea class="form-control" name="content" id="" cols="30" rows="10"></textarea>
+                                        </div>
+                                      </div>
                                     </div>
+                                    <div class="modal-footer" style="margin-top: 1rem;">
+                                      <Button class="btn btn-primary">Beri Ulasan</Button>
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </form>
                                 </div>
                               </div>
-                              <div>
-                                <label for="Reviews">
-                                  Ulasan
-                                </label>
-                                <textarea class="form-control" name="content" id="" cols="30" rows="10"></textarea>
-                              </div>
-                  
-                              <div style="margin-top: 1rem;">
-                                  <Button class="btn btn-primary">Beri Ulasan</Button>
-                              </div>
-                          </form>
+                            </div>
+                          </div>
                         @endif
                         @if ($transaksi->status == 'success')
-                            <p>Kamu sudah memberikan ulasan</p>
+                            <p>Kamu sudah memberikan semua ulasan</p>
                         @endif
                       </div>
                     </div>
@@ -174,4 +200,14 @@
     </div>
   </main>
 </div>
+<script>
+  $(document).ready(function(e){
+    $('.reviewbtn').click(function(e){
+      var id_produk = $(this).attr('data-prodid');
+      var id_trans = $(this).attr('data-transid');
+      $('#transaction_form').val(id_trans);
+      $('#product_form').val(id_produk);
+      });
+  });
+</script>
 @endsection

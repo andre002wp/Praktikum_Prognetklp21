@@ -16,8 +16,11 @@ class PurchaseController extends Controller
     public function index($id)
     {
         // $product = Product::where('id', $id)->first();
-        $product = Product::with('product_image')->where('id', $id)->first();
-        // dd($product->product_image[0]->image_name);
+        $product = Product::with(['product_image','product_review' => function($trxs){
+            $trxs->with('user');
+        }
+        ])->where('id', $id)->first();
+        // dd($product->product_review[]);
         return view('purchase.index', compact('product'));
     }
 }

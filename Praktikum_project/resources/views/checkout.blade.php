@@ -157,7 +157,7 @@
           // console.log('kota destinasi: '+kota+' berat: '+berat+' Kurir: '+kurir)
           if((provinsi).length>0 && (kurir).length>0){
               jQuery.ajax({
-                  url: "{{url('cekongkir')}}",
+                  url: "{{url('/update/cart')}}",
                   method: 'POST',
                   data: {
                       _token: $('#signup-token').val(),

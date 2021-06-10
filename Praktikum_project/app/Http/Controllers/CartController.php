@@ -14,8 +14,30 @@ class CartController extends Controller
         $cart = Cart::with(['product' => function($trx){
             $trx->with('product_image',);
             }])->where('user_id', '=', $id)->where('status', '=', "notyet")->get();
-            // dd($cart);
+            // dd($cart[0]->qty);
             return view('cart', ['cart'=>$cart]);
+    }
+
+    public function updateqty(Request $request){
+        $cart = Cart::where('user_id', Auth::user()->id)
+        ->where('id', $request['product_id'])
+        ->where('status', 'notyet')->first();
+            // Sudah ada, tambahkan qty
+        $product = Product::find($cart->product_id);
+        if($request['action'] == "plus"){
+            if($product->stock > $cart->qty){
+                $cart->qty = $cart->qty + 1;
+                $cart->save();
+            }
+        }
+        elseif($request['action'] == "minus"){
+            if ($cart->qty>1) {
+                $cart->qty = $cart->qty - 1;
+                $cart->save();
+            }
+        }
+        
+        return ($cart->qty);
     }
 
     public function purchase(Request $request, $id)
