@@ -12,7 +12,7 @@ class CartController extends Controller
     public function show(){
        $id = Auth::user()->id;
         $cart = Cart::with(['product' => function($trx){
-            $trx->with('product_image',);
+            $trx->with('product_image');
             }])->where('user_id', '=', $id)->where('status', '=', "notyet")->get();
             // dd($cart[0]->qty);
             return view('cart', ['cart'=>$cart]);

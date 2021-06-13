@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return view('Auth.login');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -47,19 +47,19 @@ Route::prefix('admin')->group(function () {
     Route::get('/notif', 'AdminController@notif');
 });
 
-Route::get('/user/notif', 'HomeController@notif');
-Route::get('logout', 'HomeController@logout');
-Route::get('/marknotif', 'HomeController@marknotif');
+Route::get('/user/notif', 'HomeController@notif')->middleware('verified');
+Route::get('logout', 'HomeController@logout')->middleware('verified');
+Route::get('/marknotif', 'HomeController@marknotif')->middleware('verified');
 
 
 //cart
-Route::get('purchase/{id}', 'PurchaseController@index');
-Route::post('cart/{id}', 'CartController@purchase');
-Route::get('cart', 'CartController@show');
-Route::delete('delete/{cart:id}', 'CartController@destroy')->name('delete');
-Route::get('/checkout', 'CheckoutController@index')->name('user.checkout');
-Route::post('/checkout', 'CheckoutController@index')->name('user.checkout');
-Route::post('updatecart', 'CartController@updateqty')->name('updatecart');
+Route::get('purchase/{id}', 'PurchaseController@index')->middleware('verified');
+Route::post('cart/{id}', 'CartController@purchase')->middleware('verified');
+Route::get('cart', 'CartController@show')->middleware('verified');
+Route::delete('delete/{cart:id}', 'CartController@destroy')->name('delete')->middleware('verified');
+Route::get('/checkout', 'CheckoutController@index')->name('user.checkout')->middleware('verified');
+Route::post('/checkout', 'CheckoutController@index')->name('user.checkout')->middleware('verified');
+Route::post('updatecart', 'CartController@updateqty')->name('updatecart')->middleware('verified');
 
 
 //transaksi
@@ -75,7 +75,7 @@ Route::put('cancel/{transaksi:id}', 'DetailTransaksiController@cancelTransaction
 Route::post('cekongkir', 'CheckOngkirController@check_ongkir')->name('cekongkir');
 
 //bayar
-Route::post('/checkout/transaksi', 'CheckoutController@submit');
+Route::post('/checkout/transaksi', 'CheckoutController@submit')->middleware('verified');
 
 //rate
 Route::post('/addRating', 'DetailTransaksiController@addrating')->name('addRating');

@@ -9,6 +9,7 @@
         <table class="table">
           <thead>
             <tr>
+              <th>Product Image</th>
               <th>Product Name</th>
               <th>Price</th>
               <th>Quantity</th>
@@ -24,18 +25,24 @@
 
             @forelse ($cart as $data)
             <tr>
-              <td>
-                <div class="media">
-                  @foreach ($data->product->product_image as $image)
-                    <img class="w-25" src="{{url('storage/livewire-tmp/product/'.$image->image_name)}}" alt="" height="200" width="200">
-                  @break
-							    @endforeach
+              <div class="media">
+                <td>
+                    @foreach ($data->product->product_image as $image)
+                      <img class="w-10" src="{{url('storage/livewire-tmp/product/'.$image->image_name)}}" alt="" height="200" width="200">
+                    @break
+                    @endforeach
+                </td>
+                <td>
                   <div class="media-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     <p>{{$data->product->product_name}}</p>
                   </div>
-                </div>
-              </td>
-
+                </td>
+              </div>
               <td>
                 @php
                   $price = 0;

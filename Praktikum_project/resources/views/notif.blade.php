@@ -24,11 +24,11 @@
                     @if($notif_count>0)
                         <li>
                             @foreach($read_notif as $unred)
-                                @if ($unred->id==$notif->id)
+                                @if ($unred->id===$notif->id)
                                     <i class="fas fa-exclamation"></i>
                                 @endif
                             @endforeach
-                            <i class="fas fa-exclamation"></i><a href="/transaksi/detail/{{$notif->data['transaction_id']}}" class="btn">Status transaksi anda dengan id {!!$notif->data['transaction_id']!!} Telah diupdate menjadi {!!$notif->data['new_status']!!}</a>
+                            <a href="/transaksi/detail/{{$notif->data['transaction_id']}}" class="btn">Status transaksi anda dengan id {!!$notif->data['transaction_id']!!} Telah diupdate menjadi {!!$notif->data['new_status']!!}</a>
                         </li>
                         <br>
                     @else
