@@ -10,7 +10,7 @@ use App\Transaction;
 class UserStatusTransactionChanged extends Notification
 {
     use Queueable;
-    public int $transaction_id;
+    public $transaction_id;
     public string $old_status;
     public string $new_status;
 

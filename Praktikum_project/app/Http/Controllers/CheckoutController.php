@@ -55,11 +55,18 @@ class CheckoutController extends Controller
             $q->with('product_image');
         }])->where('user_id', '=', $request->user_id)->where('status', '=', 'notyet')->get();
 
+        $no_stock = 0;
+
         foreach($cart as $cart_item){
             $produk = Product::find($cart_item->product_id);
             if($cart_item->qty > $produk->qty){
-                return redirect('/cart')->withErrors(['status', 'produk '.$produk->product_name.'melebihi stok tersedia']);
+                $cart_item->qty = $produk->qty;
+                $no_stock += 1 ;
             }
+        }
+
+        if($no_stock>0){
+            return redirect('/cart')->withErrors(['status', 'produk '.$produk->product_name.'melebihi stok tersedia']);
         }
         $provinsi = Province::find($request->province);
         $kota = City::where('city_id','=',$request->regency)->first();

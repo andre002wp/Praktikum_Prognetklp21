@@ -7,6 +7,7 @@ use App\Transaction;
 use App\ProductReview;
 use App\Admin;
 use App\Notifications\NewReview;
+use App\Notifications\PaymentUploaded;
 use Illuminate\Support\Facades\Auth;
 
 class DetailTransaksiController extends Controller
@@ -33,6 +34,11 @@ class DetailTransaksiController extends Controller
         $image_name = $bukti_upload->getClientOriginalName();
         $bukti_upload->storePubliclyAs('livewire-tmp\buktipayment',  $image_name);
         $transaksi->proof_of_payment = $image_name;
+        
+        $allAdmins = Admin::all();
+        foreach ($allAdmins as $it) {
+            $it->notify(new PaymentUploaded($transaksi->id));
+        }
         $transaksi->save();
         return redirect('/home');
 

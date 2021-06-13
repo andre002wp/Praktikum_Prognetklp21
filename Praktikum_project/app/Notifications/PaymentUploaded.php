@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notification;
 class PaymentUploaded extends Notification
 {
     use Queueable;
-    public int $transaction_id;
+    public $transaction_id;
 
     /**
      * Create a new notification instance.

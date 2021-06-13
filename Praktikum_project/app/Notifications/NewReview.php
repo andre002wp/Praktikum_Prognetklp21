@@ -11,7 +11,7 @@ use App\ProductReview;
 class NewReview extends Notification
 {
     use Queueable;
-    public int $review_id;
+    public $review_id;
 
     /**
      * Create a new notification instance.
