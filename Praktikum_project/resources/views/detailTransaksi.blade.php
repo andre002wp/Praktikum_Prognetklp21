@@ -96,6 +96,7 @@
                           <li><h6>Sub total: Rp {{number_format ($transaksi->sub_total)}}</h6> </li>
                           <li><h6 id="biaya-ongkir">Shipping Cost: Rp {{number_format ($transaksi->shipping_cost)}}</h6></li>
                           <li><h6>Total Cost: Rp {{number_format ($transaksi->total)}}</h6></li>
+                          <li><h6>Nomor Resi: {{$transaksi->nomor_resi}}</h6></li>
                           <div class="d-flex flex-row bd-highlight mb-3">
                             <a>upload bukti pembayaran</a>
                             @if (is_null($transaksi->proof_of_payment) && $transaksi->status == 'unverified')

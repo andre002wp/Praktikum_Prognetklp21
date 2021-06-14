@@ -103,4 +103,22 @@ class AdminController extends Controller
         }
         return redirect('/admin');
     }
+
+    public function markread($id) {
+        $unred = Auth::user()->Notifications();
+        
+        $notif = $unred->find($id);
+        // dd($notif);
+        if(is_null($notif->read_at)){
+            $notif->read_at = now();
+            $notif->save();
+        }
+        if($notif->type == "App\Notifications\NewReview"){
+            $where = $notif->data['review_id'];
+        }
+        else{
+            $where = $notif->data['transaction_id'];
+        }
+        return redirect('admin/transaksi/detail/'.$where);
+    }
 }

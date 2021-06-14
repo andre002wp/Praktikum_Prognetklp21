@@ -30,6 +30,14 @@ class AdminDetailTransaksiController extends Controller
         return view('admin.transaksi.detailTransaksi',['transaksi' => $transaksi]);
     }
 
+    public function cancel(Request $request){
+        $id = $request->id;
+        $transaksi = Transaction::find($id);
+        $transaksi->status = 'canceled';
+        $transaksi->save();
+        return view('admin.transaksi.detailTransaksi',['transaksi' => $transaksi]);
+    }
+    
     public function updateStatus(Request $request){
         // dd($request);
         $transaksi = Transaction::with('transaction_detail')->find($request->id);

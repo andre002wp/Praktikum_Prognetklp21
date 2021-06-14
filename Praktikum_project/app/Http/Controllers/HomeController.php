@@ -57,4 +57,17 @@ class HomeController extends Controller
         }
         return redirect('/home');
     }
+
+    public function markread($id) {
+        $unred = Auth::user()->Notifications();
+        
+        $notif = $unred->find($id);
+        // dd($notif);
+        if(is_null($notif->read_at)){
+            $notif->read_at = now();
+            $notif->save();
+        }
+        $where = $notif->data['transaction_id'];
+        return redirect('/transaksi/detail/'.$where);
+    }
 }

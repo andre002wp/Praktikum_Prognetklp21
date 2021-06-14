@@ -37,7 +37,7 @@ class CartController extends Controller
             }
         }
         
-        return ($cart->qty);
+        return ($cart);
     }
 
     public function purchase(Request $request, $id)
@@ -45,11 +45,20 @@ class CartController extends Controller
         $validated = $request->validate([
             'jumlah_pesanan' => 'required',
         ]);
+
+        $product = Product::find($id);
+        if($request->jumlah_pesanan > $product->stock){
+            $jumlah_item = $product->stock;
+        }
+        else{
+            $jumlah_item = $request->jumlah_pesanan;
+        }
+        
         $user = Auth::user()->id;
         $cart = Cart::create([
             'user_id' => $user,
             'product_id' => $id,
-            'qty' => $request->jumlah_pesanan,
+            'qty' => $jumlah_item,
         ]);
         return redirect('home'); 
     }

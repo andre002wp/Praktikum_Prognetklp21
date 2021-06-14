@@ -4,6 +4,11 @@
 
 <section class="cart">
   <div class="container">
+    @if (session('status'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
     <div class="cart_inner">
       <div class="table-responsive">
         <table class="table">
@@ -34,11 +39,6 @@
                 </td>
                 <td>
                   <div class="media-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
                     <p>{{$data->product->product_name}}</p>
                   </div>
                 </td>
@@ -63,9 +63,9 @@
               <td>
                 <div class="btn-group radio-group ml-2" data-toggle="buttons">
                   <input id="signup-token" name="_token" type="hidden" value="{{csrf_token()}}">
-                  <button class="qty btn btn-primary btn-sm" id="minus" data-id="{{$data->id}}" data-price="{{$data->product->price}}"><i class="fas fa-arrow-left"></i></button>
+                  <button class="qty btn btn-primary btn-sm" id="minus" data-qty="{{$data->qty}}" data-id="{{$data->id}}" data-price="{{$data->product->price}}"><i class="fas fa-arrow-left"></i></button>
                   <span class="mr-3" id="qtyspan{{$data->id}}">{{$data -> qty}} </span>
-                  <button class="qty btn btn-primary btn-sm" id="plus" data-id="{{$data->id}}" data-price="{{$data->product->price}}"><i class="fas fa-arrow-right"></i></button>
+                  <button class="qty btn btn-primary btn-sm" id="plus" data-qty="{{$data->qty}}" data-id="{{$data->id}}" data-price="{{$data->product->price}}"><i class="fas fa-arrow-right"></i></button>
                 </div>
               </td>
               <td>
@@ -135,6 +135,7 @@
           var id_produk = $(this).attr('data-id');
           var action = $(this).attr('id');
           var price = $(this).attr('data-price');
+          var qty_now = $(this).attr('data-qty');
           var total = $('#totalShow').attr('data-total');
           jQuery.ajax({
             url: "{{url('updatecart')}}",
@@ -145,13 +146,15 @@
                 action: action,
             },
             success: function(result){
-              $('#qtyspan'+id_produk).text(result);
-              $('.sub-total'+id_produk).text(price*result);
+              console.log(price*result['qty']);
+              $('#qtyspan'+id_produk).text(result['qty']);
+              $('.sub-total'+id_produk).text(price*result['qty']);
               if(result == 1){
                 $('#totalShow').text(+total);
               }
               else{
-                $('#totalShow').text(+total + (price*(result-1)) );
+                $('#totalShow').text(+total -(price*qty_now)+ (price*result['qty']) );
+                qty_now = result['qty'];
               }
             }
           });

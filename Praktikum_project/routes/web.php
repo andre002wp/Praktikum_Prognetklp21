@@ -48,6 +48,7 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::get('/user/notif', 'HomeController@notif')->middleware('verified');
+Route::get('/user/mark/{id}', 'HomeController@markread');
 Route::get('logout', 'HomeController@logout')->middleware('verified');
 Route::get('/marknotif', 'HomeController@marknotif')->middleware('verified');
 

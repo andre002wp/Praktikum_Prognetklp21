@@ -121,7 +121,16 @@
                                     <input type="hidden" name="status" value="3">
                                     <button type="submit" class="btn btn-outline-success">Verifikasi</button>
                                   </form>
-                                </div>  
+                                </div>
+                                <br>
+                                <div class="d-flex flex-row bd-highlight mb-3">
+                                  <form action="/admin/transaksi/detail/cancel" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$transaksi->id}}">
+                                    <input type="hidden" name="status" value="3">
+                                    <button type="submit" class="btn btn-outline-success">Reject Verifikasi</button>
+                                  </form>
+                                </div> 
                               @endif
                                 
                               @if ($transaksi->status === 'verified')

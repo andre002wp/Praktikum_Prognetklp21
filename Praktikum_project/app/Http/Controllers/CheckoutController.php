@@ -50,6 +50,11 @@ class CheckoutController extends Controller
         return json_encode($city);
     }
 
+    public function reject($id){
+        $trans = Transaction::find($id);
+        return json_encode($trans);
+    }
+
     public function submit(Request $request){
         $cart = Cart::with(['product' => function($q){
             $q->with('product_image');
@@ -59,15 +64,18 @@ class CheckoutController extends Controller
 
         foreach($cart as $cart_item){
             $produk = Product::find($cart_item->product_id);
-            if($cart_item->qty > $produk->qty){
-                $cart_item->qty = $produk->qty;
+            if($cart_item->qty > $produk->stock){
+                // dd($produk);
+                $cart_item->qty = $produk->stock;
+                $cart_item->save();
                 $no_stock += 1 ;
             }
         }
 
         if($no_stock>0){
-            return redirect('/cart')->withErrors(['status', 'produk '.$produk->product_name.'melebihi stok tersedia']);
+            return redirect('/cart')->with('status', 'produk '.$produk->product_name.'melebihi stok tersedia');
         }
+
         $provinsi = Province::find($request->province);
         $kota = City::where('city_id','=',$request->regency)->first();
         $courier = Kurir::where('courier','=',$request->courier)->first();

@@ -1,8 +1,12 @@
 <?php
+use Illuminate\Support\Facades\Route;
+
 Route::get('/dashboard', 'Admin\PageController@index')->name('dashboard')->middleware('auth:admin');
 
 //
 Route::get('/marknotif', 'AdminController@marknotif');
+Route::get('/mark/{id}', 'AdminController@markread')->middleware('auth:admin');
+
 
 //product
 Route::get('/product', 'Admin\ProductController@index')->name('product')->middleware('auth:admin');
@@ -34,3 +38,4 @@ Route::Post('/categories/edit{id}', 'Admin\CategoriesController@update')->name('
 Route::get('/transaksi', 'Admin\AdminTransaksiController@index')->name('transaksi')->middleware('auth:admin');
 Route::get('/transaksi/detail/{id}', 'Admin\AdminDetailTransaksiController@index')->name('transaksi-detail')->middleware('auth:admin');
 Route::post('/transaksi/detail/status', 'Admin\AdminDetailTransaksiController@updateStatus')->middleware('auth:admin');
+Route::post('/transaksi/detail/cancel', 'Admin\AdminDetailTransaksiController@cancel')->middleware('auth:admin');

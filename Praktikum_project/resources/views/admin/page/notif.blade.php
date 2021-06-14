@@ -27,7 +27,7 @@
                                         <i class="fas fa-exclamation"></i>
                                     @endif
                                 @endforeach
-                                <a href="/admin/transaksi" class="btn">Telah dibuat transaksi dengan id {!!$notif->data['transaction_id']!!}</a>
+                                <a href="/admin/mark/{{$notif->id}}" class="btn">Telah dibuat transaksi dengan id {!!$notif->data['transaction_id']!!}</a>
                             </li>
                             <br>
                         @elseif($notif->type == "App\Notifications\NewReview")
@@ -37,16 +37,29 @@
                                         <i class="fas fa-exclamation"></i>
                                     @endif
                                 @endforeach
-                                <a href="/admin/transaksi" class="btn">Transaksi dengan id {!!$notif->data['review_id']!!} Telah mendapatkan review</a>
+                                <a href="/admin/mark/{{$notif->id}}" class="btn">Transaksi dengan id {!!$notif->data['review_id']!!} Telah mendapatkan review</a>
+                            </li>
+                            <br>
+                        @elseif($notif->type == "App\Notifications\PaymentUploaded")
+                            <li>
+                                @foreach($read_notif as $unred)
+                                    @if ($unred->id==$notif->id)
+                                        <i class="fas fa-exclamation"></i>
+                                    @endif
+                                @endforeach
+                                <a href="/admin/mark/{{$notif->id}}" class="btn">Transaksi dengan id {!!$notif->data['transaction_id']!!} Telah dibayarkan</a>
                             </li>
                             <br>
                         @endif
                     @else
                         @if($notif->type == "App\Notifications\NewTransaction")
-                            <li><a href="/admin/transaksi" class="btn">Telah dibuat transaksi dengan id {!!$notif->data['transaction_id']!!}</a></li>
+                            <li><a href="admin/transaksi/detail/{{$notif->data['transaction_id']}}" class="btn">Telah dibuat transaksi dengan id {!!$notif->data['transaction_id']!!}</a></li>
                             <br>
                         @elseif($notif->type == "App\Notifications\NewReview")
-                            <li><a href="/admin/transaksi" class="btn">Transaksi dengan id {!!$notif->data['review_id']!!} Telah mendapatkan review</a></li>
+                            <li><a href="admin/transaksi/detail/{{$notif->data['review_id']}}" class="btn">Transaksi dengan id {!!$notif->data['review_id']!!} Telah mendapatkan review</a></li>
+                            <br>
+                        @elseif($notif->type == "App\Notifications\PaymentUploaded")
+                            <li><a href="admin/transaksi/detail/{{$notif->data['transaction_id']}}" class="btn">Transaksi dengan id {!!$notif->data['transaction_id']!!} Telah dibayarkan</a></li>
                             <br>
                         @endif
                     @endif
