@@ -34,6 +34,17 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror -->
             </div>
+            
+            <h4>category</h4>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-desktop"></i></i></span>
+                </div>
+                <input type="text" wire:model="category" class="form-control @error('category') is invalid @enderror" placeholder="insert category">
+                <!-- @error('category')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror -->
+            </div>
 
             <h4>Stock</h4>
             <div class="input-group mb-3">

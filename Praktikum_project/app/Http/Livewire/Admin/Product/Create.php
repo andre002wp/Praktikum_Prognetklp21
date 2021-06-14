@@ -21,6 +21,7 @@ class Create extends Component
     public $stock;
     public $weight;
     public $product_id; 
+    public $category; 
 
     public function submit()
     {
@@ -34,6 +35,7 @@ class Create extends Component
         $product = Product::create([
             'product_name' => $this->product_name,
             'price' => $this->price,
+            'category' => $this->category,
             'description' => $this->description,
             'product_rate' => 0,
             'stock' => $this->stock,
